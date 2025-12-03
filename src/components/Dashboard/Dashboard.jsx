@@ -4,6 +4,7 @@ import StatusPanel from '../Status/StatusPanel';
 import ControlPanel from '../Controls/ControlPanel';
 import {usePathfinding} from '../../hooks/usePathfinding';
 import "../../styles/dashboard.css"
+import ChatPanel from "../Chat/ChatPanel.jsx";
 
 const Dashboard = ({agvData, isConnected, onSendCommand}) => {
     // 🆕 적(아리) 상태 - HP 추가
@@ -107,6 +108,13 @@ const Dashboard = ({agvData, isConnected, onSendCommand}) => {
                 <div className="sidebar">
                     <StatusPanel agvData={agvData}/>
                     <ControlPanel onSendCommand={onSendCommand}/>
+
+                    <div className="card" style={{ height: '500px' }}>
+                        <ChatPanel
+                            onSendMessage={onSendCommand}
+                            isConnected={isConnected}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

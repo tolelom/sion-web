@@ -32,6 +32,16 @@ function App() {
                     status: lastMessage.data
                 }));
                 break;
+            case "chat_response":
+                if (window.chatPanel && window.chatPanel.addAIMessage) {
+                    window.chatPanel.addAIMessage(lastMessage.data.message);
+                }
+                break;
+            case "agv_event":
+                if (window.chatPanel && window.chatPanel.addAIMessage) {
+                    window.chatPanel.addAIMessage(lastMessage.data.explanation);
+                }
+                break;
             default:
                 console.log("알 수 없는 메시지: ", lastMessage);
         }
