@@ -39,7 +39,7 @@ const ChatPanel = ({ onSendMessage, isConnected }) => {
         // 사용자 메시지 추가
         setMessages(prev => [...prev, userMessage]);
         setInputValue('');
-        setIsLoading(true);
+        setIsLoading(true); // 🆕 로딩 시작
 
         // WebSocket으로 메시지 전송
         if (onSendMessage) {
@@ -52,18 +52,7 @@ const ChatPanel = ({ onSendMessage, isConnected }) => {
             });
         }
 
-        // TODO: 백엔드에서 AI 응답 받으면 주석 해제
-        // 임시 응답 (실제로는 WebSocket으로 받아야 함)
-        setTimeout(() => {
-            const aiResponse = {
-                id: Date.now() + 1,
-                type: 'ai',
-                content: '메시지를 받았습니다. 백엔드 연동 후 LLM 응답이 표시됩니다.',
-                timestamp: new Date(),
-            };
-            setMessages(prev => [...prev, aiResponse]);
-            setIsLoading(false);
-        }, 1000);
+        // 🆕 임시 응답 로직 제거 (실제 WebSocket 응답으로 처리)
     };
 
     // Enter 키 전송
@@ -74,7 +63,7 @@ const ChatPanel = ({ onSendMessage, isConnected }) => {
         }
     };
 
-    // AGV 이벤트 메시지 추가 (외부에서 호출)
+    // 🆕 AGV 이벤트 메시지 추가 (외부에서 호출) - 로딩 상태 해제 추가
     const addAIMessage = (content) => {
         const aiMessage = {
             id: Date.now(),
@@ -83,6 +72,7 @@ const ChatPanel = ({ onSendMessage, isConnected }) => {
             timestamp: new Date(),
         };
         setMessages(prev => [...prev, aiMessage]);
+        setIsLoading(false); // 🆕 AI 응답 도착 시 로딩 종료
     };
 
     // 외부에서 접근 가능하도록 (부모 컴포넌트에서 ref로 호출)
@@ -104,6 +94,7 @@ const ChatPanel = ({ onSendMessage, isConnected }) => {
                     timestamp: new Date(),
                 }
             ]);
+            setIsLoading(false); // 🆕 초기화 시 로딩 상태도 리셋
         }
     };
 
@@ -175,21 +166,21 @@ const ChatPanel = ({ onSendMessage, isConnected }) => {
                 <button
                     className="quick-cmd-btn"
                     onClick={() => setInputValue('현재 상황을 설명해줘')}
-                    disabled={!isConnected}
+                    disabled={!isConnected || isLoading}
                 >
                     📊 상황 설명
                 </button>
                 <button
                     className="quick-cmd-btn"
                     onClick={() => setInputValue('왜 그 행동을 했어?')}
-                    disabled={!isConnected}
+                    disabled={!isConnected || isLoading}
                 >
                     🤔 행동 이유
                 </button>
                 <button
                     className="quick-cmd-btn"
                     onClick={() => setInputValue('다음 행동은?')}
-                    disabled={!isConnected}
+                    disabled={!isConnected || isLoading}
                 >
                     🎯 다음 행동
                 </button>
