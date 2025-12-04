@@ -21,7 +21,7 @@ export const usePathfinding = () => {
         console.log('📤 경로 탐색 요청 데이터:', JSON.stringify(requestData, null, 2));
 
         try {
-            const response = await fetch('http://localhost:3000/api/pathfinding', {
+            const response = await fetch('http://sion.tolelom.xyz:3000/api/pathfinding', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
