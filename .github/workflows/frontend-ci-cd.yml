@@ -61,9 +61,8 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           script: |
-            sudo rm -rf /opt/homebrew/var/www/sion/*
-            sudo mkdir -p /opt/homebrew/var/www/sion
-            sudo chown -R tolelom:staff /opt/homebrew/var/www/sion
+            rm -rf /Users/tolelom/www/sion/*
+            mkdir -p /Users/tolelom/www/sion
 
       - name: 서버로 정적 파일 복사
         uses: appleboy/scp-action@v0.1.4
@@ -73,7 +72,7 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           source: "./dist/*"
-          target: "/opt/homebrew/var/www/sion"
+          target: "/Users/tolelom/www/sion"
           strip_components: 1
 
       - name: Nginx 리로드
