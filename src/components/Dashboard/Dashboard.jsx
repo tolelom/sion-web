@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import MapCanvas from '../Map/MapCanvas';
 import StatusPanel from '../Status/StatusPanel';
 import ControlPanel from '../Controls/ControlPanel';
@@ -6,26 +5,16 @@ import {usePathfinding} from '../../hooks/usePathfinding';
 import "../../styles/dashboard.css"
 import ChatPanel from "../Chat/ChatPanel.jsx";
 
-const Dashboard = ({agvData, isConnected, onSendCommand}) => {
-    // 🆕 적(아리) 상태 - HP 추가
-    const [targets] = useState([
-        {id: 1, x: 15, y: 12, name: '아리', hp: 100}
-    ]);
+const Dashboard = ({agvData, mapData, isConnected, onSendCommand}) => {
+    // 🆕 실시간 데이터 사용 (하드코딩 제거)
+    const targets = agvData?.detectedEnemies || [];
+    const targetEnemy = agvData?.targetEnemy; // 현재 타겟
+    const obstacles = mapData?.obstacles || [];
 
-    // 🆕 장애물 상태 (나중에 동적으로 관리 가능)
-    const [obstacles] = useState([
-        {x: 5, y: 5},
-        {x: 5, y: 6},
-        {x: 5, y: 7},
-        {x: 10, y: 10},
-        {x: 10, y: 11},
-        {x: 10, y: 12},
-    ]);
+    // 경로 탐색 훅
+    const {path, isLoading, error, findPath} = usePathfinding();
 
-    // 🆕 경로 탐색 훅
-    const {path, isLoading, error, findPath, clearPath} = usePathfinding();
-
-    // 🆕 맵 클릭 핸들러 - 경로 탐색 추가
+    // 맵 클릭 핸들러 - 경로 탐색 추가
     const handleMapClick = async (position) => {
         console.log('🎯 맵 클릭:', position);
 
@@ -84,7 +73,7 @@ const Dashboard = ({agvData, isConnected, onSendCommand}) => {
                 <div className="card">
                     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px'}}>
                         <h2 className="card-title">📍 실시간 맵</h2>
-                        {/* 🆕 경로 상태 표시 */}
+                        {/* 경로 상태 표시 */}
                         <div style={{fontSize: '14px', color: '#888'}}>
                             {isLoading && <span>🔄 경로 계산 중...</span>}
                             {error && <span style={{color: '#e74c3c'}}>❌ {error}</span>}
@@ -96,9 +85,11 @@ const Dashboard = ({agvData, isConnected, onSendCommand}) => {
                         </div>
                     </div>
 
+                    {/* 🆕 실시간 데이터 전달 */}
                     <MapCanvas
                         agvPosition={agvData?.position}
                         targets={targets}
+                        targetEnemy={targetEnemy}
                         obstacles={obstacles}
                         path={path}
                         onMapClick={handleMapClick}
