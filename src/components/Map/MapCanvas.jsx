@@ -1,6 +1,6 @@
 import {useRef, useEffect, useState} from "react";
 
-const MapCanvas = ({agvPosition, targets, obstacles, path, onMapClick}) => {
+const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, onMapClick}) => {
     const canvasRef = useRef(null);
     const [hoveredCell, setHoveredCell] = useState(null);
 
@@ -206,14 +206,49 @@ const MapCanvas = ({agvPosition, targets, obstacles, path, onMapClick}) => {
         );
     };
 
-    // 적(아리) 그리기
-    const drawTarget = (ctx, target) => {
+    // 🆕 타겟 강조 표시 (폄스 효과)
+    const drawTargetHighlight = (ctx, target, time) => {
         const x = target.x * CELL_SIZE;
         const y = (MAP_SIZE - target.y) * CELL_SIZE;
 
-        ctx.fillStyle = '#e74c3c';
-        ctx.shadowColor = 'rgba(231, 76, 60, 0.8)';
-        ctx.shadowBlur = 15;
+        // 폄스 애니메이션 (sin 파동)
+        const pulseSize = 25 + Math.sin(time / 200) * 5;
+        const pulseOpacity = 0.3 + Math.sin(time / 200) * 0.2;
+
+        ctx.strokeStyle = `rgba(255, 215, 0, ${pulseOpacity})`;
+        ctx.lineWidth = 3;
+        ctx.setLineDash([5, 5]);
+        ctx.beginPath();
+        ctx.arc(x, y, pulseSize, 0, 2 * Math.PI);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // 두 번째 외곽 링
+        ctx.strokeStyle = 'rgba(255, 215, 0, 0.6)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(x, y, 20, 0, 2 * Math.PI);
+        ctx.stroke();
+
+        // 타겟 텍스트
+        ctx.fillStyle = '#ffd700';
+        ctx.font = 'bold 11px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('🎯 TARGET', x, y - 35);
+    };
+
+    // 적(아리) 그리기
+    const drawTarget = (ctx, target, isSelected) => {
+        const x = target.x * CELL_SIZE;
+        const y = (MAP_SIZE - target.y) * CELL_SIZE;
+
+        // 🆕 선택된 타겟이면 더 밝게
+        const fillColor = isSelected ? '#ff5555' : '#e74c3c';
+        const shadowColor = isSelected ? 'rgba(255, 85, 85, 1)' : 'rgba(231, 76, 60, 0.8)';
+
+        ctx.fillStyle = fillColor;
+        ctx.shadowColor = shadowColor;
+        ctx.shadowBlur = isSelected ? 20 : 15;
         ctx.beginPath();
         ctx.arc(x, y, 15, 0, 2 * Math.PI);
         ctx.fill();
@@ -275,6 +310,7 @@ const MapCanvas = ({agvPosition, targets, obstacles, path, onMapClick}) => {
         if (!canvas) return;
 
         const ctx = canvas.getContext('2d');
+        const currentTime = Date.now();
 
         ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
@@ -292,9 +328,21 @@ const MapCanvas = ({agvPosition, targets, obstacles, path, onMapClick}) => {
             drawPath(ctx, path);
         }
 
+        // 🆕 적 그리기 (타겟 여부 판단)
         if (targets && targets.length > 0) {
             targets.forEach(target => {
-                drawTarget(ctx, target);
+                // targetEnemy와 ID 비교
+                const isSelected = targetEnemy && (
+                    targetEnemy.id === target.id ||
+                    (targetEnemy.x === target.x && targetEnemy.y === target.y)
+                );
+
+                // 🆕 선택된 타겟이면 하이라이트 먼저 그리기
+                if (isSelected) {
+                    drawTargetHighlight(ctx, target, currentTime);
+                }
+
+                drawTarget(ctx, target, isSelected);
             });
         }
 
@@ -306,9 +354,17 @@ const MapCanvas = ({agvPosition, targets, obstacles, path, onMapClick}) => {
             drawHoveredCell(ctx, hoveredCell);
         }
 
-    }, [agvPosition, targets, obstacles, path, hoveredCell]);
+        // 🆕 타겟 폄스 애니메이션을 위한 재렌더링
+        if (targetEnemy) {
+            const animationFrame = requestAnimationFrame(() => {
+                // 재렌더링 트리거
+            });
+            return () => cancelAnimationFrame(animationFrame);
+        }
 
-    // 🆕 마우스 호버 (꼭지점 기준)
+    }, [agvPosition, targets, targetEnemy, obstacles, path, hoveredCell]);
+
+    // 마우스 호버 (꼭지점 기준)
     const handleMouseMove = (e) => {
         const canvas = canvasRef.current;
         const rect = canvas.getBoundingClientRect();
@@ -340,7 +396,7 @@ const MapCanvas = ({agvPosition, targets, obstacles, path, onMapClick}) => {
         setHoveredCell(null);
     };
 
-    // 캔버스 클릭
+    // 캠버스 클릭
     const handleCanvasClick = (e) => {
         const canvas = canvasRef.current;
         const rect = canvas.getBoundingClientRect();
