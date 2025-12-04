@@ -1,0 +1,94 @@
+name: Sion Frontend CI/CD
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'index.html'
+      - 'package.json'
+      - 'vite.config.js'
+      - '.github/workflows/frontend-ci-cd.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build React App
+    runs-on: ubuntu-latest
+    steps:
+      - name: 코드 체크아웃
+        uses: actions/checkout@v3
+
+      - name: Node.js 설정
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 의존성 설치
+        run: npm ci
+
+      - name: 프로덕션 빌드
+        run: npm run build
+        env:
+          VITE_API_URL: ""  # 같은 도메인 사용
+          VITE_WS_URL: "ws://sion.local"
+
+      - name: 빌드 결과 아티팩트 저장
+        uses: actions/upload-artifact@v4
+        with:
+          name: sion-frontend-build
+          path: ./dist
+
+  deploy:
+    name: Deploy to Mac Mini
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: 아티팩트 다운로드
+        uses: actions/download-artifact@v4
+        with:
+          name: sion-frontend-build
+          path: ./dist
+
+      - name: 서버 배포 디렉터리 초기화
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: 22
+          script: |
+            sudo rm -rf /opt/homebrew/var/www/sion/*
+            sudo mkdir -p /opt/homebrew/var/www/sion
+            sudo chown -R tolelom:staff /opt/homebrew/var/www/sion
+
+      - name: 서버로 정적 파일 복사
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: 22
+          source: "./dist/*"
+          target: "/opt/homebrew/var/www/sion"
+          strip_components: 1
+
+      - name: Nginx 리로드
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: 22
+          script: |
+            # Nginx 설정 테스트
+            sudo /opt/homebrew/bin/nginx -t
+            
+            # Nginx 리로드
+            sudo /opt/homebrew/bin/nginx -s reload
+            
+            echo "✅ Sion Frontend 배포 완료"
+            ls -la /opt/homebrew/var/www/sion/
