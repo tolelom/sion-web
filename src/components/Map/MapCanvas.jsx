@@ -130,9 +130,9 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, agvPath,
         ctx.stroke();
     };
 
-    // 🆕 AGV가 준 경로 그리기 (실제 주행 경로)
+    // 🆕 AGV가 준 경로 그리기 (실제 주행 경로) - Y는 반전 안 함!
     const drawAGVPath = (ctx, pathPoints) => {
-        if (!pathPoints || pathPoints.length < 1) {  // 1개 이상만 필요
+        if (!pathPoints || pathPoints.length < 1) {
             console.log('[MapCanvas.drawAGVPath] pathPoints 부족');
             return;
         }
@@ -147,9 +147,9 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, agvPath,
 
         ctx.beginPath();
         pathPoints.forEach((point, index) => {
-            // 🆕 좌표 변환 수정: drawAGV와 동일한 방식으로 Y 좌표 반전
+            // 🆕 백엔드 측정값을 그대로 사용! Y 반전 안 함
             const canvasX = point.x * CELL_SIZE;
-            const canvasY = (MAP_SIZE - point.y) * CELL_SIZE;  // Y 좌표 반전!
+            const canvasY = point.y * CELL_SIZE;  // Y 반전 안 함! 그대로 쓸 것
             
             console.log(`[MapCanvas.drawAGVPath] 포인트[${index}]: (${point.x}, ${point.y}) -> Canvas (${canvasX}, ${canvasY})`);
 
@@ -165,7 +165,7 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, agvPath,
         if (pathPoints.length > 0) {
             const lastPoint = pathPoints[pathPoints.length - 1];
             const targetX = lastPoint.x * CELL_SIZE;
-            const targetY = (MAP_SIZE - lastPoint.y) * CELL_SIZE;
+            const targetY = lastPoint.y * CELL_SIZE;  // Y 반전 안 함!
 
             ctx.fillStyle = 'rgba(46, 204, 113, 0.3)';
             ctx.beginPath();
@@ -197,10 +197,10 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, agvPath,
         ctx.strokeRect(x - barWidth / 2, y, barWidth, barHeight);
     };
 
-    // AGV 그리기
+    // AGV 그리기 - Y는 반전되어야 함 (게임 좌표계)
     const drawAGV = (ctx, position) => {
         const x = position.x * CELL_SIZE;
-        const y = (MAP_SIZE - position.y) * CELL_SIZE;  // Y 좌표 반전 (표준)
+        const y = (MAP_SIZE - position.y) * CELL_SIZE;  // AGV Y는 반전 필요 (게임 좌표계)
         const angle = position.angle || 0;
 
         ctx.fillStyle = '#3498db';
