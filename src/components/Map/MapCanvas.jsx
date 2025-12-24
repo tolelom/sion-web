@@ -130,7 +130,7 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, agvPath,
         ctx.stroke();
     };
 
-    // 🆕 AGV가 준 경로 그리기 (실제 주행 경로) - Y는 반전 안 함!
+    // 🆕 AGV가 줐 경로 그리기 (실제 주행 경로) - Y는 반전 필요!
     const drawAGVPath = (ctx, pathPoints) => {
         if (!pathPoints || pathPoints.length < 1) {
             console.log('[MapCanvas.drawAGVPath] pathPoints 부족');
@@ -147,9 +147,9 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, agvPath,
 
         ctx.beginPath();
         pathPoints.forEach((point, index) => {
-            // 🆕 백엔드 측정값을 그대로 사용! Y 반전 안 함
+            // 🆕 AGV도 Y를 반전하는데, 경로도 반전! (게임 좌표계 통일)
             const canvasX = point.x * CELL_SIZE;
-            const canvasY = point.y * CELL_SIZE;  // Y 반전 안 함! 그대로 쓸 것
+            const canvasY = (MAP_SIZE - point.y) * CELL_SIZE;  // Y 반전!
             
             console.log(`[MapCanvas.drawAGVPath] 포인트[${index}]: (${point.x}, ${point.y}) -> Canvas (${canvasX}, ${canvasY})`);
 
@@ -165,7 +165,7 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, agvPath,
         if (pathPoints.length > 0) {
             const lastPoint = pathPoints[pathPoints.length - 1];
             const targetX = lastPoint.x * CELL_SIZE;
-            const targetY = lastPoint.y * CELL_SIZE;  // Y 반전 안 함!
+            const targetY = (MAP_SIZE - lastPoint.y) * CELL_SIZE;  // Y 반전!
 
             ctx.fillStyle = 'rgba(46, 204, 113, 0.3)';
             ctx.beginPath();
@@ -368,7 +368,7 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, agvPath,
             drawObstacles(ctx, obstacles);
         }
 
-        // 🆕 AGV 경로를 먼저 그리기
+        // 🆕 AGV 경로를 먼8 그리기
         if (agvPath && agvPath.length > 0) {
             console.log('[MapCanvas] AGV 경로 그리기 중..., 포인트 수:', agvPath.length);
             drawAGVPath(ctx, agvPath);
