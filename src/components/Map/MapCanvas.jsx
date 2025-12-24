@@ -147,22 +147,25 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, agvPath,
 
         ctx.beginPath();
         pathPoints.forEach((point, index) => {
-            const x = point.x * CELL_SIZE;
-            const y = (MAP_SIZE - point.y) * CELL_SIZE;
+            // 🆕 멤른 좌표 변환: 백엔드 Y값을 Canvas Y로문걳 변환
+            const canvasX = point.x * CELL_SIZE;
+            // 등듨: 백엔드 Y는 0관래, 겄갑게땘가 로
+            // Canvas에서는 지냏가 0, 알래가 총 높이
+            const canvasY = point.y * CELL_SIZE;
             
-            console.log(`[MapCanvas.drawAGVPath] 포인트[${index}]: (${point.x}, ${point.y}) -> (ӓ${x}, ${y})`);
+            console.log(`[MapCanvas.drawAGVPath] 포인트[${index}]: (${point.x}, ${point.y}) -> Canvas (ӓ${canvasX}, ${canvasY})`);
 
             if (index === 0) {
-                ctx.moveTo(x, y);
+                ctx.moveTo(canvasX, canvasY);
             } else {
-                ctx.lineTo(x, y);
+                ctx.lineTo(canvasX, canvasY);
             }
         });
         ctx.stroke();
 
         const lastPoint = pathPoints[pathPoints.length - 1];
         const targetX = lastPoint.x * CELL_SIZE;
-        const targetY = (MAP_SIZE - lastPoint.y) * CELL_SIZE;
+        const targetY = lastPoint.y * CELL_SIZE;
 
         ctx.fillStyle = 'rgba(46, 204, 113, 0.3)';
         ctx.beginPath();
