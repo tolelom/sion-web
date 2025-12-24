@@ -22,6 +22,14 @@ function App() {
         height: 20,
     });
 
+    // 🆕 경로 데이터 (AGV에서 받은 경로)
+    const [pathData, setPathData] = useState({
+        points: [],
+        length: 0,
+        algorithm: '',
+        createdAt: null
+    });
+
     // Web Socket 메시지 처리
     useEffect(() => {
         if (!lastMessage) return;
@@ -63,6 +71,17 @@ function App() {
                 console.log("🎯 타겟 발견:", lastMessage.data);
                 break;
 
+            // 🆕 경로 업데이트 메시지
+            case "path_update":
+                console.log("🗺️  경로 업데이트 수신:", lastMessage.data);
+                setPathData({
+                    points: lastMessage.data.points || [],
+                    length: lastMessage.data.length || 0,
+                    algorithm: lastMessage.data.algorithm || '',
+                    createdAt: lastMessage.data.created_at
+                });
+                break;
+
             // 🆕 맵 업데이트 메시지
             case "map_update":
                 setMapData(prev => ({
@@ -95,6 +114,7 @@ function App() {
         <Dashboard
             agvData={agvData}
             mapData={mapData}
+            pathData={pathData}
             isConnected={isConnected}
             onSendCommand={sendMessage}
         />
