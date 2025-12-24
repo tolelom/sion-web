@@ -4,6 +4,7 @@ import ControlPanel from '../Controls/ControlPanel';
 import {usePathfinding} from '../../hooks/usePathfinding';
 import "../../styles/dashboard.css"
 import ChatPanel from "../Chat/ChatPanel.jsx";
+import {useEffect} from 'react';
 
 const Dashboard = ({agvData, mapData, pathData, isConnected, onSendCommand}) => {
     // 🆕 실시간 데이터 사용 (하드코딩 제거)
@@ -11,11 +12,18 @@ const Dashboard = ({agvData, mapData, pathData, isConnected, onSendCommand}) => 
     const targetEnemy = agvData?.targetEnemy; // 현재 타겟
     const obstacles = mapData?.obstacles || [];
 
-    // 🆕 경로 도답 메시지에서 부름 경로 (맵 위에 더단 쥴추)
+    // 🆕 경로 도착 후 맵에 표시하기 위한 경로
     const agvPathPoints = pathData?.points || [];
     
-    // 경로 연사 훈 (사용자 맵 클릭 또는 백엔드 경로) - 돈째 커디녁 남기기
+    // 경로 탐색 훅 (사용자 맵 클릭으로 생성되는 경로)
     const {path, isLoading, error, findPath} = usePathfinding();
+
+    // 🆕 디버그: pathData 변화 추적
+    useEffect(() => {
+        console.log('[Dashboard] pathData 업데이트:', pathData);
+        console.log('[Dashboard] agvPathPoints:', agvPathPoints);
+        console.log('[Dashboard] agvPathPoints 길이:', agvPathPoints.length);
+    }, [pathData, agvPathPoints]);
 
     // 맵 클릭 핸들러 - 경로 탐색 추가
     const handleMapClick = async (position) => {
@@ -61,7 +69,7 @@ const Dashboard = ({agvData, mapData, pathData, isConnected, onSendCommand}) => 
 
     return (
         <div className="dashboard">
-            {/* 헬더 */}
+            {/* 헤더 */}
             <header className="dashboard-header">
                 <h1 className="dashboard-title">🚀 AGV 실시간 모니터링</h1>
                 <div className="connection-status">
@@ -75,25 +83,25 @@ const Dashboard = ({agvData, mapData, pathData, isConnected, onSendCommand}) => 
             <div className="dashboard-grid">
                 <div className="card">
                     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', flexWrap: 'wrap', gap: '10px'}}>
-                        <h2 className="card-title">📄 실시간 맵</h2>
-                        {/* 🆕 경로 상태 표시 - AGV 경로 또는 사용자 경로 */}
+                        <h2 className="card-title">📍 실시간 맵</h2>
+                        {/* 경로 상태 표시 */}
                         <div style={{fontSize: '14px', color: '#888', display: 'flex', gap: '20px', flexWrap: 'wrap'}}>
                             {agvPathPoints.length > 0 && (
                                 <span style={{color: '#2ecc71'}}>
-                                    🗺️ AGV 경로: {agvPathPoints.length}개 돬인트
+                                    🗺️ AGV 경로: {agvPathPoints.length}개 포인트
                                 </span>
                             )}
                             {isLoading && <span>🔄 경로 계산 중...</span>}
                             {error && <span style={{color: '#e74c3c'}}>❌ {error}</span>}
                             {path.length > 0 && !isLoading && (
                                 <span style={{color: '#3498db'}}>
-                                    ✅ 사용자 경로: {path.length}개 짧켐인트
+                                    ✅ 사용자 경로: {path.length}개 포인트
                                 </span>
                             )}
                         </div>
                     </div>
 
-                    {/* 🆕 AGV 경로 정보 표시 */}
+                    {/* AGV 경로 정보 표시 */}
                     {agvPathPoints.length > 0 && (
                         <div style={{
                             background: 'rgba(46, 204, 113, 0.1)',
@@ -104,7 +112,7 @@ const Dashboard = ({agvData, mapData, pathData, isConnected, onSendCommand}) => 
                             fontSize: '12px',
                             color: '#2ecc71'
                         }}>
-                            <strong>🗺️ AGV 경로</strong> | 길이: {pathData.length?.toFixed(2)}m | 알고리즘: {pathData.algorithm}
+                            <strong>🗺️ AGV 경로</strong> | 길이: {pathData.length?.toFixed(2) || 'N/A'}m | 알고리즘: {pathData.algorithm || 'N/A'}
                         </div>
                     )}
 
