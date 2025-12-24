@@ -34,7 +34,7 @@ function App() {
     useEffect(() => {
         if (!lastMessage) return;
 
-        console.log("수신: ", lastMessage);
+        console.log("[WebSocket] 수신: ", lastMessage);
 
         switch (lastMessage.type) {
             case "position":
@@ -73,13 +73,25 @@ function App() {
 
             // 🆕 경로 업데이트 메시지
             case "path_update":
-                console.log("🗺️  경로 업데이트 수신:", lastMessage.data);
+                console.log("[Path Update] 원본 데이터:", lastMessage.data);
+                
+                const pathPoints = lastMessage.data.points || [];
+                console.log("[Path Update] points 배열:", pathPoints);
+                console.log("[Path Update] points 길이:", pathPoints.length);
+                
+                if (pathPoints.length > 0) {
+                    console.log("[Path Update] 첫 번째 포인트:", pathPoints[0]);
+                    console.log("[Path Update] 마지막 포인트:", pathPoints[pathPoints.length - 1]);
+                }
+                
                 setPathData({
-                    points: lastMessage.data.points || [],
+                    points: pathPoints,
                     length: lastMessage.data.length || 0,
                     algorithm: lastMessage.data.algorithm || '',
                     createdAt: lastMessage.data.created_at
                 });
+                
+                console.log("[Path Update] 상태 업데이트 완료");
                 break;
 
             // 🆕 맵 업데이트 메시지
