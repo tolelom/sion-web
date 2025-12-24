@@ -1,6 +1,6 @@
 import {useRef, useEffect, useState} from "react";
 
-const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, onMapClick}) => {
+const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, agvPath, onMapClick}) => {
     const canvasRef = useRef(null);
     const [hoveredCell, setHoveredCell] = useState(null);
 
@@ -92,9 +92,9 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, onMapCli
         });
     };
 
-    // 경로 그리기
+    // 경로 그리기 (사용자 경로)
     const drawPath = (ctx, pathPoints) => {
-        if (pathPoints.length < 2) return;
+        if (!pathPoints || pathPoints.length < 2) return;
 
         ctx.strokeStyle = 'rgba(52, 152, 219, 0.6)';
         ctx.lineWidth = 3;
@@ -126,6 +126,43 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, onMapCli
         ctx.fill();
 
         ctx.strokeStyle = '#3498db';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+    };
+
+    // 🆕 AGV가 준 경로 그리기 (실제 주행 경로)
+    const drawAGVPath = (ctx, pathPoints) => {
+        if (!pathPoints || pathPoints.length < 2) return;
+
+        ctx.strokeStyle = 'rgba(46, 204, 113, 0.8)';
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.setLineDash([]);
+
+        ctx.beginPath();
+        pathPoints.forEach((point, index) => {
+            const x = point.x * CELL_SIZE;
+            const y = (MAP_SIZE - point.y) * CELL_SIZE;
+
+            if (index === 0) {
+                ctx.moveTo(x, y);
+            } else {
+                ctx.lineTo(x, y);
+            }
+        });
+        ctx.stroke();
+
+        const lastPoint = pathPoints[pathPoints.length - 1];
+        const targetX = lastPoint.x * CELL_SIZE;
+        const targetY = (MAP_SIZE - lastPoint.y) * CELL_SIZE;
+
+        ctx.fillStyle = 'rgba(46, 204, 113, 0.3)';
+        ctx.beginPath();
+        ctx.arc(targetX, targetY, 18, 0, 2 * Math.PI);
+        ctx.fill();
+
+        ctx.strokeStyle = '#2ecc71';
         ctx.lineWidth = 2;
         ctx.stroke();
     };
@@ -211,7 +248,6 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, onMapCli
         const x = target.x * CELL_SIZE;
         const y = (MAP_SIZE - target.y) * CELL_SIZE;
 
-        // 폄스 애니메이션 (sin 파동)
         const pulseSize = 25 + Math.sin(time / 200) * 5;
         const pulseOpacity = 0.3 + Math.sin(time / 200) * 0.2;
 
@@ -223,14 +259,12 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, onMapCli
         ctx.stroke();
         ctx.setLineDash([]);
 
-        // 두 번째 외곽 링
         ctx.strokeStyle = 'rgba(255, 215, 0, 0.6)';
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.arc(x, y, 20, 0, 2 * Math.PI);
         ctx.stroke();
 
-        // 타겟 텍스트
         ctx.fillStyle = '#ffd700';
         ctx.font = 'bold 11px sans-serif';
         ctx.textAlign = 'center';
@@ -242,7 +276,6 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, onMapCli
         const x = target.x * CELL_SIZE;
         const y = (MAP_SIZE - target.y) * CELL_SIZE;
 
-        // 🆕 선택된 타겟이면 더 밝게
         const fillColor = isSelected ? '#ff5555' : '#e74c3c';
         const shadowColor = isSelected ? 'rgba(255, 85, 85, 1)' : 'rgba(231, 76, 60, 0.8)';
 
@@ -277,23 +310,19 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, onMapCli
         }
     };
 
-    // 🆕 호버 꼭지점 하이라이트
     const drawHoveredCell = (ctx, cell) => {
         const x = cell.x * CELL_SIZE;
         const y = (MAP_SIZE - cell.y) * CELL_SIZE;
 
-        // 꼭지점에 작은 원
         ctx.fillStyle = 'rgba(52, 152, 219, 0.8)';
         ctx.beginPath();
         ctx.arc(x, y, 6, 0, 2 * Math.PI);
         ctx.fill();
 
-        // 원 테두리
         ctx.strokeStyle = '#3498db';
         ctx.lineWidth = 2;
         ctx.stroke();
 
-        // 좌표 텍스트
         ctx.fillStyle = '#3498db';
         ctx.font = 'bold 12px monospace';
         ctx.textAlign = 'left';
@@ -324,20 +353,23 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, onMapCli
             drawObstacles(ctx, obstacles);
         }
 
+        // 🆕 AGV 경로를 먼저 그리기 (실제 주행/계획 경로)
+        if (agvPath && agvPath.length > 0) {
+            drawAGVPath(ctx, agvPath);
+        }
+
+        // 사용자 경로 (클릭으로 생성된 경로)
         if (path && path.length > 0) {
             drawPath(ctx, path);
         }
 
-        // 🆕 적 그리기 (타겟 여부 판단)
         if (targets && targets.length > 0) {
             targets.forEach(target => {
-                // targetEnemy와 ID 비교
                 const isSelected = targetEnemy && (
                     targetEnemy.id === target.id ||
                     (targetEnemy.x === target.x && targetEnemy.y === target.y)
                 );
 
-                // 🆕 선택된 타겟이면 하이라이트 먼저 그리기
                 if (isSelected) {
                     drawTargetHighlight(ctx, target, currentTime);
                 }
@@ -354,7 +386,6 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, onMapCli
             drawHoveredCell(ctx, hoveredCell);
         }
 
-        // 🆕 타겟 폄스 애니메이션을 위한 재렌더링
         if (targetEnemy) {
             const animationFrame = requestAnimationFrame(() => {
                 // 재렌더링 트리거
@@ -362,9 +393,8 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, onMapCli
             return () => cancelAnimationFrame(animationFrame);
         }
 
-    }, [agvPosition, targets, targetEnemy, obstacles, path, hoveredCell]);
+    }, [agvPosition, targets, targetEnemy, obstacles, path, agvPath, hoveredCell]);
 
-    // 마우스 호버 (꼭지점 기준)
     const handleMouseMove = (e) => {
         const canvas = canvasRef.current;
         const rect = canvas.getBoundingClientRect();
@@ -372,18 +402,15 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, onMapCli
         const mouseX = e.clientX - rect.left;
         const mouseY = e.clientY - rect.top;
 
-        // Canvas 범위 체크
         if (mouseX < 0 || mouseY < 0 || mouseX >= CANVAS_WIDTH || mouseY >= CANVAS_HEIGHT) {
             setHoveredCell(null);
             return;
         }
 
-        // 가장 가까운 꼭지점 찾기 (반올림)
         const x = Math.round(mouseX / CELL_SIZE);
         const canvasY = Math.round(mouseY / CELL_SIZE);
         const y = MAP_SIZE - canvasY;
 
-        // 꼭지점 범위 체크 (0 ~ MAP_SIZE 포함)
         if (x >= 0 && x <= MAP_SIZE && y >= 0 && y <= MAP_SIZE) {
             setHoveredCell({x, y});
         } else {
@@ -391,12 +418,10 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, onMapCli
         }
     };
 
-    // 마우스 나가기
     const handleMouseLeave = () => {
         setHoveredCell(null);
     };
 
-    // 캠버스 클릭
     const handleCanvasClick = (e) => {
         const canvas = canvasRef.current;
         const rect = canvas.getBoundingClientRect();
