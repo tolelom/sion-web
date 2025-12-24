@@ -132,8 +132,8 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, agvPath,
 
     // 🆕 AGV가 준 경로 그리기 (실제 주행 경로)
     const drawAGVPath = (ctx, pathPoints) => {
-        if (!pathPoints || pathPoints.length < 2) {
-            console.log('[MapCanvas.drawAGVPath] pathPoints 부조: pathPoints =', pathPoints);
+        if (!pathPoints || pathPoints.length < 1) {  // 1개 이상만 필요
+            console.log('[MapCanvas.drawAGVPath] pathPoints 부족');
             return;
         }
 
@@ -147,13 +147,11 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, agvPath,
 
         ctx.beginPath();
         pathPoints.forEach((point, index) => {
-            // 🆕 멤른 좌표 변환: 백엔드 Y값을 Canvas Y로문걳 변환
+            // 🆕 좌표 변환 수정: drawAGV와 동일한 방식으로 Y 좌표 반전
             const canvasX = point.x * CELL_SIZE;
-            // 등듨: 백엔드 Y는 0관래, 겄갑게땘가 로
-            // Canvas에서는 지냏가 0, 알래가 총 높이
-            const canvasY = point.y * CELL_SIZE;
+            const canvasY = (MAP_SIZE - point.y) * CELL_SIZE;  // Y 좌표 반전!
             
-            console.log(`[MapCanvas.drawAGVPath] 포인트[${index}]: (${point.x}, ${point.y}) -> Canvas (ӓ${canvasX}, ${canvasY})`);
+            console.log(`[MapCanvas.drawAGVPath] 포인트[${index}]: (${point.x}, ${point.y}) -> Canvas (${canvasX}, ${canvasY})`);
 
             if (index === 0) {
                 ctx.moveTo(canvasX, canvasY);
@@ -163,18 +161,21 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, agvPath,
         });
         ctx.stroke();
 
-        const lastPoint = pathPoints[pathPoints.length - 1];
-        const targetX = lastPoint.x * CELL_SIZE;
-        const targetY = lastPoint.y * CELL_SIZE;
+        // 마지막 포인트에 목표 마커 표시
+        if (pathPoints.length > 0) {
+            const lastPoint = pathPoints[pathPoints.length - 1];
+            const targetX = lastPoint.x * CELL_SIZE;
+            const targetY = (MAP_SIZE - lastPoint.y) * CELL_SIZE;
 
-        ctx.fillStyle = 'rgba(46, 204, 113, 0.3)';
-        ctx.beginPath();
-        ctx.arc(targetX, targetY, 18, 0, 2 * Math.PI);
-        ctx.fill();
+            ctx.fillStyle = 'rgba(46, 204, 113, 0.3)';
+            ctx.beginPath();
+            ctx.arc(targetX, targetY, 18, 0, 2 * Math.PI);
+            ctx.fill();
 
-        ctx.strokeStyle = '#2ecc71';
-        ctx.lineWidth = 2;
-        ctx.stroke();
+            ctx.strokeStyle = '#2ecc71';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
         
         console.log('[MapCanvas.drawAGVPath] 그리기 완료');
     };
@@ -199,7 +200,7 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, agvPath,
     // AGV 그리기
     const drawAGV = (ctx, position) => {
         const x = position.x * CELL_SIZE;
-        const y = (MAP_SIZE - position.y) * CELL_SIZE;
+        const y = (MAP_SIZE - position.y) * CELL_SIZE;  // Y 좌표 반전 (표준)
         const angle = position.angle || 0;
 
         ctx.fillStyle = '#3498db';
@@ -255,7 +256,7 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, agvPath,
         );
     };
 
-    // 🆕 타겟 강조 표시 (폄스 효과)
+    // 타겟 강조 표시 (폄스 효과)
     const drawTargetHighlight = (ctx, target, time) => {
         const x = target.x * CELL_SIZE;
         const y = (MAP_SIZE - target.y) * CELL_SIZE;
@@ -350,7 +351,7 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, agvPath,
         const canvas = canvasRef.current;
         if (!canvas) return;
 
-        console.log('[MapCanvas] useEffect 실패: agvPath =', agvPath);
+        console.log('[MapCanvas] useEffect 실행: agvPath =', agvPath);
 
         const ctx = canvas.getContext('2d');
         const currentTime = Date.now();
@@ -367,12 +368,12 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, agvPath,
             drawObstacles(ctx, obstacles);
         }
 
-        // 🆕 AGV 경로를 먼저 그리기 (실제 주행/계획 경로)
+        // 🆕 AGV 경로를 먼저 그리기
         if (agvPath && agvPath.length > 0) {
             console.log('[MapCanvas] AGV 경로 그리기 중..., 포인트 수:', agvPath.length);
             drawAGVPath(ctx, agvPath);
         } else {
-            console.log('[MapCanvas] AGV 경로를 그릴 수 없음. agvPath =', agvPath);
+            console.log('[MapCanvas] AGV 경로 없음 또는 비어있음');
         }
 
         // 사용자 경로 (클릭으로 생성된 경로)
