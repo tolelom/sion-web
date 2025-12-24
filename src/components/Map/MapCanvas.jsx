@@ -132,7 +132,12 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, agvPath,
 
     // 🆕 AGV가 준 경로 그리기 (실제 주행 경로)
     const drawAGVPath = (ctx, pathPoints) => {
-        if (!pathPoints || pathPoints.length < 2) return;
+        if (!pathPoints || pathPoints.length < 2) {
+            console.log('[MapCanvas.drawAGVPath] pathPoints 부조: pathPoints =', pathPoints);
+            return;
+        }
+
+        console.log('[MapCanvas.drawAGVPath] 그리기 시작, 포인트 수:', pathPoints.length);
 
         ctx.strokeStyle = 'rgba(46, 204, 113, 0.8)';
         ctx.lineWidth = 3;
@@ -144,6 +149,8 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, agvPath,
         pathPoints.forEach((point, index) => {
             const x = point.x * CELL_SIZE;
             const y = (MAP_SIZE - point.y) * CELL_SIZE;
+            
+            console.log(`[MapCanvas.drawAGVPath] 포인트[${index}]: (${point.x}, ${point.y}) -> (ӓ${x}, ${y})`);
 
             if (index === 0) {
                 ctx.moveTo(x, y);
@@ -165,6 +172,8 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, agvPath,
         ctx.strokeStyle = '#2ecc71';
         ctx.lineWidth = 2;
         ctx.stroke();
+        
+        console.log('[MapCanvas.drawAGVPath] 그리기 완료');
     };
 
     // 체력 바 그리기
@@ -338,6 +347,8 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, agvPath,
         const canvas = canvasRef.current;
         if (!canvas) return;
 
+        console.log('[MapCanvas] useEffect 실패: agvPath =', agvPath);
+
         const ctx = canvas.getContext('2d');
         const currentTime = Date.now();
 
@@ -355,7 +366,10 @@ const MapCanvas = ({agvPosition, targets, targetEnemy, obstacles, path, agvPath,
 
         // 🆕 AGV 경로를 먼저 그리기 (실제 주행/계획 경로)
         if (agvPath && agvPath.length > 0) {
+            console.log('[MapCanvas] AGV 경로 그리기 중..., 포인트 수:', agvPath.length);
             drawAGVPath(ctx, agvPath);
+        } else {
+            console.log('[MapCanvas] AGV 경로를 그릴 수 없음. agvPath =', agvPath);
         }
 
         // 사용자 경로 (클릭으로 생성된 경로)
