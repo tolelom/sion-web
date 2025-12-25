@@ -132,7 +132,7 @@ const Dashboard = ({agvData, mapData, pathData, isConnected, onSendCommand}) => 
                     <StatusPanel agvData={agvData}/>
                     <ControlPanel onSendCommand={onSendCommand}/>
 
-                    <div className="card" style={{ height: '500px' }}>
+                    <div className="card" style={{ height: '1000px' }}>
                         <ChatPanel
                             onSendMessage={onSendCommand}
                             isConnected={isConnected}
