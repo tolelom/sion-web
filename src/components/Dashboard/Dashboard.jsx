@@ -6,7 +6,7 @@ import "../../styles/dashboard.css"
 import ChatPanel from "../Chat/ChatPanel.jsx";
 import {useEffect} from 'react';
 
-const Dashboard = ({agvData, mapData, pathData, isConnected, onSendCommand}) => {
+const Dashboard = ({agvData, mapData, pathData, messages, isLoading, onChatDispatch, isConnected, onSendCommand}) => {
     // 🆕 실시간 데이터 사용 (하드코딩 제거)
     const targets = agvData?.detectedEnemies || [];
     const targetEnemy = agvData?.targetEnemy; // 현재 타겟
@@ -16,7 +16,7 @@ const Dashboard = ({agvData, mapData, pathData, isConnected, onSendCommand}) => 
     const agvPathPoints = pathData?.points || [];
     
     // 경로 탐색 훅 (사용자 맵 클릭으로 생성되는 경로)
-    const {path, isLoading, error, findPath} = usePathfinding();
+    const {path, isLoading: isPathLoading, error, findPath} = usePathfinding();
 
     // 🆕 디버그: pathData 변화 추적
     useEffect(() => {
@@ -91,9 +91,9 @@ const Dashboard = ({agvData, mapData, pathData, isConnected, onSendCommand}) => 
                                     🗺️ AGV 경로: {agvPathPoints.length}개 포인트
                                 </span>
                             )}
-                            {isLoading && <span>🔄 경로 계산 중...</span>}
+                            {isPathLoading && <span>🔄 경로 계산 중...</span>}
                             {error && <span style={{color: '#e74c3c'}}>❌ {error}</span>}
-                            {path.length > 0 && !isLoading && (
+                            {path.length > 0 && !isPathLoading && (
                                 <span style={{color: '#3498db'}}>
                                     ✅ 사용자 경로: {path.length}개 포인트
                                 </span>
@@ -134,6 +134,9 @@ const Dashboard = ({agvData, mapData, pathData, isConnected, onSendCommand}) => 
 
                     <div className="card" style={{ height: '1000px' }}>
                         <ChatPanel
+                            messages={messages}
+                            isLoading={isLoading}
+                            onChatDispatch={onChatDispatch}
                             onSendMessage={onSendCommand}
                             isConnected={isConnected}
                         />
