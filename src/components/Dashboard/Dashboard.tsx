@@ -4,7 +4,7 @@ import ControlPanel from '../Controls/ControlPanel'
 import { usePathfinding } from '../../hooks/usePathfinding'
 import '../../styles/dashboard.css'
 import ChatPanel from '../Chat/ChatPanel'
-import { useEffect } from 'react'
+import { useCallback } from 'react'
 import type { AGVData, MapData, PathData, ChatMessage, ChatAction, Point } from '../../types'
 
 type ConnectionStatus = 'connected' | 'reconnecting' | 'disconnected'
@@ -30,12 +30,6 @@ const Dashboard = ({ agvData, mapData, pathData, messages, isLoading, onChatDisp
   const agvPathPoints = pathData?.points || []
 
   const { path, isLoading: isPathLoading, error, findPath } = usePathfinding()
-
-  useEffect(() => {
-    console.log('[Dashboard] pathData 업데이트:', pathData)
-    console.log('[Dashboard] agvPathPoints:', agvPathPoints)
-    console.log('[Dashboard] agvPathPoints 길이:', agvPathPoints.length)
-  }, [pathData, agvPathPoints])
 
   const handleMapClick = async (position: { x: number; y: number }) => {
     console.log('🎯 맵 클릭:', position)

@@ -140,11 +140,8 @@ const MapCanvas = ({ agvPosition, targets, targetEnemy, obstacles, path, agvPath
 
   const drawAGVPath = (ctx: CanvasRenderingContext2D, pathPoints: Point[]) => {
     if (!pathPoints || pathPoints.length < 1) {
-      console.log('[MapCanvas.drawAGVPath] pathPoints 부족')
       return
     }
-
-    console.log('[MapCanvas.drawAGVPath] 그리기 시작, 포인트 수:', pathPoints.length)
 
     ctx.strokeStyle = 'rgba(46, 204, 113, 0.8)'
     ctx.lineWidth = 3
@@ -156,8 +153,6 @@ const MapCanvas = ({ agvPosition, targets, targetEnemy, obstacles, path, agvPath
     pathPoints.forEach((point, index) => {
       const canvasX = point.x * CELL_SIZE
       const canvasY = (MAP_SIZE - point.y) * CELL_SIZE
-
-      console.log(`[MapCanvas.drawAGVPath] 포인트[${index}]: (${point.x}, ${point.y}) -> Canvas (${canvasX}, ${canvasY})`)
 
       if (index === 0) {
         ctx.moveTo(canvasX, canvasY)
@@ -181,8 +176,6 @@ const MapCanvas = ({ agvPosition, targets, targetEnemy, obstacles, path, agvPath
       ctx.lineWidth = 2
       ctx.stroke()
     }
-
-    console.log('[MapCanvas.drawAGVPath] 그리기 완료')
   }
 
   const drawHealthBar = (ctx: CanvasRenderingContext2D, x: number, y: number, hp: number) => {

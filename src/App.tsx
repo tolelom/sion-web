@@ -15,7 +15,6 @@ function App() {
 
   useEffect(() => {
     if (!lastMessage) return
-    console.log('[WebSocket] 수신: ', lastMessage)
 
     switch (lastMessage.type) {
       case 'position':
@@ -52,7 +51,7 @@ function App() {
         console.warn('서버 에러:', (lastMessage.data as any)?.message)
         break
       default:
-        console.log('알 수 없는 메시지: ', lastMessage)
+        break
     }
   }, [lastMessage])
 

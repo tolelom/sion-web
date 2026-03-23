@@ -42,7 +42,6 @@ export const useWebSocket = (url: string) => {
         ws.onmessage = (event: MessageEvent) => {
           try {
             const data = JSON.parse(event.data) as WSMessage
-            console.log('📩 수신:', data)
             setLastMessage(data)
           } catch (error) {
             console.error('메시지 파싱 오류:', error)
@@ -120,7 +119,6 @@ export const useWebSocket = (url: string) => {
   const sendMessage = useCallback((message: unknown): boolean => {
     if (webSocketRef.current?.readyState === WebSocket.OPEN) {
       webSocketRef.current.send(JSON.stringify(message))
-      console.log('📤 전송:', message)
       return true
     }
 
