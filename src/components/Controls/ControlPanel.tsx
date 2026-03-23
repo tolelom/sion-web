@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import type { AGVData } from '../../types'
 
 interface ControlPanelProps {
@@ -131,4 +131,4 @@ const ControlPanel = ({ onSendCommand, agvData }: ControlPanelProps) => {
   )
 }
 
-export default ControlPanel
+export default React.memo(ControlPanel)

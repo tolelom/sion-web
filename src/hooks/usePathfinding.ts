@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import type { Point } from '../types'
 
 interface PathfindingResult {
@@ -14,7 +14,7 @@ export const usePathfinding = (): PathfindingResult => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const findPath = async (start: Point, goal: Point, obstacles: Point[] = []): Promise<Point[] | null> => {
+  const findPath = useCallback(async (start: Point, goal: Point, obstacles: Point[] = []): Promise<Point[] | null> => {
     setIsLoading(true)
     setError(null)
 
@@ -58,7 +58,7 @@ export const usePathfinding = (): PathfindingResult => {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [])
 
   const clearPath = () => {
     setPath([])

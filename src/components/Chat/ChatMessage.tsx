@@ -1,3 +1,4 @@
+import React from 'react'
 import { formatDistanceToNow } from 'date-fns'
 import { ko } from 'date-fns/locale'
 import type { ChatMessage as ChatMessageType } from '../../types'
@@ -36,4 +37,4 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
   )
 }
 
-export default ChatMessage
+export default React.memo(ChatMessage)

@@ -31,7 +31,7 @@ const Dashboard = ({ agvData, mapData, pathData, messages, isLoading, onChatDisp
 
   const { path, isLoading: isPathLoading, error, findPath } = usePathfinding()
 
-  const handleMapClick = async (position: { x: number; y: number }) => {
+  const handleMapClick = useCallback(async (position: { x: number; y: number }) => {
     console.log('🎯 맵 클릭:', position)
 
     const currentPos = agvData?.position || { x: 0, y: 0 }
@@ -66,7 +66,7 @@ const Dashboard = ({ agvData, mapData, pathData, messages, isLoading, onChatDisp
       console.error('❌ 경로를 찾을 수 없습니다')
       alert('경로를 찾을 수 없습니다. 장애물을 피해 다른 위치를 선택해주세요.')
     }
-  }
+  }, [agvData?.position, obstacles, findPath, onSendCommand])
 
   return (
     <div className="dashboard">

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import ChatMessage from './ChatMessage'
 import '../../styles/chat.css'
 import type { ChatMessage as ChatMessageType, ChatAction } from '../../types'
@@ -99,4 +99,4 @@ const ChatPanel = ({ messages, isLoading, onChatDispatch, onSendMessage, isConne
   )
 }
 
-export default ChatPanel
+export default React.memo(ChatPanel)

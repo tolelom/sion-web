@@ -1,3 +1,4 @@
+import React from 'react'
 import type { AGVData, Enemy } from '../../types'
 
 interface StatusPanelProps {
@@ -183,4 +184,4 @@ const StatusPanel = ({ agvData }: StatusPanelProps) => {
   )
 }
 
-export default StatusPanel
+export default React.memo(StatusPanel)
