@@ -1,6 +1,7 @@
 import { useReducer } from 'react'
 
 const initialState = {
+  connected: false,
   position: { x: 0, y: 0, angle: 0 },
   status: { battery: 100, speed: 0, mode: 'auto', state: null },
   detectedEnemies: [],
@@ -31,6 +32,8 @@ function agvReducer(state, action) {
         detectedEnemies: action.payload.enemies ?? [],
         targetEnemy: action.payload.target ?? null,
       }
+    case 'agv_connection':
+      return { ...state, connected: action.payload.connected }
     default:
       return state
   }

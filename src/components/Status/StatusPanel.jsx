@@ -1,4 +1,5 @@
 const StatusPanel = ({agvData}) => {
+    const agvConnected = agvData?.connected ?? false;
     const position = agvData?.position || {x: 0, y: 0, angle: 0};
     const status = agvData?.status || {battery: 0, speed: 0, mode: 'auto', state: 'idle'};
     const targetEnemy = agvData?.targetEnemy;
@@ -29,6 +30,17 @@ const StatusPanel = ({agvData}) => {
     return (
         <div className="card">
             <h2 className="card-title">AGV 상태</h2>
+            <div style={{
+                padding: '6px 12px',
+                marginBottom: '10px',
+                borderRadius: '6px',
+                fontSize: '13px',
+                background: agvConnected ? 'rgba(46, 204, 113, 0.1)' : 'rgba(231, 76, 60, 0.1)',
+                border: `1px solid ${agvConnected ? 'rgba(46, 204, 113, 0.3)' : 'rgba(231, 76, 60, 0.3)'}`,
+                color: agvConnected ? '#2ecc71' : '#e74c3c',
+            }}>
+                {agvConnected ? 'AGV 연결됨' : 'AGV 연결 끊김'}
+            </div>
 
             <div>
                 {/* 🆕 현재 상태 */}

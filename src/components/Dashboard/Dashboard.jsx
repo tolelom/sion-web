@@ -6,7 +6,7 @@ import "../../styles/dashboard.css"
 import ChatPanel from "../Chat/ChatPanel.jsx";
 import {useEffect} from 'react';
 
-const Dashboard = ({agvData, mapData, pathData, messages, isLoading, onChatDispatch, isConnected, onSendCommand}) => {
+const Dashboard = ({agvData, mapData, pathData, messages, isLoading, onChatDispatch, isConnected, connectionStatus, onSendCommand, onRetryConnect}) => {
     // 🆕 실시간 데이터 사용 (하드코딩 제거)
     const targets = agvData?.detectedEnemies || [];
     const targetEnemy = agvData?.targetEnemy; // 현재 타겟
@@ -73,9 +73,21 @@ const Dashboard = ({agvData, mapData, pathData, messages, isLoading, onChatDispa
             <header className="dashboard-header">
                 <h1 className="dashboard-title">🚀 AGV 실시간 모니터링</h1>
                 <div className="connection-status">
-                    <div className={`status ${isConnected ? 'connected' : 'disconnected'}`}/>
+                    <div className={`status-dot ${connectionStatus}`}/>
                     <span className="status-text">
-                        {isConnected ? "✅ 서버 연결됨" : "❌ 서버 연결 끊김"}
+                        {connectionStatus === 'connected' && '서버 연결됨'}
+                        {connectionStatus === 'reconnecting' && '재연결 중...'}
+                        {connectionStatus === 'disconnected' && (
+                            <>
+                                서버 연결 실패
+                                <button
+                                    onClick={onRetryConnect}
+                                    style={{marginLeft: '8px', padding: '2px 8px', fontSize: '12px', cursor: 'pointer'}}
+                                >
+                                    재연결
+                                </button>
+                            </>
+                        )}
                     </span>
                 </div>
             </header>
@@ -130,7 +142,7 @@ const Dashboard = ({agvData, mapData, pathData, messages, isLoading, onChatDispa
 
                 <div className="sidebar">
                     <StatusPanel agvData={agvData}/>
-                    <ControlPanel onSendCommand={onSendCommand}/>
+                    <ControlPanel onSendCommand={onSendCommand} agvData={agvData}/>
 
                     <div className="card" style={{ height: '1000px' }}>
                         <ChatPanel
