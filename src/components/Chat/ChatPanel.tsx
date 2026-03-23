@@ -1,11 +1,20 @@
 import { useState, useRef, useEffect } from 'react'
 import ChatMessage from './ChatMessage'
 import '../../styles/chat.css'
+import type { ChatMessage as ChatMessageType, ChatAction } from '../../types'
 
-const ChatPanel = ({ messages, isLoading, onChatDispatch, onSendMessage, isConnected }) => {
+interface ChatPanelProps {
+  messages: ChatMessageType[]
+  isLoading: boolean
+  onChatDispatch: React.Dispatch<ChatAction>
+  onSendMessage: (message: unknown) => boolean
+  isConnected: boolean
+}
+
+const ChatPanel = ({ messages, isLoading, onChatDispatch, onSendMessage, isConnected }: ChatPanelProps) => {
   const [inputValue, setInputValue] = useState('')
-  const messagesEndRef = useRef(null)
-  const inputRef = useRef(null)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -23,7 +32,7 @@ const ChatPanel = ({ messages, isLoading, onChatDispatch, onSendMessage, isConne
     setInputValue('')
   }
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
       handleSendMessage()

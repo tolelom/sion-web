@@ -1,9 +1,9 @@
-import { useWebSocket } from './hooks/useWebSocket.js'
-import { useAgvState } from './hooks/useAgvState.js'
-import { useChatState } from './hooks/useChatState.js'
-import { useMapState } from './hooks/useMapState.js'
+import { useWebSocket } from './hooks/useWebSocket'
+import { useAgvState } from './hooks/useAgvState'
+import { useChatState } from './hooks/useChatState'
+import { useMapState } from './hooks/useMapState'
 import { useEffect } from 'react'
-import Dashboard from './components/Dashboard/Dashboard.jsx'
+import Dashboard from './components/Dashboard/Dashboard'
 
 function App() {
   const WS_URL = 'ws://sion.tolelom.xyz:3000/websocket/web'
@@ -13,45 +13,43 @@ function App() {
   const { messages, isLoading, dispatch: chatDispatch } = useChatState()
   const { mapData, pathData, dispatch: mapDispatch } = useMapState()
 
-  // WebSocket 메시지 라우팅
   useEffect(() => {
     if (!lastMessage) return
     console.log('[WebSocket] 수신: ', lastMessage)
 
     switch (lastMessage.type) {
       case 'position':
-        agvDispatch({ type: 'position', payload: lastMessage.data })
+        agvDispatch({ type: 'position', payload: lastMessage.data as any })
         break
       case 'status':
-        agvDispatch({ type: 'status', payload: lastMessage.data })
+        agvDispatch({ type: 'status', payload: lastMessage.data as any })
         break
       case 'target_found':
-        agvDispatch({ type: 'target_found', payload: lastMessage.data })
+        agvDispatch({ type: 'target_found', payload: lastMessage.data as any })
         break
       case 'path_update':
-        mapDispatch({ type: 'path_update', payload: lastMessage.data })
+        mapDispatch({ type: 'path_update', payload: lastMessage.data as any })
         break
       case 'map_update':
-        mapDispatch({ type: 'map_update', payload: lastMessage.data })
+        mapDispatch({ type: 'map_update', payload: lastMessage.data as any })
         break
       case 'chat_response':
-        chatDispatch({ type: 'ai_message', payload: lastMessage.data.message })
+        chatDispatch({ type: 'ai_message', payload: (lastMessage.data as any).message })
         break
       case 'agv_event':
-        chatDispatch({ type: 'ai_message', payload: lastMessage.data.explanation })
+        chatDispatch({ type: 'ai_message', payload: (lastMessage.data as any).explanation })
         break
       case 'agv_connected':
       case 'agv_disconnected':
-        agvDispatch({ type: 'agv_connection', payload: lastMessage.data })
+        agvDispatch({ type: 'agv_connection', payload: lastMessage.data as any })
         break
       case 'system_info':
-        // Welcome 메시지에서 AGV 연결 상태 초기화
-        if (lastMessage.data?.agv_connected !== undefined) {
-          agvDispatch({ type: 'agv_connection', payload: { connected: lastMessage.data.agv_connected } })
+        if ((lastMessage.data as any)?.agv_connected !== undefined) {
+          agvDispatch({ type: 'agv_connection', payload: { connected: (lastMessage.data as any).agv_connected } })
         }
         break
       case 'error':
-        console.warn('서버 에러:', lastMessage.data?.message)
+        console.warn('서버 에러:', (lastMessage.data as any)?.message)
         break
       default:
         console.log('알 수 없는 메시지: ', lastMessage)
