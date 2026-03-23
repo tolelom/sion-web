@@ -1,6 +1,16 @@
 import { useReducer } from 'react'
+import type { MapData, PathData, Point } from '../types'
 
-const initialState = {
+interface MapState {
+  mapData: MapData
+  pathData: PathData
+}
+
+type MapAction =
+  | { type: 'path_update'; payload: { points?: Point[]; length?: number; algorithm?: string; created_at?: string | null } }
+  | { type: 'map_update'; payload: { obstacles?: Point[]; width?: number; height?: number } }
+
+const initialState: MapState = {
   mapData: {
     obstacles: [],
     width: 20,
@@ -14,7 +24,7 @@ const initialState = {
   },
 }
 
-function mapReducer(state, action) {
+function mapReducer(state: MapState, action: MapAction): MapState {
   switch (action.type) {
     case 'path_update': {
       const d = action.payload

@@ -1,18 +1,24 @@
 import { useReducer } from 'react'
+import type { ChatMessage, ChatAction } from '../types'
 
-const INITIAL_MESSAGE = {
+interface ChatState {
+  messages: ChatMessage[]
+  isLoading: boolean
+}
+
+const INITIAL_MESSAGE: ChatMessage = {
   id: 1,
   type: 'ai',
   content: '안녕하세요! 저는 AGV 사이온의 AI 해설자입니다. 🤖\n사이온의 행동을 실시간으로 설명해드리겠습니다.',
   timestamp: new Date(),
 }
 
-const initialState = {
+const initialState: ChatState = {
   messages: [INITIAL_MESSAGE],
   isLoading: false,
 }
 
-function chatReducer(state, action) {
+function chatReducer(state: ChatState, action: ChatAction): ChatState {
   switch (action.type) {
     case 'user_message':
       return {

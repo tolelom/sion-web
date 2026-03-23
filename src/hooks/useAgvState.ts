@@ -1,6 +1,13 @@
 import { useReducer } from 'react'
+import type { Position, AGVStatus, Enemy, AGVData } from '../types'
 
-const initialState = {
+type AgvAction =
+  | { type: 'position'; payload: Position }
+  | { type: 'status'; payload: Partial<AGVStatus> & { detected_enemies?: Enemy[]; target_enemy?: Enemy | null } }
+  | { type: 'target_found'; payload: { enemies?: Enemy[]; target?: Enemy | null } }
+  | { type: 'agv_connection'; payload: { connected: boolean } }
+
+const initialState: AGVData = {
   connected: false,
   position: { x: 0, y: 0, angle: 0 },
   status: { battery: 100, speed: 0, mode: 'auto', state: null },
@@ -8,7 +15,7 @@ const initialState = {
   targetEnemy: null,
 }
 
-function agvReducer(state, action) {
+function agvReducer(state: AGVData, action: AgvAction): AGVData {
   switch (action.type) {
     case 'position':
       return { ...state, position: action.payload }
