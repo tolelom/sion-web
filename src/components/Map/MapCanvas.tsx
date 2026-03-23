@@ -13,6 +13,7 @@ interface MapCanvasProps {
 
 const MapCanvas = ({ agvPosition, targets, targetEnemy, obstacles, path, agvPath, onMapClick }: MapCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const staticCanvasRef = useRef<HTMLCanvasElement | null>(null)
   const [hoveredCell, setHoveredCell] = useState<{ x: number; y: number } | null>(null)
 
   const MAP_SIZE = 20
@@ -348,16 +349,11 @@ const MapCanvas = ({ agvPosition, targets, targetEnemy, obstacles, path, agvPath
   }
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-
-    console.log('[MapCanvas] useEffect 실행: agvPath =', agvPath)
-
+    const canvas = document.createElement('canvas')
+    canvas.width = CANVAS_WIDTH
+    canvas.height = CANVAS_HEIGHT
     const ctx = canvas.getContext('2d')
     if (!ctx) return
-    const currentTime = Date.now()
-
-    ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
     ctx.fillStyle = '#1a1d23'
     ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
@@ -369,45 +365,76 @@ const MapCanvas = ({ agvPosition, targets, targetEnemy, obstacles, path, agvPath
       drawObstacles(ctx, obstacles)
     }
 
-    if (agvPath && agvPath.length > 0) {
-      console.log('[MapCanvas] AGV 경로 그리기 중..., 포인트 수:', agvPath.length)
-      drawAGVPath(ctx, agvPath)
-    } else {
-      console.log('[MapCanvas] AGV 경로 없음 또는 비어있음')
+    staticCanvasRef.current = canvas
+
+    return () => {
+      staticCanvasRef.current = null
     }
+  }, [obstacles])
 
-    if (path && path.length > 0) {
-      drawPath(ctx, path)
-    }
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
 
-    if (targets && targets.length > 0) {
-      targets.forEach(target => {
-        const isSelected = targetEnemy != null && (
-          targetEnemy.id === target.id ||
-          (targetEnemy.x === target.x && targetEnemy.y === target.y)
-        )
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
 
-        if (isSelected) {
-          drawTargetHighlight(ctx, target, currentTime)
+    const renderDynamicLayer = () => {
+      const currentTime = Date.now()
+      ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
+
+      if (staticCanvasRef.current) {
+        ctx.drawImage(staticCanvasRef.current, 0, 0)
+      } else {
+        ctx.fillStyle = '#1a1d23'
+        ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
+        drawGrid(ctx)
+        drawCoordinates(ctx)
+        if (obstacles && obstacles.length > 0) {
+          drawObstacles(ctx, obstacles)
         }
+      }
 
-        drawTarget(ctx, target, isSelected)
-      })
-    }
+      if (agvPath && agvPath.length > 0) {
+        drawAGVPath(ctx, agvPath)
+      }
 
-    if (agvPosition) {
-      drawAGV(ctx, agvPosition)
-    }
+      if (path && path.length > 0) {
+        drawPath(ctx, path)
+      }
 
-    if (hoveredCell) {
-      drawHoveredCell(ctx, hoveredCell)
+      if (targets && targets.length > 0) {
+        targets.forEach(target => {
+          const isSelected = targetEnemy != null && (
+            targetEnemy.id === target.id ||
+            (targetEnemy.x === target.x && targetEnemy.y === target.y)
+          )
+          if (isSelected) {
+            drawTargetHighlight(ctx, target, currentTime)
+          }
+          drawTarget(ctx, target, isSelected)
+        })
+      }
+
+      if (agvPosition) {
+        drawAGV(ctx, agvPosition)
+      }
+
+      if (hoveredCell) {
+        drawHoveredCell(ctx, hoveredCell)
+      }
     }
 
     if (targetEnemy) {
-      const animationFrame = requestAnimationFrame(() => {
-        // 재렌더링 트리거
-      })
-      return () => cancelAnimationFrame(animationFrame)
+      let animationId: number
+      const animate = () => {
+        renderDynamicLayer()
+        animationId = requestAnimationFrame(animate)
+      }
+      animationId = requestAnimationFrame(animate)
+      return () => cancelAnimationFrame(animationId)
+    } else {
+      renderDynamicLayer()
     }
 
   }, [agvPosition, targets, targetEnemy, obstacles, path, agvPath, hoveredCell])
