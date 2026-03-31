@@ -77,7 +77,7 @@ const ChatPanel = ({ messages, isLoading, onChatDispatch, onSendMessage, isConne
           placeholder={isConnected ? '메시지를 입력하세요... (Shift+Enter로 줄바꿈)' : '서버에 연결되지 않았습니다'}
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          onKeyPress={handleKeyPress}
+          onKeyDown={handleKeyPress}
           disabled={!isConnected || isLoading}
           rows={1}
         />

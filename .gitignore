@@ -30,6 +30,7 @@ dist-ssr/
 
 # Build outputs
 *.local
+*.tsbuildinfo
 
 # OS
 Thumbs.db
