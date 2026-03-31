@@ -26,7 +26,7 @@ export const usePathfinding = (): PathfindingResult => {
       obstacles: obstacles,
     }
 
-    console.log('📤 경로 탐색 요청 데이터:', JSON.stringify(requestData))
+    console.log('경로 탐색 요청:', JSON.stringify(requestData))
 
     try {
       const response = await fetch('http://sion.tolelom.xyz:3000/api/pathfinding', {
@@ -38,20 +38,20 @@ export const usePathfinding = (): PathfindingResult => {
       })
 
       const data = await response.json()
-      console.log('📥 경로 탐색 응답:', data)
+      console.log('경로 탐색 응답:', data)
 
       if (data.success && data.path) {
         setPath(data.path)
-        console.log('✅ 경로 탐색 성공:', data.path.length, '개 웨이포인트')
+        console.log('경로 탐색 성공:', data.path.length, '개 웨이포인트')
         return data.path
       } else {
-        console.error('❌ 경로 탐색 실패:', data.message)
+        console.error('경로 탐색 실패:', data.message)
         setError(data.message || '경로를 찾을 수 없습니다')
         setPath([])
         return null
       }
     } catch (err) {
-      console.error('❌ 경로 탐색 API 오류:', err)
+      console.error('경로 탐색 API 오류:', err)
       setError('서버 연결 실패')
       setPath([])
       return null

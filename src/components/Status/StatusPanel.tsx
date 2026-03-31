@@ -1,5 +1,5 @@
 import React from 'react'
-import type { AGVData, Enemy } from '../../types'
+import type { AGVData } from '../../types'
 
 interface StatusPanelProps {
   agvData: AGVData

@@ -468,9 +468,7 @@ const MapCanvas = ({ agvPosition, targets, targetEnemy, obstacles, path, agvPath
     const x = (e.clientX - rect.left) / CELL_SIZE
     const y = MAP_SIZE - (e.clientY - rect.top) / CELL_SIZE
 
-    if (onMapClick) {
-      onMapClick({ x, y })
-    }
+    onMapClick({ x, y })
   }
 
   return (

@@ -24,12 +24,12 @@ export const useWebSocket = (url: string) => {
       }
 
       try {
-        console.log(`🔌 WebSocket 연결 시도 #${reconnectAttemptsRef.current + 1}:`, url)
+        console.log(`WebSocket 연결 시도 #${reconnectAttemptsRef.current + 1}:`, url)
         const ws = new WebSocket(url)
         webSocketRef.current = ws
 
         ws.onopen = () => {
-          console.log('✅ WebSocket 연결 성공!')
+          console.log('WebSocket 연결 성공')
           setConnectionStatus('connected')
           reconnectAttemptsRef.current = 0
 
@@ -49,11 +49,11 @@ export const useWebSocket = (url: string) => {
         }
 
         ws.onerror = (error: Event) => {
-          console.error('❌ WebSocket 에러:', error)
+          console.error('WebSocket 에러:', error)
         }
 
         ws.onclose = (event: CloseEvent) => {
-          console.log('❌ WebSocket 연결 종료:', event.code, event.reason)
+          console.log('WebSocket 연결 종료:', event.code, event.reason)
           webSocketRef.current = null
 
           if (mountedRef.current && !reconnectTimeoutRef.current) {
@@ -61,13 +61,13 @@ export const useWebSocket = (url: string) => {
 
             if (reconnectAttemptsRef.current > MAX_RECONNECT_ATTEMPTS) {
               setConnectionStatus('disconnected')
-              console.log('🚫 최대 재연결 횟수 초과, 연결 포기')
+              console.log('최대 재연결 횟수 초과')
               return
             }
 
             setConnectionStatus('reconnecting')
             const delay = Math.min(1000 * Math.pow(2, reconnectAttemptsRef.current - 1), 30000)
-            console.log(`🔄 ${delay / 1000}초 후 재연결 시도...`)
+            console.log(`${delay / 1000}초 후 재연결 시도`)
 
             reconnectTimeoutRef.current = setTimeout(() => {
               reconnectTimeoutRef.current = null
@@ -122,7 +122,7 @@ export const useWebSocket = (url: string) => {
       return true
     }
 
-    console.warn('⚠️ WebSocket 연결되지 않음')
+    console.warn('WebSocket 연결되지 않음')
     return false
   }, [])
 
