@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- AGV body -->
+  <rect x="10" y="18" width="44" height="28" rx="6" fill="#2c3e50"/>
+  <!-- wheels -->
+  <circle cx="18" cy="48" r="6" fill="#7f8c8d"/>
+  <circle cx="18" cy="48" r="3" fill="#95a5a6"/>
+  <circle cx="46" cy="48" r="6" fill="#7f8c8d"/>
+  <circle cx="46" cy="48" r="3" fill="#95a5a6"/>
+  <!-- screen / visor -->
+  <rect x="16" y="23" width="32" height="14" rx="3" fill="#3498db"/>
+  <!-- charge arrow -->
+  <polygon points="28,26 40,30 28,34" fill="#fff" opacity="0.9"/>
+  <!-- status dot -->
+  <circle cx="50" cy="22" r="4" fill="#2ecc71"/>
+</svg>

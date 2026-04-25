@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
+import ConfirmModal from '../Common/ConfirmModal'
+import { useConfirmDialog } from '../../hooks/useConfirmDialog'
 import type { AGVData } from '../../types'
 
 interface ControlPanelProps {
@@ -11,6 +13,7 @@ const ControlPanel = ({ onSendCommand, agvData }: ControlPanelProps) => {
   const [isPending, setIsPending] = useState(false)
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const prevModeRef = useRef(mode)
+  const { dialogState, confirm, alert, handleConfirm, handleCancel } = useConfirmDialog()
 
   useEffect(() => {
     if (mode !== prevModeRef.current) {
@@ -53,44 +56,49 @@ const ControlPanel = ({ onSendCommand, agvData }: ControlPanelProps) => {
     }, 2000)
   }
 
-  const handleEmergencyStop = () => {
-    if (window.confirm('AGV를 긴급 정지하시겠습니까?')) {
-      onSendCommand({
-        type: 'emergency_stop',
-        data: {
-          reason: 'User requested emergency stop',
-          timestamp: Date.now()
-        },
-      })
+  const handleEmergencyStop = async () => {
+    if (!await confirm('AGV를 긴급 정지하시겠습니까?', '긴급 정지')) return
 
-      console.log('긴급 정지 명령 전송')
-      alert('긴급 정지 명령이 전송되었습니다.')
-    }
+    onSendCommand({
+      type: 'emergency_stop',
+      data: {
+        reason: 'User requested emergency stop',
+        timestamp: Date.now()
+      },
+    })
+
+    console.log('긴급 정지 명령 전송')
+    await alert('긴급 정지 명령이 전송되었습니다.', '긴급 정지')
   }
 
-  const handleReset = () => {
-    if (window.confirm('AGV를 초기화하시겠습니까?\n\n- 현재 경로가 취소됩니다\n- 시작 위치로 돌아갑니다\n- 모드가 자동 모드로 변경됩니다')) {
-      onSendCommand({
-        type: 'command',
-        data: {
-          action: 'reset',
-          target_x: 0,
-          target_y: 0,
-          timestamp: Date.now()
-        },
-      })
+  const handleReset = async () => {
+    if (!await confirm(
+      'AGV를 초기화하시겠습니까?\n\n- 현재 경로가 취소됩니다\n- 시작 위치로 돌아갑니다\n- 모드가 자동 모드로 변경됩니다',
+      'AGV 초기화'
+    )) return
 
-      onSendCommand({
-        type: 'mode_change',
-        data: { mode: 'auto' },
-      })
+    onSendCommand({
+      type: 'command',
+      data: {
+        action: 'reset',
+        target_x: 0,
+        target_y: 0,
+        timestamp: Date.now()
+      },
+    })
 
-      console.log('AGV 초기화 명령 전송')
-      alert('AGV가 초기화되었습니다.')
-    }
+    onSendCommand({
+      type: 'mode_change',
+      data: { mode: 'auto' },
+    })
+
+    console.log('AGV 초기화 명령 전송')
+    await alert('AGV가 초기화되었습니다.', 'AGV 초기화')
   }
 
   return (
+    <>
+    <ConfirmModal {...dialogState} onConfirm={handleConfirm} onCancel={handleCancel} />
     <div className="card">
       <h2 className="card-title">제어</h2>
 
@@ -128,6 +136,7 @@ const ControlPanel = ({ onSendCommand, agvData }: ControlPanelProps) => {
         <p>💡 맵을 클릭하면 AGV가 해당 위치로 이동합니다</p>
       </div>
     </div>
+    </>
   )
 }
 

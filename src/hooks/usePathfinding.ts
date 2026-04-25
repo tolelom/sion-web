@@ -28,14 +28,21 @@ export const usePathfinding = (): PathfindingResult => {
 
     console.log('경로 탐색 요청:', JSON.stringify(requestData))
 
+    const timeoutMs = Number(import.meta.env.VITE_API_TIMEOUT) || 10000
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
+
     try {
-      const response = await fetch('http://sion.tolelom.xyz:3000/api/pathfinding', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestData),
-      })
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL ?? 'http://sion.tolelom.xyz:3000'}/api/pathfinding`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(requestData),
+          signal: controller.signal,
+        }
+      )
+      clearTimeout(timeoutId)
 
       const data = await response.json()
       console.log('경로 탐색 응답:', data)
@@ -51,8 +58,14 @@ export const usePathfinding = (): PathfindingResult => {
         return null
       }
     } catch (err) {
-      console.error('경로 탐색 API 오류:', err)
-      setError('서버 연결 실패')
+      clearTimeout(timeoutId)
+      if (err instanceof Error && err.name === 'AbortError') {
+        console.error('경로 탐색 타임아웃')
+        setError('요청 타임아웃')
+      } else {
+        console.error('경로 탐색 API 오류:', err)
+        setError('서버 연결 실패')
+      }
       setPath([])
       return null
     } finally {

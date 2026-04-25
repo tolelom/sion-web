@@ -28,6 +28,16 @@ npm run dev
 
 백엔드 서버가 `localhost:3000`에서 실행 중이어야 함.
 
+환경 변수는 `.env.example`을 복사해 `.env.local`로 만들고 값을 채운다.
+
+### Windows 주의사항
+
+Windows에서 `npm install`이 실패하거나 `node_modules`가 비어있다면 **개발자 모드(Developer Mode)** 를 활성화해야 한다.
+
+> 설정 → 개인 정보 및 보안 → 개발자용 → 개발자 모드 ON
+
+심볼릭 링크 권한이 없으면 일부 패키지가 정상 설치되지 않는다.
+
 ## License
 
 MIT

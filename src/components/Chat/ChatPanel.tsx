@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import ChatMessage from './ChatMessage'
+import ConfirmModal from '../Common/ConfirmModal'
+import { useConfirmDialog } from '../../hooks/useConfirmDialog'
 import '../../styles/chat.css'
 import type { ChatMessage as ChatMessageType, ChatAction } from '../../types'
 
@@ -15,6 +17,7 @@ const ChatPanel = ({ messages, isLoading, onChatDispatch, onSendMessage, isConne
   const [inputValue, setInputValue] = useState('')
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
+  const { dialogState, confirm, handleConfirm, handleCancel } = useConfirmDialog()
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -39,13 +42,15 @@ const ChatPanel = ({ messages, isLoading, onChatDispatch, onSendMessage, isConne
     }
   }
 
-  const handleClearChat = () => {
-    if (window.confirm('채팅 기록을 모두 삭제하시겠습니까?')) {
+  const handleClearChat = async () => {
+    if (await confirm('채팅 기록을 모두 삭제하시겠습니까?', '채팅 초기화')) {
       onChatDispatch({ type: 'clear' })
     }
   }
 
   return (
+    <>
+    <ConfirmModal {...dialogState} onConfirm={handleConfirm} onCancel={handleCancel} />
     <div className="chat-panel">
       <div className="chat-header">
         <div className="chat-header-info">
@@ -96,6 +101,7 @@ const ChatPanel = ({ messages, isLoading, onChatDispatch, onSendMessage, isConne
         <button className="quick-cmd-btn" onClick={() => setInputValue('다음 행동은?')} disabled={!isConnected || isLoading}>🎯 다음 행동</button>
       </div>
     </div>
+    </>
   )
 }
 
