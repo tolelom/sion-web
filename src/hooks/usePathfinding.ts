@@ -34,7 +34,7 @@ export const usePathfinding = (): PathfindingResult => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL ?? 'http://sion.tolelom.xyz:3000'}/api/pathfinding`,
+        `${import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:3000'}/api/pathfinding`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
