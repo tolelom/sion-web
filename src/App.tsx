@@ -2,6 +2,7 @@ import { useWebSocket } from './hooks/useWebSocket'
 import { useAgvState } from './hooks/useAgvState'
 import { useChatState } from './hooks/useChatState'
 import { useMapState } from './hooks/useMapState'
+import { routeMessage } from './hooks/messageRouter'
 import { useEffect } from 'react'
 import Dashboard from './components/Dashboard/Dashboard'
 
@@ -15,44 +16,7 @@ function App() {
 
   useEffect(() => {
     if (!lastMessage) return
-
-    switch (lastMessage.type) {
-      case 'position':
-        agvDispatch({ type: 'position', payload: lastMessage.data })
-        break
-      case 'status':
-        agvDispatch({ type: 'status', payload: lastMessage.data })
-        break
-      case 'target_found':
-        agvDispatch({ type: 'target_found', payload: lastMessage.data })
-        break
-      case 'path_update':
-        mapDispatch({ type: 'path_update', payload: lastMessage.data })
-        break
-      case 'map_update':
-        mapDispatch({ type: 'map_update', payload: lastMessage.data })
-        break
-      case 'chat_response':
-        chatDispatch({ type: 'ai_message', payload: lastMessage.data.message })
-        break
-      case 'agv_event':
-        chatDispatch({ type: 'ai_message', payload: lastMessage.data.explanation })
-        break
-      case 'agv_connected':
-      case 'agv_disconnected':
-        agvDispatch({ type: 'agv_connection', payload: lastMessage.data })
-        break
-      case 'system_info':
-        if (lastMessage.data?.agv_connected !== undefined) {
-          agvDispatch({ type: 'agv_connection', payload: { connected: lastMessage.data.agv_connected } })
-        }
-        break
-      case 'error':
-        console.warn('서버 에러:', lastMessage.data?.message)
-        break
-      default:
-        break
-    }
+    routeMessage(lastMessage, { agvDispatch, mapDispatch, chatDispatch })
   }, [lastMessage])
 
   return (

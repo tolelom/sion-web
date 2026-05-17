@@ -1,7 +1,7 @@
 import { useReducer } from 'react'
 import type { Position, AGVStatus, Enemy, AGVData } from '../types'
 
-type AgvAction =
+export type AgvAction =
   | { type: 'position'; payload: Position }
   | { type: 'status'; payload: Partial<AGVStatus> & { detected_enemies?: Enemy[]; target_enemy?: Enemy | null } }
   | { type: 'target_found'; payload: { enemies?: Enemy[]; target?: Enemy | null } }

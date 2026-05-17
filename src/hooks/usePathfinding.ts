@@ -1,15 +1,21 @@
 import { useState, useCallback } from 'react'
 import type { Point } from '../types'
 
+export interface FindPathOptions {
+  mapWidth?: number
+  mapHeight?: number
+  timeoutMs?: number
+}
+
 interface PathfindingResult {
   path: Point[]
   isLoading: boolean
   error: string | null
-  findPath: (start: Point, goal: Point, obstacles?: Point[]) => Promise<Point[] | null>
+  findPath: (start: Point, goal: Point, obstacles?: Point[], options?: FindPathOptions) => Promise<Point[] | null>
   clearPath: () => void
 }
 
-// 백엔드 A* 그리드 크기. 호출 측이 자체 크기를 가져야 한다면 findPath 인자로 옵션 추가 예정.
+// 백엔드 A* 그리드 크기. 호출 측이 자체 크기를 갖는 경우 findPath의 options 인자로 덮어쓴다.
 const DEFAULT_MAP_WIDTH = 20
 const DEFAULT_MAP_HEIGHT = 20
 const DEFAULT_TIMEOUT_MS = 10000
@@ -19,19 +25,21 @@ export const usePathfinding = (): PathfindingResult => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const findPath = useCallback(async (start: Point, goal: Point, obstacles: Point[] = []): Promise<Point[] | null> => {
+  const findPath = useCallback(async (start: Point, goal: Point, obstacles: Point[] = [], options: FindPathOptions = {}): Promise<Point[] | null> => {
     setIsLoading(true)
     setError(null)
 
     const requestData = {
       start,
       goal,
-      map_width: DEFAULT_MAP_WIDTH,
-      map_height: DEFAULT_MAP_HEIGHT,
+      map_width: options.mapWidth ?? DEFAULT_MAP_WIDTH,
+      map_height: options.mapHeight ?? DEFAULT_MAP_HEIGHT,
       obstacles,
     }
 
-    const timeoutMs = Number(import.meta.env.VITE_API_TIMEOUT) || DEFAULT_TIMEOUT_MS
+    // env가 미설정/빈문자열이면 Number(undefined|'') → NaN. `??`는 nullish만 fallback하므로 NaN을 거르지 못한다.
+    // 그래서 env fallback은 falsy 친화적인 ||로 둔다(0/NaN/'' → DEFAULT).
+    const timeoutMs = options.timeoutMs ?? (Number(import.meta.env.VITE_API_TIMEOUT) || DEFAULT_TIMEOUT_MS)
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
 

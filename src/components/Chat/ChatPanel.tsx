@@ -13,10 +13,16 @@ interface ChatPanelProps {
   isConnected: boolean
 }
 
+// 입력 보조 버튼. 새 텍스트는 input value로 채워지고 사용자가 직접 전송 버튼을 누른다.
+const QUICK_COMMANDS: Array<{ icon: string; label: string; text: string }> = [
+  { icon: '📊', label: '상황 설명', text: '현재 상황을 설명해줘' },
+  { icon: '🤔', label: '행동 이유', text: '왜 그 행동을 했어?' },
+  { icon: '🎯', label: '다음 행동', text: '다음 행동은?' },
+]
+
 const ChatPanel = ({ messages, isLoading, onChatDispatch, onSendMessage, isConnected }: ChatPanelProps) => {
   const [inputValue, setInputValue] = useState('')
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const inputRef = useRef<HTMLTextAreaElement>(null)
   const { dialogState, confirm, handleConfirm, handleCancel } = useConfirmDialog()
 
   useEffect(() => {
@@ -77,7 +83,6 @@ const ChatPanel = ({ messages, isLoading, onChatDispatch, onSendMessage, isConne
 
       <div className="chat-input-container">
         <textarea
-          ref={inputRef}
           className="chat-input"
           placeholder={isConnected ? '메시지를 입력하세요... (Shift+Enter로 줄바꿈)' : '서버에 연결되지 않았습니다'}
           value={inputValue}
@@ -96,9 +101,16 @@ const ChatPanel = ({ messages, isLoading, onChatDispatch, onSendMessage, isConne
       </div>
 
       <div className="chat-quick-commands">
-        <button className="quick-cmd-btn" onClick={() => setInputValue('현재 상황을 설명해줘')} disabled={!isConnected || isLoading}>📊 상황 설명</button>
-        <button className="quick-cmd-btn" onClick={() => setInputValue('왜 그 행동을 했어?')} disabled={!isConnected || isLoading}>🤔 행동 이유</button>
-        <button className="quick-cmd-btn" onClick={() => setInputValue('다음 행동은?')} disabled={!isConnected || isLoading}>🎯 다음 행동</button>
+        {QUICK_COMMANDS.map(cmd => (
+          <button
+            key={cmd.label}
+            className="quick-cmd-btn"
+            onClick={() => setInputValue(cmd.text)}
+            disabled={!isConnected || isLoading}
+          >
+            {cmd.icon} {cmd.label}
+          </button>
+        ))}
       </div>
     </div>
     </>
