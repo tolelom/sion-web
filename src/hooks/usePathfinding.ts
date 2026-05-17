@@ -9,6 +9,11 @@ interface PathfindingResult {
   clearPath: () => void
 }
 
+// 백엔드 A* 그리드 크기. 호출 측이 자체 크기를 가져야 한다면 findPath 인자로 옵션 추가 예정.
+const DEFAULT_MAP_WIDTH = 20
+const DEFAULT_MAP_HEIGHT = 20
+const DEFAULT_TIMEOUT_MS = 10000
+
 export const usePathfinding = (): PathfindingResult => {
   const [path, setPath] = useState<Point[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -19,16 +24,14 @@ export const usePathfinding = (): PathfindingResult => {
     setError(null)
 
     const requestData = {
-      start: { x: start.x, y: start.y },
-      goal: { x: goal.x, y: goal.y },
-      map_width: 20,
-      map_height: 20,
-      obstacles: obstacles,
+      start,
+      goal,
+      map_width: DEFAULT_MAP_WIDTH,
+      map_height: DEFAULT_MAP_HEIGHT,
+      obstacles,
     }
 
-    console.log('경로 탐색 요청:', JSON.stringify(requestData))
-
-    const timeoutMs = Number(import.meta.env.VITE_API_TIMEOUT) || 10000
+    const timeoutMs = Number(import.meta.env.VITE_API_TIMEOUT) || DEFAULT_TIMEOUT_MS
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
 
@@ -45,18 +48,15 @@ export const usePathfinding = (): PathfindingResult => {
       clearTimeout(timeoutId)
 
       const data = await response.json()
-      console.log('경로 탐색 응답:', data)
 
       if (data.success && data.path) {
         setPath(data.path)
-        console.log('경로 탐색 성공:', data.path.length, '개 웨이포인트')
         return data.path
-      } else {
-        console.error('경로 탐색 실패:', data.message)
-        setError(data.message || '경로를 찾을 수 없습니다')
-        setPath([])
-        return null
       }
+      console.error('경로 탐색 실패:', data.message)
+      setError(data.message || '경로를 찾을 수 없습니다')
+      setPath([])
+      return null
     } catch (err) {
       clearTimeout(timeoutId)
       if (err instanceof Error && err.name === 'AbortError') {
@@ -73,10 +73,10 @@ export const usePathfinding = (): PathfindingResult => {
     }
   }, [])
 
-  const clearPath = () => {
+  const clearPath = useCallback(() => {
     setPath([])
     setError(null)
-  }
+  }, [])
 
   return {
     path,

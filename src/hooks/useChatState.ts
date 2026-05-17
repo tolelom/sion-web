@@ -4,6 +4,8 @@ import type { ChatMessage, ChatAction } from '../types'
 interface ChatState {
   messages: ChatMessage[]
   isLoading: boolean
+  // 메시지 id 카운터. Date.now()를 쓰면 같은 ms에 두 메시지가 추가될 때 React key가 충돌한다.
+  nextId: number
 }
 
 const INITIAL_MESSAGE: ChatMessage = {
@@ -16,6 +18,7 @@ const INITIAL_MESSAGE: ChatMessage = {
 const initialState: ChatState = {
   messages: [INITIAL_MESSAGE],
   isLoading: false,
+  nextId: 2,
 }
 
 function chatReducer(state: ChatState, action: ChatAction): ChatState {
@@ -27,12 +30,13 @@ function chatReducer(state: ChatState, action: ChatAction): ChatState {
         messages: [
           ...state.messages,
           {
-            id: Date.now(),
+            id: state.nextId,
             type: 'user',
             content: action.payload,
             timestamp: new Date(),
           },
         ],
+        nextId: state.nextId + 1,
       }
     case 'ai_message':
       return {
@@ -41,24 +45,26 @@ function chatReducer(state: ChatState, action: ChatAction): ChatState {
         messages: [
           ...state.messages,
           {
-            id: Date.now(),
+            id: state.nextId,
             type: 'ai',
             content: action.payload,
             timestamp: new Date(),
           },
         ],
+        nextId: state.nextId + 1,
       }
     case 'clear':
       return {
         messages: [
           {
-            id: Date.now(),
+            id: state.nextId,
             type: 'ai',
             content: '채팅이 초기화되었습니다. 다시 시작하겠습니다! 🚀',
             timestamp: new Date(),
           },
         ],
         isLoading: false,
+        nextId: state.nextId + 1,
       }
     default:
       return state

@@ -175,4 +175,78 @@ describe('useWebSocket', () => {
 
     cleanup()
   })
+
+  it('MAX_RECONNECT_ATTEMPTS 초과 시 disconnected로 전이', () => {
+    const MAX = 10
+    const { result, cleanup } = mountAndConnect()
+
+    // 매 사이클: 현재 ws.close → 백오프 timer 충분히 advance → 새 인스턴스 생성.
+    // MAX번째 close까지는 새 인스턴스가 생기고, MAX+1번째 close에서 disconnected로 전이.
+    for (let i = 0; i < MAX; i++) {
+      const ws = MockWebSocket.instances[i]
+      act(() => { ws.triggerClose() })
+      // 백오프는 최대 30s까지 자랄 수 있으므로 충분히 advance.
+      act(() => { vi.advanceTimersByTime(60_000) })
+      expect(MockWebSocket.instances.length).toBe(i + 2)
+      expect(result.current.connectionStatus).toBe('reconnecting')
+    }
+
+    // 11번째 close: attempts가 MAX를 넘어가 disconnected.
+    const last = MockWebSocket.instances[MAX]
+    act(() => { last.triggerClose() })
+
+    expect(result.current.connectionStatus).toBe('disconnected')
+    expect(result.current.isConnected).toBe(false)
+    // 더 이상 새 인스턴스 안 만들어짐.
+    act(() => { vi.advanceTimersByTime(60_000) })
+    expect(MockWebSocket.instances.length).toBe(MAX + 1)
+
+    cleanup()
+  })
+
+  it('retryConnect: disconnected에서 호출 시 attempts 리셋 + 즉시 새 인스턴스', () => {
+    const MAX = 10
+    const { result, cleanup } = mountAndConnect()
+
+    // disconnected까지 몰아간다.
+    for (let i = 0; i < MAX; i++) {
+      const ws = MockWebSocket.instances[i]
+      act(() => { ws.triggerClose() })
+      act(() => { vi.advanceTimersByTime(60_000) })
+    }
+    act(() => { MockWebSocket.instances[MAX].triggerClose() })
+    expect(result.current.connectionStatus).toBe('disconnected')
+
+    const before = MockWebSocket.instances.length
+
+    act(() => {
+      result.current.retryConnect()
+    })
+
+    // retryConnect는 setTimeout 없이 즉시 connect를 부른다 → 새 인스턴스가 곧바로 생성.
+    expect(MockWebSocket.instances.length).toBe(before + 1)
+    expect(result.current.connectionStatus).toBe('reconnecting')
+
+    // 그 새 ws의 close는 다시 백오프를 처음(1초)부터 시작 — attempts가 리셋됐다는 증거.
+    const newWs = MockWebSocket.instances[before]
+    act(() => { newWs.triggerClose() })
+    act(() => { vi.advanceTimersByTime(1000) })
+    expect(MockWebSocket.instances.length).toBe(before + 2)
+
+    cleanup()
+  })
+
+  it('unmount 후 onclose가 와도 reconnect 안 됨', () => {
+    const { ws, cleanup } = mountAndConnect()
+    act(() => { ws.triggerOpen() })
+
+    cleanup() // unmount → mountedRef.current=false, ws.close 호출됨
+
+    const before = MockWebSocket.instances.length
+    // unmount 후에 close 이벤트가 늦게 도착해도 scheduleReconnect는 mountedRef 가드로 no-op.
+    act(() => { ws.triggerClose() })
+    act(() => { vi.advanceTimersByTime(60_000) })
+
+    expect(MockWebSocket.instances.length).toBe(before)
+  })
 })
