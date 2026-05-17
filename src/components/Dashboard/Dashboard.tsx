@@ -1,6 +1,8 @@
 import MapCanvas from '../Map/MapCanvas'
 import StatusPanel from '../Status/StatusPanel'
 import ControlPanel from '../Controls/ControlPanel'
+import ConfirmModal from '../Common/ConfirmModal'
+import { useConfirmDialog } from '../../hooks/useConfirmDialog'
 import { usePathfinding } from '../../hooks/usePathfinding'
 import '../../styles/dashboard.css'
 import ChatPanel from '../Chat/ChatPanel'
@@ -30,45 +32,34 @@ const Dashboard = ({ agvData, mapData, pathData, messages, isLoading, onChatDisp
   const agvPathPoints = pathData?.points || []
 
   const { path, isLoading: isPathLoading, error, findPath } = usePathfinding()
+  const { dialogState, alert: showAlert, handleConfirm, handleCancel } = useConfirmDialog()
 
   const handleMapClick = useCallback(async (position: { x: number; y: number }) => {
-    console.log('맵 클릭:', position)
-
     const currentPos = agvData?.position || { x: 0, y: 0 }
-
-    const start = {
-      x: Math.round(currentPos.x),
-      y: Math.round(currentPos.y)
-    }
-
-    const goal = {
-      x: Math.round(position.x),
-      y: Math.round(position.y)
-    }
-
-    console.log('경로 탐색:', start, '→', goal)
+    const start = { x: Math.round(currentPos.x), y: Math.round(currentPos.y) }
+    const goal = { x: Math.round(position.x), y: Math.round(position.y) }
 
     const calculatedPath = await findPath(start, goal, obstacles)
-
-    if (calculatedPath) {
-      console.log('경로 생성 완료')
-
-      onSendCommand({
-        type: 'command',
-        data: {
-          target_x: position.x,
-          target_y: position.y,
-          path: calculatedPath,
-          mode: 'manual'
-        }
-      })
-    } else {
-      console.error('경로를 찾을 수 없습니다')
-      alert('경로를 찾을 수 없습니다. 장애물을 피해 다른 위치를 선택해주세요.')
+    if (!calculatedPath) {
+      // usePathfinding이 이미 error state와 console.error를 처리하므로 여기선 사용자 모달만.
+      await showAlert('경로를 찾을 수 없습니다. 장애물을 피해 다른 위치를 선택해주세요.', '경로 탐색 실패')
+      return
     }
-  }, [agvData?.position, obstacles, findPath, onSendCommand])
+
+    onSendCommand({
+      type: 'command',
+      data: {
+        target_x: position.x,
+        target_y: position.y,
+        path: calculatedPath,
+        mode: 'manual',
+      },
+    })
+  }, [agvData?.position, obstacles, findPath, onSendCommand, showAlert])
 
   return (
+    <>
+    <ConfirmModal {...dialogState} onConfirm={handleConfirm} onCancel={handleCancel} />
     <div className="dashboard">
       <header className="dashboard-header">
         <h1 className="dashboard-title">🚀 AGV 실시간 모니터링</h1>
@@ -153,6 +144,7 @@ const Dashboard = ({ agvData, mapData, pathData, messages, isLoading, onChatDisp
         </div>
       </div>
     </div>
+    </>
   )
 }
 
