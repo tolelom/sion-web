@@ -8,5 +8,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: false,
+    // Playwright E2E 스펙은 vitest가 픽업하지 않게 분리.
+    exclude: ['e2e/**', 'node_modules/**', 'dist/**'],
   },
 })

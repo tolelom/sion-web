@@ -34,3 +34,8 @@ dist-ssr/
 
 # OS
 Thumbs.db
+
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
