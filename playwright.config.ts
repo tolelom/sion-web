@@ -17,7 +17,9 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: 1,
-  reporter: process.env.CI ? [['github'], ['list']] : 'list',
+  reporter: process.env.CI
+    ? [['github'], ['list'], ['html', { open: 'never' }]]
+    : 'list',
   use: {
     baseURL: `http://localhost:${FRONTEND_PORT}`,
     trace: 'retain-on-failure',
@@ -28,7 +30,10 @@ export default defineConfig({
     command: 'npm run dev',
     url: `http://localhost:${FRONTEND_PORT}`,
     reuseExistingServer: !process.env.CI,
-    timeout: 60_000,
+    // CI cold start에서 vite 첫 transform이 60초를 넘는 경우가 있어 여유 있게 둠.
+    timeout: 180_000,
+    stdout: 'pipe',
+    stderr: 'pipe',
     env: {
       VITE_API_BASE_URL: BACKEND_URL,
       VITE_WS_URL: `${BACKEND_URL.replace(/^http/, 'ws')}/websocket/web`,
