@@ -28,6 +28,78 @@ jobs:
       - name: 테스트
         run: npm test
 
+      # ── E2E (Playwright) ────────────────────────────────────────────────
+      # backend repo를 함께 checkout해서 in-memory SQLite 모드로 띄운 뒤
+      # 실제 브라우저에서 통합 시나리오를 검증한다.
+      - name: Backend repo 체크아웃
+        uses: actions/checkout@v4
+        with:
+          repository: tolelom/sion-backend
+          ref: master
+          path: backend-src
+
+      - name: Go 설정 (backend 빌드용)
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.25.x'
+          cache-dependency-path: backend-src/go.sum
+
+      - name: Backend 빌드
+        working-directory: backend-src
+        # CGO_ENABLED=0: glebarez/sqlite는 pure-Go라 CGO 불필요
+        run: CGO_ENABLED=0 go build -o /tmp/sion-backend .
+
+      - name: Backend 백그라운드 실행 (in-memory)
+        env:
+          SION_USE_IN_MEMORY_DB: 'true'
+          PORT: '8001'
+          ALLOWED_ORIGINS: 'http://localhost:5173'
+        run: |
+          /tmp/sion-backend > /tmp/backend.log 2>&1 &
+          echo $! > /tmp/backend.pid
+          # /api/health가 응답할 때까지 최대 30초 대기
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:8001/api/health > /dev/null; then
+              echo "backend up after ${i}s"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "::error::backend가 30초 안에 뜨지 않음"
+          cat /tmp/backend.log
+          exit 1
+
+      - name: Playwright 브라우저 설치
+        run: npx playwright install chromium --with-deps
+
+      - name: E2E 테스트
+        env:
+          CI: 'true'
+          E2E_BACKEND_URL: 'http://localhost:8001'
+        run: npm run test:e2e
+
+      - name: E2E 리포트 업로드 (실패 시)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+
+      - name: Backend 종료
+        if: always()
+        run: |
+          if [ -f /tmp/backend.pid ]; then
+            kill "$(cat /tmp/backend.pid)" || true
+          fi
+
+      - name: Backend 로그 출력 (디버깅용)
+        if: failure()
+        run: cat /tmp/backend.log || true
+
+      # ── 배포 이미지 빌드 ───────────────────────────────────────────────
       - name: 빌드
         run: npm run build
 
