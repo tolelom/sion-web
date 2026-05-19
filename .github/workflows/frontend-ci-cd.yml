@@ -41,7 +41,7 @@ jobs:
       - name: Go 설정 (backend 빌드용)
         uses: actions/setup-go@v5
         with:
-          go-version: '1.25.x'
+          go-version: '1.26.x'
           cache-dependency-path: backend-src/go.sum
 
       - name: Backend 빌드
