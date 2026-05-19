@@ -68,7 +68,7 @@ test.describe('Dashboard — integration (backend 필요)', () => {
     })
   })
 
-  test('simulator를 시작하면 AGV가 연결되고 위치/속도가 갱신된다', async ({ page }) => {
+  test('simulator를 시작하면 status/position 메시지가 frontend에 반영된다', async ({ page }) => {
     await page.goto('/')
 
     // WS 연결될 때까지 대기
@@ -76,21 +76,23 @@ test.describe('Dashboard — integration (backend 필요)', () => {
       timeout: 10_000,
     })
 
-    // 초기에는 AGV 미연결 (시뮬레이터 시작 전)
-    const badge = page.locator('.agv-connection-badge')
-    await expect(badge).toBeVisible()
+    // 초기 위치는 (0.00, 0.00). simulator는 broker.BroadcastToWeb로 status/position을
+    // 직접 송신할 뿐 agv_connected 메시지는 보내지 않으므로 "AGV 연결됨"은 그대로 두고,
+    // 데이터 흐름이 살아있는지를 위치/감지된 적 카운트로 검증한다.
+    const positionText = page.locator('.status-value', { hasText: /^\(/ }).first()
+    await expect(positionText).toHaveText('(0.00, 0.00)')
 
-    // 시뮬레이터 시작 — backend가 가짜 AGV 클라이언트로 WS에 붙는 구조
+    // 시뮬레이터 시작 — defaultEnemyCount=5로 적이 5명 등록됨
     const startRes = await fetch(`${BACKEND_URL}/api/simulator/start`, { method: 'POST' })
     expect(startRes.ok, 'simulator/start 응답').toBeTruthy()
 
-    // 잠시 후 "AGV 연결됨" 텍스트가 나타나야 한다 (시뮬레이터가 connect 메시지를 보내는 데 시간 소요)
-    await expect(badge).toHaveText('AGV 연결됨', { timeout: 10_000 })
+    // 잠시 후 위치 값이 (0.00, 0.00)이 아닌 다른 값으로 갱신되어야 한다
+    await expect(positionText).not.toHaveText('(0.00, 0.00)', { timeout: 10_000 })
 
-    // 위치가 (0.00, 0.00) → 변동값으로 갱신되는지 확인
-    await expect(page.locator('.status-value', { hasText: /\(/ })).toBeVisible()
+    // 감지된 적 카운트(N명)가 등장 — simulator가 detected_enemies를 채우는 것을 검증
+    await expect(page.getByText(/^\d+명$/)).toBeVisible({ timeout: 10_000 })
 
-    // 속도 표시도 등장
-    await expect(page.getByText(/m\/s$/)).toBeVisible()
+    // 속도 표시도 m/s 단위로 갱신
+    await expect(page.getByText(/^\d+\.\d m\/s$/)).toBeVisible()
   })
 })
