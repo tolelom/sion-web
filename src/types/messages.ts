@@ -1,7 +1,7 @@
 import type { Position, AGVStatus, Enemy } from './agv'
 import type { Point } from './map'
 
-export interface PositionPayload extends Position {}
+export type PositionPayload = Position
 
 export type StatusPayload = Partial<Pick<AGVStatus, 'battery' | 'speed' | 'mode' | 'state'>> & {
   detected_enemies?: Enemy[]

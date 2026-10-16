@@ -3,7 +3,7 @@ import StatusPanel from '../Status/StatusPanel'
 import ControlPanel from '../Controls/ControlPanel'
 import { usePathfinding } from '../../hooks/usePathfinding'
 import '../../styles/dashboard.css'
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import type { AGVData, MapData, PathData } from '../../types'
 
 type ConnectionStatus = 'connected' | 'reconnecting' | 'disconnected'
@@ -23,7 +23,7 @@ interface DashboardProps {
 const Dashboard = ({ agvData, mapData, pathData, isConnected, connectionStatus, serverError, onDismissError, onSendCommand, onRetryConnect }: DashboardProps) => {
   const targets = agvData?.detectedEnemies || []
   const targetEnemy = agvData?.targetEnemy
-  const obstacles = mapData?.obstacles || []
+  const obstacles = useMemo(() => mapData?.obstacles || [], [mapData?.obstacles])
 
   const agvPathPoints = pathData?.points || []
 

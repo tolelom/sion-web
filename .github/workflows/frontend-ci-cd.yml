@@ -25,6 +25,12 @@ jobs:
       - name: 의존성 설치
         run: npm ci
 
+      - name: 린트
+        run: npm run lint
+
+      - name: 테스트
+        run: npm test
+
       - name: 빌드
         run: npm run build
 

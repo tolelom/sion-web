@@ -8,7 +8,9 @@ const MAX_RECONNECT_ATTEMPTS = 10
 export const useWebSocket = (url: string, onMessage: (message: WSMessage) => void) => {
   const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>('reconnecting')
   const onMessageRef = useRef(onMessage)
-  onMessageRef.current = onMessage
+  useEffect(() => {
+    onMessageRef.current = onMessage
+  }, [onMessage])
   const webSocketRef = useRef<WebSocket | null>(null)
   const reconnectTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const mountedRef = useRef(false)

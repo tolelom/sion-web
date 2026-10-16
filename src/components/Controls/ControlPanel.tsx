@@ -11,23 +11,10 @@ interface ControlPanelProps {
 
 const ControlPanel = ({ onSendCommand, agvData, isConnected }: ControlPanelProps) => {
   const mode = agvData?.status?.mode ?? 'auto'
-  const [isPending, setIsPending] = useState(false)
+  const [pendingMode, setPendingMode] = useState<string | null>(null)
+  const isPending = pendingMode !== null && pendingMode !== mode
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const prevModeRef = useRef(mode)
   const { dialogState, confirm, alert, handleConfirm, handleCancel } = useConfirmDialog()
-
-  useEffect(() => {
-    if (mode !== prevModeRef.current) {
-      prevModeRef.current = mode
-      if (isPending) {
-        setIsPending(false)
-        if (timeoutRef.current) {
-          clearTimeout(timeoutRef.current)
-          timeoutRef.current = null
-        }
-      }
-    }
-  }, [mode, isPending])
 
   useEffect(() => {
     return () => {
@@ -48,10 +35,11 @@ const ControlPanel = ({ onSendCommand, agvData, isConnected }: ControlPanelProps
       notSent('모드 변경')
       return
     }
-    setIsPending(true)
+    setPendingMode(newMode)
+    if (timeoutRef.current) clearTimeout(timeoutRef.current)
     timeoutRef.current = setTimeout(() => {
       timeoutRef.current = null
-      setIsPending(false)
+      setPendingMode(null)
     }, 2000)
   }
 
