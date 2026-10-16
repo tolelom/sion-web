@@ -26,19 +26,6 @@ export interface MapUpdatePayload {
   height?: number
 }
 
-export interface ChatResponsePayload {
-  message: string
-  model?: string
-  timestamp?: number
-}
-
-export interface AgvEventPayload {
-  event_type?: string
-  explanation: string
-  position?: Position
-  timestamp?: number
-}
-
 export interface AgvConnectionPayload {
   connected: boolean
 }
@@ -66,10 +53,7 @@ export type WSMessage =
   | BaseMessage<'target_found', TargetFoundPayload>
   | BaseMessage<'path_update', PathUpdatePayload>
   | BaseMessage<'map_update', MapUpdatePayload>
-  | BaseMessage<'chat_response', ChatResponsePayload>
-  | BaseMessage<'agv_event', AgvEventPayload>
   | BaseMessage<'agv_connected', AgvConnectionPayload>
   | BaseMessage<'agv_disconnected', AgvConnectionPayload>
   | BaseMessage<'system_info', SystemInfoPayload>
   | BaseMessage<'error', ErrorPayload>
-  | BaseMessage<'log' | 'llm_explanation' | 'tts', unknown>

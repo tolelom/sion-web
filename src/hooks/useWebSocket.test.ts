@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { act, renderHook } from '@testing-library/react'
 import { useWebSocket } from './useWebSocket'
+import type { WSMessage } from '../types'
 
 // jsdom의 WebSocket을 대체하는 모의 클래스.
 // hook이 참조하는 정적 상태값(WebSocket.OPEN 등)과 인스턴스 메서드(send/close)를 모두 제공한다.
@@ -72,8 +73,8 @@ const URL = 'ws://localhost:3000/websocket/web'
 
 // hook 마운트 후 setTimeout(connect, 100)이 실제 WebSocket을 만들 때까지 advance.
 // 첫 인스턴스 핸들러를 반환한다.
-function mountAndConnect(): { cleanup: () => void; ws: MockWebSocket; result: ReturnType<typeof renderHook<ReturnType<typeof useWebSocket>, unknown>>['result'] } {
-  const { result, unmount } = renderHook(() => useWebSocket(URL))
+function mountAndConnect(onMessage: (msg: WSMessage) => void = () => {}): { cleanup: () => void; ws: MockWebSocket; result: ReturnType<typeof renderHook<ReturnType<typeof useWebSocket>, unknown>>['result'] } {
+  const { result, unmount } = renderHook(() => useWebSocket(URL, onMessage))
 
   act(() => {
     vi.advanceTimersByTime(100)
@@ -102,36 +103,44 @@ describe('useWebSocket', () => {
     cleanup()
   })
 
-  it('onmessage(JSON)는 lastMessage를 갱신', () => {
-    const { result, ws, cleanup } = mountAndConnect()
+  it('delivers every message, even several arriving before React renders', () => {
+    const received: WSMessage[] = []
+    const { ws, cleanup } = mountAndConnect((msg) => received.push(msg))
     act(() => {
       ws.triggerOpen()
     })
 
-    const payload = { type: 'status', data: { battery: 80 }, timestamp: 12345 }
+    const first = { type: 'status', data: { battery: 80 }, timestamp: 1 }
+    const second = { type: 'position', data: { x: 1, y: 2, angle: 0 }, timestamp: 2 }
     act(() => {
-      ws.triggerMessage(payload)
+      ws.triggerMessage(first)
+      ws.triggerMessage(second)
     })
 
-    expect(result.current.lastMessage).toEqual(payload)
-
+    expect(received).toEqual([first, second])
     cleanup()
   })
 
-  it('onmessage(invalid JSON)는 lastMessage를 변경하지 않음', () => {
-    const { result, ws, cleanup } = mountAndConnect()
+  it('drops messages that are not JSON', () => {
+    const received: WSMessage[] = []
+    const { ws, cleanup } = mountAndConnect((msg) => received.push(msg))
     act(() => {
       ws.triggerOpen()
-    })
-
-    const before = result.current.lastMessage
-    act(() => {
       ws.triggerMessage('not-json')
     })
 
-    expect(result.current.lastMessage).toBe(before)
-
+    expect(received).toEqual([])
     cleanup()
+  })
+
+  it('does not open a socket when unmounted before the first connect', () => {
+    const { unmount } = renderHook(() => useWebSocket(URL, () => {}))
+    unmount()
+    act(() => {
+      vi.advanceTimersByTime(1000)
+    })
+
+    expect(MockWebSocket.instances).toHaveLength(0)
   })
 
   it('sendMessage: OPEN 아닐 땐 false, OPEN이면 true + send 호출', () => {

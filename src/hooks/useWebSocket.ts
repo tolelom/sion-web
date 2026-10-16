@@ -5,9 +5,10 @@ type ConnectionStatus = 'connected' | 'reconnecting' | 'disconnected'
 
 const MAX_RECONNECT_ATTEMPTS = 10
 
-export const useWebSocket = (url: string) => {
+export const useWebSocket = (url: string, onMessage: (message: WSMessage) => void) => {
   const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>('reconnecting')
-  const [lastMessage, setLastMessage] = useState<WSMessage | null>(null)
+  const onMessageRef = useRef(onMessage)
+  onMessageRef.current = onMessage
   const webSocketRef = useRef<WebSocket | null>(null)
   const reconnectTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const mountedRef = useRef(false)
@@ -42,7 +43,7 @@ export const useWebSocket = (url: string) => {
         ws.onmessage = (event: MessageEvent) => {
           try {
             const data = JSON.parse(event.data) as WSMessage
-            setLastMessage(data)
+            onMessageRef.current(data)
           } catch (error) {
             console.error('메시지 파싱 오류:', error)
           }
@@ -54,6 +55,7 @@ export const useWebSocket = (url: string) => {
 
         ws.onclose = (event: CloseEvent) => {
           console.log('WebSocket 연결 종료:', event.code, event.reason)
+          if (webSocketRef.current !== ws) return
           webSocketRef.current = null
 
           if (mountedRef.current && !reconnectTimeoutRef.current) {
@@ -99,10 +101,11 @@ export const useWebSocket = (url: string) => {
     }
 
     connectRef.current = connect
-    setTimeout(connect, 100)
+    const initialConnect = setTimeout(connect, 100)
 
     return () => {
       mountedRef.current = false
+      clearTimeout(initialConnect)
 
       if (reconnectTimeoutRef.current) {
         clearTimeout(reconnectTimeoutRef.current)
@@ -143,7 +146,6 @@ export const useWebSocket = (url: string) => {
   return {
     isConnected,
     connectionStatus,
-    lastMessage,
     sendMessage,
     retryConnect,
   }

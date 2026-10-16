@@ -1,70 +1,60 @@
+import { useCallback, useState } from 'react'
 import { useWebSocket } from './hooks/useWebSocket'
 import { useAgvState } from './hooks/useAgvState'
-import { useChatState } from './hooks/useChatState'
 import { useMapState } from './hooks/useMapState'
-import { useEffect } from 'react'
 import Dashboard from './components/Dashboard/Dashboard'
+import type { WSMessage } from './types'
 
 function App() {
-  const WS_URL = import.meta.env.VITE_WS_URL
-  const { isConnected, connectionStatus, lastMessage, sendMessage, retryConnect } = useWebSocket(WS_URL)
-
   const { agvData, dispatch: agvDispatch } = useAgvState()
-  const { messages, isLoading, dispatch: chatDispatch } = useChatState()
   const { mapData, pathData, dispatch: mapDispatch } = useMapState()
+  const [serverError, setServerError] = useState<string | null>(null)
 
-  useEffect(() => {
-    if (!lastMessage) return
-
-    switch (lastMessage.type) {
+  const handleMessage = useCallback((message: WSMessage) => {
+    switch (message.type) {
       case 'position':
-        agvDispatch({ type: 'position', payload: lastMessage.data })
+        agvDispatch({ type: 'position', payload: message.data })
         break
       case 'status':
-        agvDispatch({ type: 'status', payload: lastMessage.data })
+        agvDispatch({ type: 'status', payload: message.data })
         break
       case 'target_found':
-        agvDispatch({ type: 'target_found', payload: lastMessage.data })
+        agvDispatch({ type: 'target_found', payload: message.data })
         break
       case 'path_update':
-        mapDispatch({ type: 'path_update', payload: lastMessage.data })
+        mapDispatch({ type: 'path_update', payload: message.data })
         break
       case 'map_update':
-        mapDispatch({ type: 'map_update', payload: lastMessage.data })
-        break
-      case 'chat_response':
-        chatDispatch({ type: 'ai_message', payload: lastMessage.data.message })
-        break
-      case 'agv_event':
-        chatDispatch({ type: 'ai_message', payload: lastMessage.data.explanation })
+        mapDispatch({ type: 'map_update', payload: message.data })
         break
       case 'agv_connected':
       case 'agv_disconnected':
-        agvDispatch({ type: 'agv_connection', payload: lastMessage.data })
+        agvDispatch({ type: 'agv_connection', payload: message.data })
         break
       case 'system_info':
-        if (lastMessage.data?.agv_connected !== undefined) {
-          agvDispatch({ type: 'agv_connection', payload: { connected: lastMessage.data.agv_connected } })
+        if (message.data?.agv_connected !== undefined) {
+          agvDispatch({ type: 'agv_connection', payload: { connected: message.data.agv_connected } })
         }
         break
       case 'error':
-        console.warn('서버 에러:', lastMessage.data?.message)
+        setServerError(message.data?.message ?? '알 수 없는 서버 오류')
         break
       default:
         break
     }
-  }, [lastMessage])
+  }, [agvDispatch, mapDispatch])
+
+  const { isConnected, connectionStatus, sendMessage, retryConnect } = useWebSocket(import.meta.env.VITE_WS_URL, handleMessage)
 
   return (
     <Dashboard
       agvData={agvData}
       mapData={mapData}
       pathData={pathData}
-      messages={messages}
-      isLoading={isLoading}
-      onChatDispatch={chatDispatch}
       isConnected={isConnected}
       connectionStatus={connectionStatus}
+      serverError={serverError}
+      onDismissError={() => setServerError(null)}
       onSendCommand={sendMessage}
       onRetryConnect={retryConnect}
     />

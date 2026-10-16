@@ -3,9 +3,8 @@ import StatusPanel from '../Status/StatusPanel'
 import ControlPanel from '../Controls/ControlPanel'
 import { usePathfinding } from '../../hooks/usePathfinding'
 import '../../styles/dashboard.css'
-import ChatPanel from '../Chat/ChatPanel'
-import { useCallback } from 'react'
-import type { AGVData, MapData, PathData, ChatMessage, ChatAction, Point } from '../../types'
+import { useCallback, useState } from 'react'
+import type { AGVData, MapData, PathData } from '../../types'
 
 type ConnectionStatus = 'connected' | 'reconnecting' | 'disconnected'
 
@@ -13,16 +12,15 @@ interface DashboardProps {
   agvData: AGVData
   mapData: MapData
   pathData: PathData
-  messages: ChatMessage[]
-  isLoading: boolean
-  onChatDispatch: React.Dispatch<ChatAction>
   isConnected: boolean
   connectionStatus: ConnectionStatus
+  serverError: string | null
+  onDismissError: () => void
   onSendCommand: (message: unknown) => boolean
   onRetryConnect: () => void
 }
 
-const Dashboard = ({ agvData, mapData, pathData, messages, isLoading, onChatDispatch, isConnected, connectionStatus, onSendCommand, onRetryConnect }: DashboardProps) => {
+const Dashboard = ({ agvData, mapData, pathData, isConnected, connectionStatus, serverError, onDismissError, onSendCommand, onRetryConnect }: DashboardProps) => {
   const targets = agvData?.detectedEnemies || []
   const targetEnemy = agvData?.targetEnemy
   const obstacles = mapData?.obstacles || []
@@ -30,41 +28,25 @@ const Dashboard = ({ agvData, mapData, pathData, messages, isLoading, onChatDisp
   const agvPathPoints = pathData?.points || []
 
   const { path, isLoading: isPathLoading, error, findPath } = usePathfinding()
+  const [moveError, setMoveError] = useState<string | null>(null)
 
   const handleMapClick = useCallback(async (position: { x: number; y: number }) => {
-    console.log('맵 클릭:', position)
-
+    setMoveError(null)
     const currentPos = agvData?.position || { x: 0, y: 0 }
-
-    const start = {
-      x: Math.round(currentPos.x),
-      y: Math.round(currentPos.y)
-    }
-
-    const goal = {
-      x: Math.round(position.x),
-      y: Math.round(position.y)
-    }
-
-    console.log('경로 탐색:', start, '→', goal)
+    const start = { x: Math.round(currentPos.x), y: Math.round(currentPos.y) }
+    const goal = { x: Math.round(position.x), y: Math.round(position.y) }
 
     const calculatedPath = await findPath(start, goal, obstacles)
-
-    if (calculatedPath) {
-      console.log('경로 생성 완료')
-
-      onSendCommand({
-        type: 'command',
-        data: {
-          target_x: position.x,
-          target_y: position.y,
-          path: calculatedPath,
-          mode: 'manual'
-        }
-      })
-    } else {
-      console.error('경로를 찾을 수 없습니다')
-      alert('경로를 찾을 수 없습니다. 장애물을 피해 다른 위치를 선택해주세요.')
+    if (!calculatedPath) {
+      setMoveError('경로를 찾을 수 없습니다. 장애물을 피해 다른 위치를 선택해주세요.')
+      return
+    }
+    const sent = onSendCommand({
+      type: 'command',
+      data: { target_x: position.x, target_y: position.y, path: calculatedPath, mode: 'manual' },
+    })
+    if (!sent) {
+      setMoveError('서버에 연결되어 있지 않아 이동 명령을 보내지 못했습니다.')
     }
   }, [agvData?.position, obstacles, findPath, onSendCommand])
 
@@ -104,6 +86,7 @@ const Dashboard = ({ agvData, mapData, pathData, messages, isLoading, onChatDisp
               )}
               {isPathLoading && <span>🔄 경로 계산 중...</span>}
               {error && <span style={{ color: '#e74c3c' }}>❌ {error}</span>}
+              {moveError && <span style={{ color: '#e74c3c' }}>❌ {moveError}</span>}
               {path.length > 0 && !isPathLoading && (
                 <span style={{ color: '#3498db' }}>
                   ✅ 사용자 경로: {path.length}개 포인트
@@ -139,17 +122,15 @@ const Dashboard = ({ agvData, mapData, pathData, messages, isLoading, onChatDisp
 
         <div className="sidebar">
           <StatusPanel agvData={agvData} />
-          <ControlPanel onSendCommand={onSendCommand} agvData={agvData} />
-
-          <div className="card" style={{ height: '1000px' }}>
-            <ChatPanel
-              messages={messages}
-              isLoading={isLoading}
-              onChatDispatch={onChatDispatch}
-              onSendMessage={onSendCommand}
-              isConnected={isConnected}
-            />
-          </div>
+          <ControlPanel onSendCommand={onSendCommand} agvData={agvData} isConnected={isConnected} />
+          {serverError && (
+            <div className="card" role="alert" style={{ color: '#e74c3c' }}>
+              ❌ {serverError}
+              <button onClick={onDismissError} style={{ marginLeft: '8px', fontSize: '12px', cursor: 'pointer' }}>
+                닫기
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
