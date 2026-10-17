@@ -6,7 +6,7 @@ interface MapState {
   pathData: PathData
 }
 
-type MapAction =
+export type MapAction =
   | { type: 'path_update'; payload: { points?: Point[]; length?: number; algorithm?: string; created_at?: string | null } }
   | { type: 'map_update'; payload: { obstacles?: Point[]; width?: number; height?: number } }
 
