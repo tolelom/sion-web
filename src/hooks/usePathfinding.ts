@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react'
 import type { Point } from '../types'
+import { MAP_SIZE } from '../constants'
 
 interface PathfindingResult {
   path: Point[]
@@ -21,12 +22,10 @@ export const usePathfinding = (): PathfindingResult => {
     const requestData = {
       start: { x: start.x, y: start.y },
       goal: { x: goal.x, y: goal.y },
-      map_width: 20,
-      map_height: 20,
+      map_width: MAP_SIZE,
+      map_height: MAP_SIZE,
       obstacles: obstacles,
     }
-
-    console.log('경로 탐색 요청:', JSON.stringify(requestData))
 
     const timeoutMs = Number(import.meta.env.VITE_API_TIMEOUT) || 10000
     const controller = new AbortController()
