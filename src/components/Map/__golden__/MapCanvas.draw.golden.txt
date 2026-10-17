@@ -1,0 +1,3047 @@
+=== empty map, AGV only
+canvas1.fillStyle = "#1a1d23"
+canvas1.fillRect(0, 0, 600, 600)
+canvas1.strokeStyle = "rgba(255, 255, 255, 0.1)"
+canvas1.lineWidth = 1
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(0, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(30, 0)
+canvas1.lineTo(30, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(60, 0)
+canvas1.lineTo(60, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(90, 0)
+canvas1.lineTo(90, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(120, 0)
+canvas1.lineTo(120, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(150, 0)
+canvas1.lineTo(150, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(180, 0)
+canvas1.lineTo(180, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(210, 0)
+canvas1.lineTo(210, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(240, 0)
+canvas1.lineTo(240, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(270, 0)
+canvas1.lineTo(270, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(300, 0)
+canvas1.lineTo(300, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(330, 0)
+canvas1.lineTo(330, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(360, 0)
+canvas1.lineTo(360, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(390, 0)
+canvas1.lineTo(390, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(420, 0)
+canvas1.lineTo(420, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(450, 0)
+canvas1.lineTo(450, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(480, 0)
+canvas1.lineTo(480, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(510, 0)
+canvas1.lineTo(510, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(540, 0)
+canvas1.lineTo(540, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(570, 0)
+canvas1.lineTo(570, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(600, 0)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(600, 0)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 30)
+canvas1.lineTo(600, 30)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 60)
+canvas1.lineTo(600, 60)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 90)
+canvas1.lineTo(600, 90)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 120)
+canvas1.lineTo(600, 120)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 150)
+canvas1.lineTo(600, 150)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 180)
+canvas1.lineTo(600, 180)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 210)
+canvas1.lineTo(600, 210)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 240)
+canvas1.lineTo(600, 240)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 270)
+canvas1.lineTo(600, 270)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 300)
+canvas1.lineTo(600, 300)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 330)
+canvas1.lineTo(600, 330)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 360)
+canvas1.lineTo(600, 360)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 390)
+canvas1.lineTo(600, 390)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 420)
+canvas1.lineTo(600, 420)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 450)
+canvas1.lineTo(600, 450)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 480)
+canvas1.lineTo(600, 480)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 510)
+canvas1.lineTo(600, 510)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 540)
+canvas1.lineTo(600, 540)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 570)
+canvas1.lineTo(600, 570)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 600)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.strokeStyle = "rgba(255, 255, 255, 0.2)"
+canvas1.lineWidth = 2
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(0, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(600, 0)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(150, 0)
+canvas1.lineTo(150, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 150)
+canvas1.lineTo(600, 150)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(300, 0)
+canvas1.lineTo(300, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 300)
+canvas1.lineTo(600, 300)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(450, 0)
+canvas1.lineTo(450, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 450)
+canvas1.lineTo(600, 450)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(600, 0)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 600)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.fillStyle = "rgba(255, 255, 255, 0.6)"
+canvas1.font = "11px monospace"
+canvas1.textAlign = "center"
+canvas1.fillText("0m", 0, 592)
+canvas1.fillText("5m", 150, 592)
+canvas1.fillText("10m", 300, 592)
+canvas1.fillText("15m", 450, 592)
+canvas1.fillText("20m", 600, 592)
+canvas1.textAlign = "right"
+canvas1.fillText("0m", 25, 604)
+canvas1.fillText("5m", 25, 454)
+canvas1.fillText("10m", 25, 304)
+canvas1.fillText("15m", 25, 154)
+canvas1.fillText("20m", 25, 4)
+canvas2.clearRect(0, 0, 600, 600)
+canvas2.drawImage(canvas1, 0, 0)
+canvas2.fillStyle = "#3498db"
+canvas2.shadowColor = "rgba(52, 152, 219, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(67.500, 495, 18, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#2980b9"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.fillStyle = "#ffffff"
+canvas2.lineWidth = 3
+canvas2.beginPath()
+canvas2.moveTo(67.500, 495)
+canvas2.lineTo(78.111, 505.602)
+canvas2.stroke()
+canvas2.beginPath()
+canvas2.moveTo(78.111, 505.602)
+canvas2.lineTo(72.315, 504.052)
+canvas2.lineTo(76.556, 499.807)
+canvas2.closePath()
+canvas2.fill()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("AGV", 67.500, 467)
+canvas2.fillStyle = "rgba(255, 255, 255, 0.7)"
+canvas2.font = "10px monospace"
+canvas2.fillText("(2.3, 3.5)", 67.500, 530)
+
+=== no AGV position
+canvas1.fillStyle = "#1a1d23"
+canvas1.fillRect(0, 0, 600, 600)
+canvas1.strokeStyle = "rgba(255, 255, 255, 0.1)"
+canvas1.lineWidth = 1
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(0, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(30, 0)
+canvas1.lineTo(30, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(60, 0)
+canvas1.lineTo(60, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(90, 0)
+canvas1.lineTo(90, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(120, 0)
+canvas1.lineTo(120, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(150, 0)
+canvas1.lineTo(150, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(180, 0)
+canvas1.lineTo(180, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(210, 0)
+canvas1.lineTo(210, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(240, 0)
+canvas1.lineTo(240, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(270, 0)
+canvas1.lineTo(270, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(300, 0)
+canvas1.lineTo(300, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(330, 0)
+canvas1.lineTo(330, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(360, 0)
+canvas1.lineTo(360, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(390, 0)
+canvas1.lineTo(390, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(420, 0)
+canvas1.lineTo(420, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(450, 0)
+canvas1.lineTo(450, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(480, 0)
+canvas1.lineTo(480, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(510, 0)
+canvas1.lineTo(510, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(540, 0)
+canvas1.lineTo(540, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(570, 0)
+canvas1.lineTo(570, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(600, 0)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(600, 0)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 30)
+canvas1.lineTo(600, 30)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 60)
+canvas1.lineTo(600, 60)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 90)
+canvas1.lineTo(600, 90)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 120)
+canvas1.lineTo(600, 120)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 150)
+canvas1.lineTo(600, 150)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 180)
+canvas1.lineTo(600, 180)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 210)
+canvas1.lineTo(600, 210)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 240)
+canvas1.lineTo(600, 240)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 270)
+canvas1.lineTo(600, 270)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 300)
+canvas1.lineTo(600, 300)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 330)
+canvas1.lineTo(600, 330)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 360)
+canvas1.lineTo(600, 360)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 390)
+canvas1.lineTo(600, 390)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 420)
+canvas1.lineTo(600, 420)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 450)
+canvas1.lineTo(600, 450)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 480)
+canvas1.lineTo(600, 480)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 510)
+canvas1.lineTo(600, 510)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 540)
+canvas1.lineTo(600, 540)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 570)
+canvas1.lineTo(600, 570)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 600)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.strokeStyle = "rgba(255, 255, 255, 0.2)"
+canvas1.lineWidth = 2
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(0, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(600, 0)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(150, 0)
+canvas1.lineTo(150, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 150)
+canvas1.lineTo(600, 150)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(300, 0)
+canvas1.lineTo(300, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 300)
+canvas1.lineTo(600, 300)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(450, 0)
+canvas1.lineTo(450, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 450)
+canvas1.lineTo(600, 450)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(600, 0)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 600)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.fillStyle = "rgba(255, 255, 255, 0.6)"
+canvas1.font = "11px monospace"
+canvas1.textAlign = "center"
+canvas1.fillText("0m", 0, 592)
+canvas1.fillText("5m", 150, 592)
+canvas1.fillText("10m", 300, 592)
+canvas1.fillText("15m", 450, 592)
+canvas1.fillText("20m", 600, 592)
+canvas1.textAlign = "right"
+canvas1.fillText("0m", 25, 604)
+canvas1.fillText("5m", 25, 454)
+canvas1.fillText("10m", 25, 304)
+canvas1.fillText("15m", 25, 154)
+canvas1.fillText("20m", 25, 4)
+canvas1.fillStyle = "rgba(149, 165, 166, 0.7)"
+canvas1.fillRect(-15, 585, 30, 30)
+canvas1.strokeStyle = "rgba(127, 140, 141, 1)"
+canvas1.lineWidth = 2
+canvas1.strokeRect(-15, 585, 30, 30)
+canvas1.strokeStyle = "rgba(52, 73, 94, 0.8)"
+canvas1.lineWidth = 2
+canvas1.beginPath()
+canvas1.moveTo(-10, 590)
+canvas1.lineTo(10, 610)
+canvas1.moveTo(10, 590)
+canvas1.lineTo(-10, 610)
+canvas1.stroke()
+canvas1.fillStyle = "rgba(149, 165, 166, 0.7)"
+canvas1.fillRect(75, 375, 30, 30)
+canvas1.strokeStyle = "rgba(127, 140, 141, 1)"
+canvas1.lineWidth = 2
+canvas1.strokeRect(75, 375, 30, 30)
+canvas1.strokeStyle = "rgba(52, 73, 94, 0.8)"
+canvas1.lineWidth = 2
+canvas1.beginPath()
+canvas1.moveTo(80, 380)
+canvas1.lineTo(100, 400)
+canvas1.moveTo(100, 380)
+canvas1.lineTo(80, 400)
+canvas1.stroke()
+canvas1.fillStyle = "rgba(149, 165, 166, 0.7)"
+canvas1.fillRect(555, 15, 30, 30)
+canvas1.strokeStyle = "rgba(127, 140, 141, 1)"
+canvas1.lineWidth = 2
+canvas1.strokeRect(555, 15, 30, 30)
+canvas1.strokeStyle = "rgba(52, 73, 94, 0.8)"
+canvas1.lineWidth = 2
+canvas1.beginPath()
+canvas1.moveTo(560, 20)
+canvas1.lineTo(580, 40)
+canvas1.moveTo(580, 20)
+canvas1.lineTo(560, 40)
+canvas1.stroke()
+canvas2.clearRect(0, 0, 600, 600)
+canvas2.drawImage(canvas1, 0, 0)
+
+=== full scene without selection
+canvas1.fillStyle = "#1a1d23"
+canvas1.fillRect(0, 0, 600, 600)
+canvas1.strokeStyle = "rgba(255, 255, 255, 0.1)"
+canvas1.lineWidth = 1
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(0, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(30, 0)
+canvas1.lineTo(30, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(60, 0)
+canvas1.lineTo(60, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(90, 0)
+canvas1.lineTo(90, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(120, 0)
+canvas1.lineTo(120, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(150, 0)
+canvas1.lineTo(150, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(180, 0)
+canvas1.lineTo(180, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(210, 0)
+canvas1.lineTo(210, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(240, 0)
+canvas1.lineTo(240, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(270, 0)
+canvas1.lineTo(270, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(300, 0)
+canvas1.lineTo(300, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(330, 0)
+canvas1.lineTo(330, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(360, 0)
+canvas1.lineTo(360, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(390, 0)
+canvas1.lineTo(390, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(420, 0)
+canvas1.lineTo(420, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(450, 0)
+canvas1.lineTo(450, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(480, 0)
+canvas1.lineTo(480, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(510, 0)
+canvas1.lineTo(510, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(540, 0)
+canvas1.lineTo(540, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(570, 0)
+canvas1.lineTo(570, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(600, 0)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(600, 0)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 30)
+canvas1.lineTo(600, 30)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 60)
+canvas1.lineTo(600, 60)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 90)
+canvas1.lineTo(600, 90)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 120)
+canvas1.lineTo(600, 120)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 150)
+canvas1.lineTo(600, 150)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 180)
+canvas1.lineTo(600, 180)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 210)
+canvas1.lineTo(600, 210)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 240)
+canvas1.lineTo(600, 240)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 270)
+canvas1.lineTo(600, 270)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 300)
+canvas1.lineTo(600, 300)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 330)
+canvas1.lineTo(600, 330)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 360)
+canvas1.lineTo(600, 360)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 390)
+canvas1.lineTo(600, 390)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 420)
+canvas1.lineTo(600, 420)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 450)
+canvas1.lineTo(600, 450)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 480)
+canvas1.lineTo(600, 480)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 510)
+canvas1.lineTo(600, 510)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 540)
+canvas1.lineTo(600, 540)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 570)
+canvas1.lineTo(600, 570)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 600)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.strokeStyle = "rgba(255, 255, 255, 0.2)"
+canvas1.lineWidth = 2
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(0, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(600, 0)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(150, 0)
+canvas1.lineTo(150, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 150)
+canvas1.lineTo(600, 150)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(300, 0)
+canvas1.lineTo(300, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 300)
+canvas1.lineTo(600, 300)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(450, 0)
+canvas1.lineTo(450, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 450)
+canvas1.lineTo(600, 450)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(600, 0)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 600)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.fillStyle = "rgba(255, 255, 255, 0.6)"
+canvas1.font = "11px monospace"
+canvas1.textAlign = "center"
+canvas1.fillText("0m", 0, 592)
+canvas1.fillText("5m", 150, 592)
+canvas1.fillText("10m", 300, 592)
+canvas1.fillText("15m", 450, 592)
+canvas1.fillText("20m", 600, 592)
+canvas1.textAlign = "right"
+canvas1.fillText("0m", 25, 604)
+canvas1.fillText("5m", 25, 454)
+canvas1.fillText("10m", 25, 304)
+canvas1.fillText("15m", 25, 154)
+canvas1.fillText("20m", 25, 4)
+canvas1.fillStyle = "rgba(149, 165, 166, 0.7)"
+canvas1.fillRect(-15, 585, 30, 30)
+canvas1.strokeStyle = "rgba(127, 140, 141, 1)"
+canvas1.lineWidth = 2
+canvas1.strokeRect(-15, 585, 30, 30)
+canvas1.strokeStyle = "rgba(52, 73, 94, 0.8)"
+canvas1.lineWidth = 2
+canvas1.beginPath()
+canvas1.moveTo(-10, 590)
+canvas1.lineTo(10, 610)
+canvas1.moveTo(10, 590)
+canvas1.lineTo(-10, 610)
+canvas1.stroke()
+canvas1.fillStyle = "rgba(149, 165, 166, 0.7)"
+canvas1.fillRect(75, 375, 30, 30)
+canvas1.strokeStyle = "rgba(127, 140, 141, 1)"
+canvas1.lineWidth = 2
+canvas1.strokeRect(75, 375, 30, 30)
+canvas1.strokeStyle = "rgba(52, 73, 94, 0.8)"
+canvas1.lineWidth = 2
+canvas1.beginPath()
+canvas1.moveTo(80, 380)
+canvas1.lineTo(100, 400)
+canvas1.moveTo(100, 380)
+canvas1.lineTo(80, 400)
+canvas1.stroke()
+canvas1.fillStyle = "rgba(149, 165, 166, 0.7)"
+canvas1.fillRect(555, 15, 30, 30)
+canvas1.strokeStyle = "rgba(127, 140, 141, 1)"
+canvas1.lineWidth = 2
+canvas1.strokeRect(555, 15, 30, 30)
+canvas1.strokeStyle = "rgba(52, 73, 94, 0.8)"
+canvas1.lineWidth = 2
+canvas1.beginPath()
+canvas1.moveTo(560, 20)
+canvas1.lineTo(580, 40)
+canvas1.moveTo(580, 20)
+canvas1.lineTo(560, 40)
+canvas1.stroke()
+canvas2.clearRect(0, 0, 600, 600)
+canvas2.drawImage(canvas1, 0, 0)
+canvas2.strokeStyle = "rgba(46, 204, 113, 0.8)"
+canvas2.lineWidth = 3
+canvas2.lineCap = "round"
+canvas2.lineJoin = "round"
+canvas2.setLineDash([])
+canvas2.beginPath()
+canvas2.moveTo(60, 540)
+canvas2.lineTo(60, 420)
+canvas2.lineTo(240, 420)
+canvas2.stroke()
+canvas2.fillStyle = "rgba(46, 204, 113, 0.3)"
+canvas2.beginPath()
+canvas2.arc(240, 420, 18, 0, 6.283)
+canvas2.fill()
+canvas2.strokeStyle = "#2ecc71"
+canvas2.lineWidth = 2
+canvas2.stroke()
+canvas2.strokeStyle = "rgba(52, 152, 219, 0.6)"
+canvas2.lineWidth = 3
+canvas2.lineCap = "round"
+canvas2.lineJoin = "round"
+canvas2.setLineDash([5,5])
+canvas2.beginPath()
+canvas2.moveTo(60, 540)
+canvas2.lineTo(90, 510)
+canvas2.lineTo(120, 450)
+canvas2.stroke()
+canvas2.setLineDash([])
+canvas2.fillStyle = "rgba(52, 152, 219, 0.3)"
+canvas2.beginPath()
+canvas2.arc(120, 450, 20, 0, 6.283)
+canvas2.fill()
+canvas2.strokeStyle = "#3498db"
+canvas2.lineWidth = 2
+canvas2.stroke()
+canvas2.fillStyle = "#e74c3c"
+canvas2.shadowColor = "rgba(231, 76, 60, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(120, 450, 15, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#c0392b"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.lineWidth = 2
+canvas2.beginPath()
+canvas2.moveTo(112, 450)
+canvas2.lineTo(128, 450)
+canvas2.moveTo(120, 442)
+canvas2.lineTo(120, 458)
+canvas2.stroke()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("아리", 120, 480)
+canvas2.fillStyle = "rgba(0, 0, 0, 0.5)"
+canvas2.fillRect(100, 425, 40, 5)
+canvas2.fillStyle = "#2ecc71"
+canvas2.fillRect(100, 425, 32, 5)
+canvas2.strokeStyle = "rgba(255, 255, 255, 0.3)"
+canvas2.lineWidth = 1
+canvas2.strokeRect(100, 425, 40, 5)
+canvas2.fillStyle = "#e74c3c"
+canvas2.shadowColor = "rgba(231, 76, 60, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(315, 232.500, 15, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#c0392b"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.lineWidth = 2
+canvas2.beginPath()
+canvas2.moveTo(307, 232.500)
+canvas2.lineTo(323, 232.500)
+canvas2.moveTo(315, 224.500)
+canvas2.lineTo(315, 240.500)
+canvas2.stroke()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("야스오", 315, 262.500)
+canvas2.fillStyle = "rgba(0, 0, 0, 0.5)"
+canvas2.fillRect(295, 207.500, 40, 5)
+canvas2.fillStyle = "#f39c12"
+canvas2.fillRect(295, 207.500, 16, 5)
+canvas2.strokeStyle = "rgba(255, 255, 255, 0.3)"
+canvas2.lineWidth = 1
+canvas2.strokeRect(295, 207.500, 40, 5)
+canvas2.fillStyle = "#e74c3c"
+canvas2.shadowColor = "rgba(231, 76, 60, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(450, 510, 15, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#c0392b"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.lineWidth = 2
+canvas2.beginPath()
+canvas2.moveTo(442, 510)
+canvas2.lineTo(458, 510)
+canvas2.moveTo(450, 502)
+canvas2.lineTo(450, 518)
+canvas2.stroke()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("아리", 450, 540)
+canvas2.fillStyle = "rgba(0, 0, 0, 0.5)"
+canvas2.fillRect(430, 485, 40, 5)
+canvas2.fillStyle = "#e74c3c"
+canvas2.fillRect(430, 485, 4, 5)
+canvas2.strokeStyle = "rgba(255, 255, 255, 0.3)"
+canvas2.lineWidth = 1
+canvas2.strokeRect(430, 485, 40, 5)
+canvas2.fillStyle = "#e74c3c"
+canvas2.shadowColor = "rgba(231, 76, 60, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(540, 60, 15, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#c0392b"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.lineWidth = 2
+canvas2.beginPath()
+canvas2.moveTo(532, 60)
+canvas2.lineTo(548, 60)
+canvas2.moveTo(540, 52)
+canvas2.lineTo(540, 68)
+canvas2.stroke()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("제드", 540, 90)
+canvas2.fillStyle = "#3498db"
+canvas2.shadowColor = "rgba(52, 152, 219, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(67.500, 495, 18, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#2980b9"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.fillStyle = "#ffffff"
+canvas2.lineWidth = 3
+canvas2.beginPath()
+canvas2.moveTo(67.500, 495)
+canvas2.lineTo(78.111, 505.602)
+canvas2.stroke()
+canvas2.beginPath()
+canvas2.moveTo(78.111, 505.602)
+canvas2.lineTo(72.315, 504.052)
+canvas2.lineTo(76.556, 499.807)
+canvas2.closePath()
+canvas2.fill()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("AGV", 67.500, 467)
+canvas2.fillStyle = "rgba(255, 255, 255, 0.7)"
+canvas2.font = "10px monospace"
+canvas2.fillText("(2.3, 3.5)", 67.500, 530)
+
+=== selected target animates (selection by id)
+canvas1.fillStyle = "#1a1d23"
+canvas1.fillRect(0, 0, 600, 600)
+canvas1.strokeStyle = "rgba(255, 255, 255, 0.1)"
+canvas1.lineWidth = 1
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(0, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(30, 0)
+canvas1.lineTo(30, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(60, 0)
+canvas1.lineTo(60, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(90, 0)
+canvas1.lineTo(90, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(120, 0)
+canvas1.lineTo(120, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(150, 0)
+canvas1.lineTo(150, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(180, 0)
+canvas1.lineTo(180, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(210, 0)
+canvas1.lineTo(210, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(240, 0)
+canvas1.lineTo(240, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(270, 0)
+canvas1.lineTo(270, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(300, 0)
+canvas1.lineTo(300, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(330, 0)
+canvas1.lineTo(330, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(360, 0)
+canvas1.lineTo(360, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(390, 0)
+canvas1.lineTo(390, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(420, 0)
+canvas1.lineTo(420, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(450, 0)
+canvas1.lineTo(450, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(480, 0)
+canvas1.lineTo(480, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(510, 0)
+canvas1.lineTo(510, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(540, 0)
+canvas1.lineTo(540, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(570, 0)
+canvas1.lineTo(570, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(600, 0)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(600, 0)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 30)
+canvas1.lineTo(600, 30)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 60)
+canvas1.lineTo(600, 60)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 90)
+canvas1.lineTo(600, 90)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 120)
+canvas1.lineTo(600, 120)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 150)
+canvas1.lineTo(600, 150)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 180)
+canvas1.lineTo(600, 180)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 210)
+canvas1.lineTo(600, 210)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 240)
+canvas1.lineTo(600, 240)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 270)
+canvas1.lineTo(600, 270)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 300)
+canvas1.lineTo(600, 300)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 330)
+canvas1.lineTo(600, 330)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 360)
+canvas1.lineTo(600, 360)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 390)
+canvas1.lineTo(600, 390)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 420)
+canvas1.lineTo(600, 420)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 450)
+canvas1.lineTo(600, 450)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 480)
+canvas1.lineTo(600, 480)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 510)
+canvas1.lineTo(600, 510)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 540)
+canvas1.lineTo(600, 540)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 570)
+canvas1.lineTo(600, 570)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 600)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.strokeStyle = "rgba(255, 255, 255, 0.2)"
+canvas1.lineWidth = 2
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(0, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(600, 0)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(150, 0)
+canvas1.lineTo(150, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 150)
+canvas1.lineTo(600, 150)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(300, 0)
+canvas1.lineTo(300, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 300)
+canvas1.lineTo(600, 300)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(450, 0)
+canvas1.lineTo(450, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 450)
+canvas1.lineTo(600, 450)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(600, 0)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 600)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.fillStyle = "rgba(255, 255, 255, 0.6)"
+canvas1.font = "11px monospace"
+canvas1.textAlign = "center"
+canvas1.fillText("0m", 0, 592)
+canvas1.fillText("5m", 150, 592)
+canvas1.fillText("10m", 300, 592)
+canvas1.fillText("15m", 450, 592)
+canvas1.fillText("20m", 600, 592)
+canvas1.textAlign = "right"
+canvas1.fillText("0m", 25, 604)
+canvas1.fillText("5m", 25, 454)
+canvas1.fillText("10m", 25, 304)
+canvas1.fillText("15m", 25, 154)
+canvas1.fillText("20m", 25, 4)
+canvas1.fillStyle = "rgba(149, 165, 166, 0.7)"
+canvas1.fillRect(-15, 585, 30, 30)
+canvas1.strokeStyle = "rgba(127, 140, 141, 1)"
+canvas1.lineWidth = 2
+canvas1.strokeRect(-15, 585, 30, 30)
+canvas1.strokeStyle = "rgba(52, 73, 94, 0.8)"
+canvas1.lineWidth = 2
+canvas1.beginPath()
+canvas1.moveTo(-10, 590)
+canvas1.lineTo(10, 610)
+canvas1.moveTo(10, 590)
+canvas1.lineTo(-10, 610)
+canvas1.stroke()
+canvas1.fillStyle = "rgba(149, 165, 166, 0.7)"
+canvas1.fillRect(75, 375, 30, 30)
+canvas1.strokeStyle = "rgba(127, 140, 141, 1)"
+canvas1.lineWidth = 2
+canvas1.strokeRect(75, 375, 30, 30)
+canvas1.strokeStyle = "rgba(52, 73, 94, 0.8)"
+canvas1.lineWidth = 2
+canvas1.beginPath()
+canvas1.moveTo(80, 380)
+canvas1.lineTo(100, 400)
+canvas1.moveTo(100, 380)
+canvas1.lineTo(80, 400)
+canvas1.stroke()
+canvas1.fillStyle = "rgba(149, 165, 166, 0.7)"
+canvas1.fillRect(555, 15, 30, 30)
+canvas1.strokeStyle = "rgba(127, 140, 141, 1)"
+canvas1.lineWidth = 2
+canvas1.strokeRect(555, 15, 30, 30)
+canvas1.strokeStyle = "rgba(52, 73, 94, 0.8)"
+canvas1.lineWidth = 2
+canvas1.beginPath()
+canvas1.moveTo(560, 20)
+canvas1.lineTo(580, 40)
+canvas1.moveTo(580, 20)
+canvas1.lineTo(560, 40)
+canvas1.stroke()
+--- frame 1
+canvas2.clearRect(0, 0, 600, 600)
+canvas2.drawImage(canvas1, 0, 0)
+canvas2.strokeStyle = "rgba(46, 204, 113, 0.8)"
+canvas2.lineWidth = 3
+canvas2.lineCap = "round"
+canvas2.lineJoin = "round"
+canvas2.setLineDash([])
+canvas2.beginPath()
+canvas2.moveTo(60, 540)
+canvas2.lineTo(60, 420)
+canvas2.lineTo(240, 420)
+canvas2.stroke()
+canvas2.fillStyle = "rgba(46, 204, 113, 0.3)"
+canvas2.beginPath()
+canvas2.arc(240, 420, 18, 0, 6.283)
+canvas2.fill()
+canvas2.strokeStyle = "#2ecc71"
+canvas2.lineWidth = 2
+canvas2.stroke()
+canvas2.strokeStyle = "rgba(52, 152, 219, 0.6)"
+canvas2.lineWidth = 3
+canvas2.lineCap = "round"
+canvas2.lineJoin = "round"
+canvas2.setLineDash([5,5])
+canvas2.beginPath()
+canvas2.moveTo(60, 540)
+canvas2.lineTo(90, 510)
+canvas2.lineTo(120, 450)
+canvas2.stroke()
+canvas2.setLineDash([])
+canvas2.fillStyle = "rgba(52, 152, 219, 0.3)"
+canvas2.beginPath()
+canvas2.arc(120, 450, 20, 0, 6.283)
+canvas2.fill()
+canvas2.strokeStyle = "#3498db"
+canvas2.lineWidth = 2
+canvas2.stroke()
+canvas2.fillStyle = "#e74c3c"
+canvas2.shadowColor = "rgba(231, 76, 60, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(120, 450, 15, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#c0392b"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.lineWidth = 2
+canvas2.beginPath()
+canvas2.moveTo(112, 450)
+canvas2.lineTo(128, 450)
+canvas2.moveTo(120, 442)
+canvas2.lineTo(120, 458)
+canvas2.stroke()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("아리", 120, 480)
+canvas2.fillStyle = "rgba(0, 0, 0, 0.5)"
+canvas2.fillRect(100, 425, 40, 5)
+canvas2.fillStyle = "#2ecc71"
+canvas2.fillRect(100, 425, 32, 5)
+canvas2.strokeStyle = "rgba(255, 255, 255, 0.3)"
+canvas2.lineWidth = 1
+canvas2.strokeRect(100, 425, 40, 5)
+canvas2.strokeStyle = "rgba(255, 215, 0, 0.47655285676423986)"
+canvas2.lineWidth = 3
+canvas2.setLineDash([5,5])
+canvas2.beginPath()
+canvas2.arc(315, 232.500, 29.414, 0, 6.283)
+canvas2.stroke()
+canvas2.setLineDash([])
+canvas2.strokeStyle = "rgba(255, 215, 0, 0.6)"
+canvas2.lineWidth = 2
+canvas2.beginPath()
+canvas2.arc(315, 232.500, 20, 0, 6.283)
+canvas2.stroke()
+canvas2.fillStyle = "#ffd700"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("🎯 TARGET", 315, 197.500)
+canvas2.fillStyle = "#ff5555"
+canvas2.shadowColor = "rgba(255, 85, 85, 1)"
+canvas2.shadowBlur = 20
+canvas2.beginPath()
+canvas2.arc(315, 232.500, 15, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#c0392b"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.lineWidth = 2
+canvas2.beginPath()
+canvas2.moveTo(307, 232.500)
+canvas2.lineTo(323, 232.500)
+canvas2.moveTo(315, 224.500)
+canvas2.lineTo(315, 240.500)
+canvas2.stroke()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("야스오", 315, 262.500)
+canvas2.fillStyle = "rgba(0, 0, 0, 0.5)"
+canvas2.fillRect(295, 207.500, 40, 5)
+canvas2.fillStyle = "#f39c12"
+canvas2.fillRect(295, 207.500, 16, 5)
+canvas2.strokeStyle = "rgba(255, 255, 255, 0.3)"
+canvas2.lineWidth = 1
+canvas2.strokeRect(295, 207.500, 40, 5)
+canvas2.fillStyle = "#e74c3c"
+canvas2.shadowColor = "rgba(231, 76, 60, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(450, 510, 15, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#c0392b"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.lineWidth = 2
+canvas2.beginPath()
+canvas2.moveTo(442, 510)
+canvas2.lineTo(458, 510)
+canvas2.moveTo(450, 502)
+canvas2.lineTo(450, 518)
+canvas2.stroke()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("아리", 450, 540)
+canvas2.fillStyle = "rgba(0, 0, 0, 0.5)"
+canvas2.fillRect(430, 485, 40, 5)
+canvas2.fillStyle = "#e74c3c"
+canvas2.fillRect(430, 485, 4, 5)
+canvas2.strokeStyle = "rgba(255, 255, 255, 0.3)"
+canvas2.lineWidth = 1
+canvas2.strokeRect(430, 485, 40, 5)
+canvas2.fillStyle = "#e74c3c"
+canvas2.shadowColor = "rgba(231, 76, 60, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(540, 60, 15, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#c0392b"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.lineWidth = 2
+canvas2.beginPath()
+canvas2.moveTo(532, 60)
+canvas2.lineTo(548, 60)
+canvas2.moveTo(540, 52)
+canvas2.lineTo(540, 68)
+canvas2.stroke()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("제드", 540, 90)
+canvas2.fillStyle = "#3498db"
+canvas2.shadowColor = "rgba(52, 152, 219, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(67.500, 495, 18, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#2980b9"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.fillStyle = "#ffffff"
+canvas2.lineWidth = 3
+canvas2.beginPath()
+canvas2.moveTo(67.500, 495)
+canvas2.lineTo(78.111, 505.602)
+canvas2.stroke()
+canvas2.beginPath()
+canvas2.moveTo(78.111, 505.602)
+canvas2.lineTo(72.315, 504.052)
+canvas2.lineTo(76.556, 499.807)
+canvas2.closePath()
+canvas2.fill()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("AGV", 67.500, 467)
+canvas2.fillStyle = "rgba(255, 255, 255, 0.7)"
+canvas2.font = "10px monospace"
+canvas2.fillText("(2.3, 3.5)", 67.500, 530)
+--- frame 2
+canvas2.clearRect(0, 0, 600, 600)
+canvas2.drawImage(canvas1, 0, 0)
+canvas2.strokeStyle = "rgba(46, 204, 113, 0.8)"
+canvas2.lineWidth = 3
+canvas2.lineCap = "round"
+canvas2.lineJoin = "round"
+canvas2.setLineDash([])
+canvas2.beginPath()
+canvas2.moveTo(60, 540)
+canvas2.lineTo(60, 420)
+canvas2.lineTo(240, 420)
+canvas2.stroke()
+canvas2.fillStyle = "rgba(46, 204, 113, 0.3)"
+canvas2.beginPath()
+canvas2.arc(240, 420, 18, 0, 6.283)
+canvas2.fill()
+canvas2.strokeStyle = "#2ecc71"
+canvas2.lineWidth = 2
+canvas2.stroke()
+canvas2.strokeStyle = "rgba(52, 152, 219, 0.6)"
+canvas2.lineWidth = 3
+canvas2.lineCap = "round"
+canvas2.lineJoin = "round"
+canvas2.setLineDash([5,5])
+canvas2.beginPath()
+canvas2.moveTo(60, 540)
+canvas2.lineTo(90, 510)
+canvas2.lineTo(120, 450)
+canvas2.stroke()
+canvas2.setLineDash([])
+canvas2.fillStyle = "rgba(52, 152, 219, 0.3)"
+canvas2.beginPath()
+canvas2.arc(120, 450, 20, 0, 6.283)
+canvas2.fill()
+canvas2.strokeStyle = "#3498db"
+canvas2.lineWidth = 2
+canvas2.stroke()
+canvas2.fillStyle = "#e74c3c"
+canvas2.shadowColor = "rgba(231, 76, 60, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(120, 450, 15, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#c0392b"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.lineWidth = 2
+canvas2.beginPath()
+canvas2.moveTo(112, 450)
+canvas2.lineTo(128, 450)
+canvas2.moveTo(120, 442)
+canvas2.lineTo(120, 458)
+canvas2.stroke()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("아리", 120, 480)
+canvas2.fillStyle = "rgba(0, 0, 0, 0.5)"
+canvas2.fillRect(100, 425, 40, 5)
+canvas2.fillStyle = "#2ecc71"
+canvas2.fillRect(100, 425, 32, 5)
+canvas2.strokeStyle = "rgba(255, 255, 255, 0.3)"
+canvas2.lineWidth = 1
+canvas2.strokeRect(100, 425, 40, 5)
+canvas2.strokeStyle = "rgba(255, 215, 0, 0.47655285676423986)"
+canvas2.lineWidth = 3
+canvas2.setLineDash([5,5])
+canvas2.beginPath()
+canvas2.arc(315, 232.500, 29.414, 0, 6.283)
+canvas2.stroke()
+canvas2.setLineDash([])
+canvas2.strokeStyle = "rgba(255, 215, 0, 0.6)"
+canvas2.lineWidth = 2
+canvas2.beginPath()
+canvas2.arc(315, 232.500, 20, 0, 6.283)
+canvas2.stroke()
+canvas2.fillStyle = "#ffd700"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("🎯 TARGET", 315, 197.500)
+canvas2.fillStyle = "#ff5555"
+canvas2.shadowColor = "rgba(255, 85, 85, 1)"
+canvas2.shadowBlur = 20
+canvas2.beginPath()
+canvas2.arc(315, 232.500, 15, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#c0392b"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.lineWidth = 2
+canvas2.beginPath()
+canvas2.moveTo(307, 232.500)
+canvas2.lineTo(323, 232.500)
+canvas2.moveTo(315, 224.500)
+canvas2.lineTo(315, 240.500)
+canvas2.stroke()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("야스오", 315, 262.500)
+canvas2.fillStyle = "rgba(0, 0, 0, 0.5)"
+canvas2.fillRect(295, 207.500, 40, 5)
+canvas2.fillStyle = "#f39c12"
+canvas2.fillRect(295, 207.500, 16, 5)
+canvas2.strokeStyle = "rgba(255, 255, 255, 0.3)"
+canvas2.lineWidth = 1
+canvas2.strokeRect(295, 207.500, 40, 5)
+canvas2.fillStyle = "#e74c3c"
+canvas2.shadowColor = "rgba(231, 76, 60, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(450, 510, 15, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#c0392b"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.lineWidth = 2
+canvas2.beginPath()
+canvas2.moveTo(442, 510)
+canvas2.lineTo(458, 510)
+canvas2.moveTo(450, 502)
+canvas2.lineTo(450, 518)
+canvas2.stroke()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("아리", 450, 540)
+canvas2.fillStyle = "rgba(0, 0, 0, 0.5)"
+canvas2.fillRect(430, 485, 40, 5)
+canvas2.fillStyle = "#e74c3c"
+canvas2.fillRect(430, 485, 4, 5)
+canvas2.strokeStyle = "rgba(255, 255, 255, 0.3)"
+canvas2.lineWidth = 1
+canvas2.strokeRect(430, 485, 40, 5)
+canvas2.fillStyle = "#e74c3c"
+canvas2.shadowColor = "rgba(231, 76, 60, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(540, 60, 15, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#c0392b"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.lineWidth = 2
+canvas2.beginPath()
+canvas2.moveTo(532, 60)
+canvas2.lineTo(548, 60)
+canvas2.moveTo(540, 52)
+canvas2.lineTo(540, 68)
+canvas2.stroke()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("제드", 540, 90)
+canvas2.fillStyle = "#3498db"
+canvas2.shadowColor = "rgba(52, 152, 219, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(67.500, 495, 18, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#2980b9"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.fillStyle = "#ffffff"
+canvas2.lineWidth = 3
+canvas2.beginPath()
+canvas2.moveTo(67.500, 495)
+canvas2.lineTo(78.111, 505.602)
+canvas2.stroke()
+canvas2.beginPath()
+canvas2.moveTo(78.111, 505.602)
+canvas2.lineTo(72.315, 504.052)
+canvas2.lineTo(76.556, 499.807)
+canvas2.closePath()
+canvas2.fill()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("AGV", 67.500, 467)
+canvas2.fillStyle = "rgba(255, 255, 255, 0.7)"
+canvas2.font = "10px monospace"
+canvas2.fillText("(2.3, 3.5)", 67.500, 530)
+--- unmount
+cancelAnimationFrame(1)
+
+=== selection by matching coordinates
+canvas1.fillStyle = "#1a1d23"
+canvas1.fillRect(0, 0, 600, 600)
+canvas1.strokeStyle = "rgba(255, 255, 255, 0.1)"
+canvas1.lineWidth = 1
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(0, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(30, 0)
+canvas1.lineTo(30, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(60, 0)
+canvas1.lineTo(60, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(90, 0)
+canvas1.lineTo(90, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(120, 0)
+canvas1.lineTo(120, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(150, 0)
+canvas1.lineTo(150, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(180, 0)
+canvas1.lineTo(180, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(210, 0)
+canvas1.lineTo(210, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(240, 0)
+canvas1.lineTo(240, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(270, 0)
+canvas1.lineTo(270, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(300, 0)
+canvas1.lineTo(300, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(330, 0)
+canvas1.lineTo(330, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(360, 0)
+canvas1.lineTo(360, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(390, 0)
+canvas1.lineTo(390, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(420, 0)
+canvas1.lineTo(420, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(450, 0)
+canvas1.lineTo(450, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(480, 0)
+canvas1.lineTo(480, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(510, 0)
+canvas1.lineTo(510, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(540, 0)
+canvas1.lineTo(540, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(570, 0)
+canvas1.lineTo(570, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(600, 0)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(600, 0)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 30)
+canvas1.lineTo(600, 30)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 60)
+canvas1.lineTo(600, 60)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 90)
+canvas1.lineTo(600, 90)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 120)
+canvas1.lineTo(600, 120)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 150)
+canvas1.lineTo(600, 150)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 180)
+canvas1.lineTo(600, 180)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 210)
+canvas1.lineTo(600, 210)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 240)
+canvas1.lineTo(600, 240)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 270)
+canvas1.lineTo(600, 270)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 300)
+canvas1.lineTo(600, 300)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 330)
+canvas1.lineTo(600, 330)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 360)
+canvas1.lineTo(600, 360)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 390)
+canvas1.lineTo(600, 390)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 420)
+canvas1.lineTo(600, 420)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 450)
+canvas1.lineTo(600, 450)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 480)
+canvas1.lineTo(600, 480)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 510)
+canvas1.lineTo(600, 510)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 540)
+canvas1.lineTo(600, 540)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 570)
+canvas1.lineTo(600, 570)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 600)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.strokeStyle = "rgba(255, 255, 255, 0.2)"
+canvas1.lineWidth = 2
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(0, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(600, 0)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(150, 0)
+canvas1.lineTo(150, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 150)
+canvas1.lineTo(600, 150)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(300, 0)
+canvas1.lineTo(300, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 300)
+canvas1.lineTo(600, 300)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(450, 0)
+canvas1.lineTo(450, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 450)
+canvas1.lineTo(600, 450)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(600, 0)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 600)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.fillStyle = "rgba(255, 255, 255, 0.6)"
+canvas1.font = "11px monospace"
+canvas1.textAlign = "center"
+canvas1.fillText("0m", 0, 592)
+canvas1.fillText("5m", 150, 592)
+canvas1.fillText("10m", 300, 592)
+canvas1.fillText("15m", 450, 592)
+canvas1.fillText("20m", 600, 592)
+canvas1.textAlign = "right"
+canvas1.fillText("0m", 25, 604)
+canvas1.fillText("5m", 25, 454)
+canvas1.fillText("10m", 25, 304)
+canvas1.fillText("15m", 25, 154)
+canvas1.fillText("20m", 25, 4)
+canvas2.clearRect(0, 0, 600, 600)
+canvas2.drawImage(canvas1, 0, 0)
+canvas2.fillStyle = "#e74c3c"
+canvas2.shadowColor = "rgba(231, 76, 60, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(120, 450, 15, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#c0392b"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.lineWidth = 2
+canvas2.beginPath()
+canvas2.moveTo(112, 450)
+canvas2.lineTo(128, 450)
+canvas2.moveTo(120, 442)
+canvas2.lineTo(120, 458)
+canvas2.stroke()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("아리", 120, 480)
+canvas2.fillStyle = "rgba(0, 0, 0, 0.5)"
+canvas2.fillRect(100, 425, 40, 5)
+canvas2.fillStyle = "#2ecc71"
+canvas2.fillRect(100, 425, 32, 5)
+canvas2.strokeStyle = "rgba(255, 255, 255, 0.3)"
+canvas2.lineWidth = 1
+canvas2.strokeRect(100, 425, 40, 5)
+canvas2.fillStyle = "#e74c3c"
+canvas2.shadowColor = "rgba(231, 76, 60, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(315, 232.500, 15, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#c0392b"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.lineWidth = 2
+canvas2.beginPath()
+canvas2.moveTo(307, 232.500)
+canvas2.lineTo(323, 232.500)
+canvas2.moveTo(315, 224.500)
+canvas2.lineTo(315, 240.500)
+canvas2.stroke()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("야스오", 315, 262.500)
+canvas2.fillStyle = "rgba(0, 0, 0, 0.5)"
+canvas2.fillRect(295, 207.500, 40, 5)
+canvas2.fillStyle = "#f39c12"
+canvas2.fillRect(295, 207.500, 16, 5)
+canvas2.strokeStyle = "rgba(255, 255, 255, 0.3)"
+canvas2.lineWidth = 1
+canvas2.strokeRect(295, 207.500, 40, 5)
+canvas2.strokeStyle = "rgba(255, 215, 0, 0.47655285676423986)"
+canvas2.lineWidth = 3
+canvas2.setLineDash([5,5])
+canvas2.beginPath()
+canvas2.arc(450, 510, 29.414, 0, 6.283)
+canvas2.stroke()
+canvas2.setLineDash([])
+canvas2.strokeStyle = "rgba(255, 215, 0, 0.6)"
+canvas2.lineWidth = 2
+canvas2.beginPath()
+canvas2.arc(450, 510, 20, 0, 6.283)
+canvas2.stroke()
+canvas2.fillStyle = "#ffd700"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("🎯 TARGET", 450, 475)
+canvas2.fillStyle = "#ff5555"
+canvas2.shadowColor = "rgba(255, 85, 85, 1)"
+canvas2.shadowBlur = 20
+canvas2.beginPath()
+canvas2.arc(450, 510, 15, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#c0392b"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.lineWidth = 2
+canvas2.beginPath()
+canvas2.moveTo(442, 510)
+canvas2.lineTo(458, 510)
+canvas2.moveTo(450, 502)
+canvas2.lineTo(450, 518)
+canvas2.stroke()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("아리", 450, 540)
+canvas2.fillStyle = "rgba(0, 0, 0, 0.5)"
+canvas2.fillRect(430, 485, 40, 5)
+canvas2.fillStyle = "#e74c3c"
+canvas2.fillRect(430, 485, 4, 5)
+canvas2.strokeStyle = "rgba(255, 255, 255, 0.3)"
+canvas2.lineWidth = 1
+canvas2.strokeRect(430, 485, 40, 5)
+canvas2.fillStyle = "#e74c3c"
+canvas2.shadowColor = "rgba(231, 76, 60, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(540, 60, 15, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#c0392b"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.lineWidth = 2
+canvas2.beginPath()
+canvas2.moveTo(532, 60)
+canvas2.lineTo(548, 60)
+canvas2.moveTo(540, 52)
+canvas2.lineTo(540, 68)
+canvas2.stroke()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("제드", 540, 90)
+canvas2.fillStyle = "#3498db"
+canvas2.shadowColor = "rgba(52, 152, 219, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(67.500, 495, 18, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#2980b9"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.fillStyle = "#ffffff"
+canvas2.lineWidth = 3
+canvas2.beginPath()
+canvas2.moveTo(67.500, 495)
+canvas2.lineTo(78.111, 505.602)
+canvas2.stroke()
+canvas2.beginPath()
+canvas2.moveTo(78.111, 505.602)
+canvas2.lineTo(72.315, 504.052)
+canvas2.lineTo(76.556, 499.807)
+canvas2.closePath()
+canvas2.fill()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("AGV", 67.500, 467)
+canvas2.fillStyle = "rgba(255, 255, 255, 0.7)"
+canvas2.font = "10px monospace"
+canvas2.fillText("(2.3, 3.5)", 67.500, 530)
+cancelAnimationFrame(1)
+
+=== hover inside, outside and leave
+canvas1.fillStyle = "#1a1d23"
+canvas1.fillRect(0, 0, 600, 600)
+canvas1.strokeStyle = "rgba(255, 255, 255, 0.1)"
+canvas1.lineWidth = 1
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(0, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(30, 0)
+canvas1.lineTo(30, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(60, 0)
+canvas1.lineTo(60, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(90, 0)
+canvas1.lineTo(90, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(120, 0)
+canvas1.lineTo(120, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(150, 0)
+canvas1.lineTo(150, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(180, 0)
+canvas1.lineTo(180, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(210, 0)
+canvas1.lineTo(210, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(240, 0)
+canvas1.lineTo(240, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(270, 0)
+canvas1.lineTo(270, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(300, 0)
+canvas1.lineTo(300, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(330, 0)
+canvas1.lineTo(330, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(360, 0)
+canvas1.lineTo(360, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(390, 0)
+canvas1.lineTo(390, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(420, 0)
+canvas1.lineTo(420, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(450, 0)
+canvas1.lineTo(450, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(480, 0)
+canvas1.lineTo(480, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(510, 0)
+canvas1.lineTo(510, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(540, 0)
+canvas1.lineTo(540, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(570, 0)
+canvas1.lineTo(570, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(600, 0)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(600, 0)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 30)
+canvas1.lineTo(600, 30)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 60)
+canvas1.lineTo(600, 60)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 90)
+canvas1.lineTo(600, 90)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 120)
+canvas1.lineTo(600, 120)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 150)
+canvas1.lineTo(600, 150)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 180)
+canvas1.lineTo(600, 180)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 210)
+canvas1.lineTo(600, 210)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 240)
+canvas1.lineTo(600, 240)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 270)
+canvas1.lineTo(600, 270)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 300)
+canvas1.lineTo(600, 300)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 330)
+canvas1.lineTo(600, 330)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 360)
+canvas1.lineTo(600, 360)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 390)
+canvas1.lineTo(600, 390)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 420)
+canvas1.lineTo(600, 420)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 450)
+canvas1.lineTo(600, 450)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 480)
+canvas1.lineTo(600, 480)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 510)
+canvas1.lineTo(600, 510)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 540)
+canvas1.lineTo(600, 540)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 570)
+canvas1.lineTo(600, 570)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 600)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.strokeStyle = "rgba(255, 255, 255, 0.2)"
+canvas1.lineWidth = 2
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(0, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(600, 0)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(150, 0)
+canvas1.lineTo(150, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 150)
+canvas1.lineTo(600, 150)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(300, 0)
+canvas1.lineTo(300, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 300)
+canvas1.lineTo(600, 300)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(450, 0)
+canvas1.lineTo(450, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 450)
+canvas1.lineTo(600, 450)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(600, 0)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 600)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.fillStyle = "rgba(255, 255, 255, 0.6)"
+canvas1.font = "11px monospace"
+canvas1.textAlign = "center"
+canvas1.fillText("0m", 0, 592)
+canvas1.fillText("5m", 150, 592)
+canvas1.fillText("10m", 300, 592)
+canvas1.fillText("15m", 450, 592)
+canvas1.fillText("20m", 600, 592)
+canvas1.textAlign = "right"
+canvas1.fillText("0m", 25, 604)
+canvas1.fillText("5m", 25, 454)
+canvas1.fillText("10m", 25, 304)
+canvas1.fillText("15m", 25, 154)
+canvas1.fillText("20m", 25, 4)
+canvas2.clearRect(0, 0, 600, 600)
+canvas2.drawImage(canvas1, 0, 0)
+canvas2.fillStyle = "#3498db"
+canvas2.shadowColor = "rgba(52, 152, 219, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(67.500, 495, 18, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#2980b9"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.fillStyle = "#ffffff"
+canvas2.lineWidth = 3
+canvas2.beginPath()
+canvas2.moveTo(67.500, 495)
+canvas2.lineTo(78.111, 505.602)
+canvas2.stroke()
+canvas2.beginPath()
+canvas2.moveTo(78.111, 505.602)
+canvas2.lineTo(72.315, 504.052)
+canvas2.lineTo(76.556, 499.807)
+canvas2.closePath()
+canvas2.fill()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("AGV", 67.500, 467)
+canvas2.fillStyle = "rgba(255, 255, 255, 0.7)"
+canvas2.font = "10px monospace"
+canvas2.fillText("(2.3, 3.5)", 67.500, 530)
+--- move (95, 260)
+canvas2.clearRect(0, 0, 600, 600)
+canvas2.drawImage(canvas1, 0, 0)
+canvas2.fillStyle = "#3498db"
+canvas2.shadowColor = "rgba(52, 152, 219, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(67.500, 495, 18, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#2980b9"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.fillStyle = "#ffffff"
+canvas2.lineWidth = 3
+canvas2.beginPath()
+canvas2.moveTo(67.500, 495)
+canvas2.lineTo(78.111, 505.602)
+canvas2.stroke()
+canvas2.beginPath()
+canvas2.moveTo(78.111, 505.602)
+canvas2.lineTo(72.315, 504.052)
+canvas2.lineTo(76.556, 499.807)
+canvas2.closePath()
+canvas2.fill()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("AGV", 67.500, 467)
+canvas2.fillStyle = "rgba(255, 255, 255, 0.7)"
+canvas2.font = "10px monospace"
+canvas2.fillText("(2.3, 3.5)", 67.500, 530)
+canvas2.fillStyle = "rgba(52, 152, 219, 0.8)"
+canvas2.beginPath()
+canvas2.arc(90, 270, 6, 0, 6.283)
+canvas2.fill()
+canvas2.strokeStyle = "#3498db"
+canvas2.lineWidth = 2
+canvas2.stroke()
+canvas2.fillStyle = "#3498db"
+canvas2.font = "bold 12px monospace"
+canvas2.textAlign = "left"
+canvas2.textBaseline = "bottom"
+canvas2.fillText("(3, 11)", 100, 265)
+--- move (0, 0)
+canvas2.clearRect(0, 0, 600, 600)
+canvas2.drawImage(canvas1, 0, 0)
+canvas2.fillStyle = "#3498db"
+canvas2.shadowColor = "rgba(52, 152, 219, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(67.500, 495, 18, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#2980b9"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.fillStyle = "#ffffff"
+canvas2.lineWidth = 3
+canvas2.beginPath()
+canvas2.moveTo(67.500, 495)
+canvas2.lineTo(78.111, 505.602)
+canvas2.stroke()
+canvas2.beginPath()
+canvas2.moveTo(78.111, 505.602)
+canvas2.lineTo(72.315, 504.052)
+canvas2.lineTo(76.556, 499.807)
+canvas2.closePath()
+canvas2.fill()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("AGV", 67.500, 467)
+canvas2.fillStyle = "rgba(255, 255, 255, 0.7)"
+canvas2.font = "10px monospace"
+canvas2.fillText("(2.3, 3.5)", 67.500, 530)
+canvas2.fillStyle = "rgba(52, 152, 219, 0.8)"
+canvas2.beginPath()
+canvas2.arc(0, 0, 6, 0, 6.283)
+canvas2.fill()
+canvas2.strokeStyle = "#3498db"
+canvas2.lineWidth = 2
+canvas2.stroke()
+canvas2.fillStyle = "#3498db"
+canvas2.font = "bold 12px monospace"
+canvas2.textAlign = "left"
+canvas2.textBaseline = "bottom"
+canvas2.fillText("(0, 20)", 10, -5)
+--- move (600, 10) outside
+canvas2.clearRect(0, 0, 600, 600)
+canvas2.drawImage(canvas1, 0, 0)
+canvas2.fillStyle = "#3498db"
+canvas2.shadowColor = "rgba(52, 152, 219, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(67.500, 495, 18, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#2980b9"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.fillStyle = "#ffffff"
+canvas2.lineWidth = 3
+canvas2.beginPath()
+canvas2.moveTo(67.500, 495)
+canvas2.lineTo(78.111, 505.602)
+canvas2.stroke()
+canvas2.beginPath()
+canvas2.moveTo(78.111, 505.602)
+canvas2.lineTo(72.315, 504.052)
+canvas2.lineTo(76.556, 499.807)
+canvas2.closePath()
+canvas2.fill()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("AGV", 67.500, 467)
+canvas2.fillStyle = "rgba(255, 255, 255, 0.7)"
+canvas2.font = "10px monospace"
+canvas2.fillText("(2.3, 3.5)", 67.500, 530)
+--- move (590, 590)
+canvas2.clearRect(0, 0, 600, 600)
+canvas2.drawImage(canvas1, 0, 0)
+canvas2.fillStyle = "#3498db"
+canvas2.shadowColor = "rgba(52, 152, 219, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(67.500, 495, 18, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#2980b9"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.fillStyle = "#ffffff"
+canvas2.lineWidth = 3
+canvas2.beginPath()
+canvas2.moveTo(67.500, 495)
+canvas2.lineTo(78.111, 505.602)
+canvas2.stroke()
+canvas2.beginPath()
+canvas2.moveTo(78.111, 505.602)
+canvas2.lineTo(72.315, 504.052)
+canvas2.lineTo(76.556, 499.807)
+canvas2.closePath()
+canvas2.fill()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("AGV", 67.500, 467)
+canvas2.fillStyle = "rgba(255, 255, 255, 0.7)"
+canvas2.font = "10px monospace"
+canvas2.fillText("(2.3, 3.5)", 67.500, 530)
+canvas2.fillStyle = "rgba(52, 152, 219, 0.8)"
+canvas2.beginPath()
+canvas2.arc(600, 600, 6, 0, 6.283)
+canvas2.fill()
+canvas2.strokeStyle = "#3498db"
+canvas2.lineWidth = 2
+canvas2.stroke()
+canvas2.fillStyle = "#3498db"
+canvas2.font = "bold 12px monospace"
+canvas2.textAlign = "left"
+canvas2.textBaseline = "bottom"
+canvas2.fillText("(20, 0)", 610, 595)
+--- leave
+canvas2.clearRect(0, 0, 600, 600)
+canvas2.drawImage(canvas1, 0, 0)
+canvas2.fillStyle = "#3498db"
+canvas2.shadowColor = "rgba(52, 152, 219, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(67.500, 495, 18, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#2980b9"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.fillStyle = "#ffffff"
+canvas2.lineWidth = 3
+canvas2.beginPath()
+canvas2.moveTo(67.500, 495)
+canvas2.lineTo(78.111, 505.602)
+canvas2.stroke()
+canvas2.beginPath()
+canvas2.moveTo(78.111, 505.602)
+canvas2.lineTo(72.315, 504.052)
+canvas2.lineTo(76.556, 499.807)
+canvas2.closePath()
+canvas2.fill()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("AGV", 67.500, 467)
+canvas2.fillStyle = "rgba(255, 255, 255, 0.7)"
+canvas2.font = "10px monospace"
+canvas2.fillText("(2.3, 3.5)", 67.500, 530)
+
+=== obstacles change rebuilds the static layer
+canvas1.fillStyle = "#1a1d23"
+canvas1.fillRect(0, 0, 600, 600)
+canvas1.strokeStyle = "rgba(255, 255, 255, 0.1)"
+canvas1.lineWidth = 1
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(0, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(30, 0)
+canvas1.lineTo(30, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(60, 0)
+canvas1.lineTo(60, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(90, 0)
+canvas1.lineTo(90, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(120, 0)
+canvas1.lineTo(120, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(150, 0)
+canvas1.lineTo(150, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(180, 0)
+canvas1.lineTo(180, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(210, 0)
+canvas1.lineTo(210, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(240, 0)
+canvas1.lineTo(240, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(270, 0)
+canvas1.lineTo(270, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(300, 0)
+canvas1.lineTo(300, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(330, 0)
+canvas1.lineTo(330, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(360, 0)
+canvas1.lineTo(360, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(390, 0)
+canvas1.lineTo(390, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(420, 0)
+canvas1.lineTo(420, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(450, 0)
+canvas1.lineTo(450, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(480, 0)
+canvas1.lineTo(480, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(510, 0)
+canvas1.lineTo(510, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(540, 0)
+canvas1.lineTo(540, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(570, 0)
+canvas1.lineTo(570, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(600, 0)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(600, 0)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 30)
+canvas1.lineTo(600, 30)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 60)
+canvas1.lineTo(600, 60)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 90)
+canvas1.lineTo(600, 90)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 120)
+canvas1.lineTo(600, 120)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 150)
+canvas1.lineTo(600, 150)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 180)
+canvas1.lineTo(600, 180)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 210)
+canvas1.lineTo(600, 210)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 240)
+canvas1.lineTo(600, 240)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 270)
+canvas1.lineTo(600, 270)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 300)
+canvas1.lineTo(600, 300)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 330)
+canvas1.lineTo(600, 330)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 360)
+canvas1.lineTo(600, 360)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 390)
+canvas1.lineTo(600, 390)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 420)
+canvas1.lineTo(600, 420)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 450)
+canvas1.lineTo(600, 450)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 480)
+canvas1.lineTo(600, 480)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 510)
+canvas1.lineTo(600, 510)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 540)
+canvas1.lineTo(600, 540)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 570)
+canvas1.lineTo(600, 570)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 600)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.strokeStyle = "rgba(255, 255, 255, 0.2)"
+canvas1.lineWidth = 2
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(0, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 0)
+canvas1.lineTo(600, 0)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(150, 0)
+canvas1.lineTo(150, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 150)
+canvas1.lineTo(600, 150)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(300, 0)
+canvas1.lineTo(300, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 300)
+canvas1.lineTo(600, 300)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(450, 0)
+canvas1.lineTo(450, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 450)
+canvas1.lineTo(600, 450)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(600, 0)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.beginPath()
+canvas1.moveTo(0, 600)
+canvas1.lineTo(600, 600)
+canvas1.stroke()
+canvas1.fillStyle = "rgba(255, 255, 255, 0.6)"
+canvas1.font = "11px monospace"
+canvas1.textAlign = "center"
+canvas1.fillText("0m", 0, 592)
+canvas1.fillText("5m", 150, 592)
+canvas1.fillText("10m", 300, 592)
+canvas1.fillText("15m", 450, 592)
+canvas1.fillText("20m", 600, 592)
+canvas1.textAlign = "right"
+canvas1.fillText("0m", 25, 604)
+canvas1.fillText("5m", 25, 454)
+canvas1.fillText("10m", 25, 304)
+canvas1.fillText("15m", 25, 154)
+canvas1.fillText("20m", 25, 4)
+canvas2.clearRect(0, 0, 600, 600)
+canvas2.drawImage(canvas1, 0, 0)
+canvas2.fillStyle = "#3498db"
+canvas2.shadowColor = "rgba(52, 152, 219, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(67.500, 495, 18, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#2980b9"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.fillStyle = "#ffffff"
+canvas2.lineWidth = 3
+canvas2.beginPath()
+canvas2.moveTo(67.500, 495)
+canvas2.lineTo(78.111, 505.602)
+canvas2.stroke()
+canvas2.beginPath()
+canvas2.moveTo(78.111, 505.602)
+canvas2.lineTo(72.315, 504.052)
+canvas2.lineTo(76.556, 499.807)
+canvas2.closePath()
+canvas2.fill()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("AGV", 67.500, 467)
+canvas2.fillStyle = "rgba(255, 255, 255, 0.7)"
+canvas2.font = "10px monospace"
+canvas2.fillText("(2.3, 3.5)", 67.500, 530)
+--- rerender with obstacles
+canvas3.fillStyle = "#1a1d23"
+canvas3.fillRect(0, 0, 600, 600)
+canvas3.strokeStyle = "rgba(255, 255, 255, 0.1)"
+canvas3.lineWidth = 1
+canvas3.beginPath()
+canvas3.moveTo(0, 0)
+canvas3.lineTo(0, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(30, 0)
+canvas3.lineTo(30, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(60, 0)
+canvas3.lineTo(60, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(90, 0)
+canvas3.lineTo(90, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(120, 0)
+canvas3.lineTo(120, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(150, 0)
+canvas3.lineTo(150, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(180, 0)
+canvas3.lineTo(180, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(210, 0)
+canvas3.lineTo(210, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(240, 0)
+canvas3.lineTo(240, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(270, 0)
+canvas3.lineTo(270, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(300, 0)
+canvas3.lineTo(300, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(330, 0)
+canvas3.lineTo(330, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(360, 0)
+canvas3.lineTo(360, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(390, 0)
+canvas3.lineTo(390, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(420, 0)
+canvas3.lineTo(420, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(450, 0)
+canvas3.lineTo(450, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(480, 0)
+canvas3.lineTo(480, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(510, 0)
+canvas3.lineTo(510, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(540, 0)
+canvas3.lineTo(540, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(570, 0)
+canvas3.lineTo(570, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(600, 0)
+canvas3.lineTo(600, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 0)
+canvas3.lineTo(600, 0)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 30)
+canvas3.lineTo(600, 30)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 60)
+canvas3.lineTo(600, 60)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 90)
+canvas3.lineTo(600, 90)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 120)
+canvas3.lineTo(600, 120)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 150)
+canvas3.lineTo(600, 150)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 180)
+canvas3.lineTo(600, 180)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 210)
+canvas3.lineTo(600, 210)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 240)
+canvas3.lineTo(600, 240)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 270)
+canvas3.lineTo(600, 270)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 300)
+canvas3.lineTo(600, 300)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 330)
+canvas3.lineTo(600, 330)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 360)
+canvas3.lineTo(600, 360)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 390)
+canvas3.lineTo(600, 390)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 420)
+canvas3.lineTo(600, 420)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 450)
+canvas3.lineTo(600, 450)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 480)
+canvas3.lineTo(600, 480)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 510)
+canvas3.lineTo(600, 510)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 540)
+canvas3.lineTo(600, 540)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 570)
+canvas3.lineTo(600, 570)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 600)
+canvas3.lineTo(600, 600)
+canvas3.stroke()
+canvas3.strokeStyle = "rgba(255, 255, 255, 0.2)"
+canvas3.lineWidth = 2
+canvas3.beginPath()
+canvas3.moveTo(0, 0)
+canvas3.lineTo(0, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 0)
+canvas3.lineTo(600, 0)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(150, 0)
+canvas3.lineTo(150, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 150)
+canvas3.lineTo(600, 150)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(300, 0)
+canvas3.lineTo(300, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 300)
+canvas3.lineTo(600, 300)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(450, 0)
+canvas3.lineTo(450, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 450)
+canvas3.lineTo(600, 450)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(600, 0)
+canvas3.lineTo(600, 600)
+canvas3.stroke()
+canvas3.beginPath()
+canvas3.moveTo(0, 600)
+canvas3.lineTo(600, 600)
+canvas3.stroke()
+canvas3.fillStyle = "rgba(255, 255, 255, 0.6)"
+canvas3.font = "11px monospace"
+canvas3.textAlign = "center"
+canvas3.fillText("0m", 0, 592)
+canvas3.fillText("5m", 150, 592)
+canvas3.fillText("10m", 300, 592)
+canvas3.fillText("15m", 450, 592)
+canvas3.fillText("20m", 600, 592)
+canvas3.textAlign = "right"
+canvas3.fillText("0m", 25, 604)
+canvas3.fillText("5m", 25, 454)
+canvas3.fillText("10m", 25, 304)
+canvas3.fillText("15m", 25, 154)
+canvas3.fillText("20m", 25, 4)
+canvas3.fillStyle = "rgba(149, 165, 166, 0.7)"
+canvas3.fillRect(-15, 585, 30, 30)
+canvas3.strokeStyle = "rgba(127, 140, 141, 1)"
+canvas3.lineWidth = 2
+canvas3.strokeRect(-15, 585, 30, 30)
+canvas3.strokeStyle = "rgba(52, 73, 94, 0.8)"
+canvas3.lineWidth = 2
+canvas3.beginPath()
+canvas3.moveTo(-10, 590)
+canvas3.lineTo(10, 610)
+canvas3.moveTo(10, 590)
+canvas3.lineTo(-10, 610)
+canvas3.stroke()
+canvas3.fillStyle = "rgba(149, 165, 166, 0.7)"
+canvas3.fillRect(75, 375, 30, 30)
+canvas3.strokeStyle = "rgba(127, 140, 141, 1)"
+canvas3.lineWidth = 2
+canvas3.strokeRect(75, 375, 30, 30)
+canvas3.strokeStyle = "rgba(52, 73, 94, 0.8)"
+canvas3.lineWidth = 2
+canvas3.beginPath()
+canvas3.moveTo(80, 380)
+canvas3.lineTo(100, 400)
+canvas3.moveTo(100, 380)
+canvas3.lineTo(80, 400)
+canvas3.stroke()
+canvas3.fillStyle = "rgba(149, 165, 166, 0.7)"
+canvas3.fillRect(555, 15, 30, 30)
+canvas3.strokeStyle = "rgba(127, 140, 141, 1)"
+canvas3.lineWidth = 2
+canvas3.strokeRect(555, 15, 30, 30)
+canvas3.strokeStyle = "rgba(52, 73, 94, 0.8)"
+canvas3.lineWidth = 2
+canvas3.beginPath()
+canvas3.moveTo(560, 20)
+canvas3.lineTo(580, 40)
+canvas3.moveTo(580, 20)
+canvas3.lineTo(560, 40)
+canvas3.stroke()
+canvas2.clearRect(0, 0, 600, 600)
+canvas2.drawImage(canvas3, 0, 0)
+canvas2.fillStyle = "#3498db"
+canvas2.shadowColor = "rgba(52, 152, 219, 0.8)"
+canvas2.shadowBlur = 15
+canvas2.beginPath()
+canvas2.arc(67.500, 495, 18, 0, 6.283)
+canvas2.fill()
+canvas2.shadowBlur = 0
+canvas2.strokeStyle = "#2980b9"
+canvas2.lineWidth = 3
+canvas2.stroke()
+canvas2.strokeStyle = "#ffffff"
+canvas2.fillStyle = "#ffffff"
+canvas2.lineWidth = 3
+canvas2.beginPath()
+canvas2.moveTo(67.500, 495)
+canvas2.lineTo(78.111, 505.602)
+canvas2.stroke()
+canvas2.beginPath()
+canvas2.moveTo(78.111, 505.602)
+canvas2.lineTo(72.315, 504.052)
+canvas2.lineTo(76.556, 499.807)
+canvas2.closePath()
+canvas2.fill()
+canvas2.fillStyle = "#ffffff"
+canvas2.font = "bold 11px sans-serif"
+canvas2.textAlign = "center"
+canvas2.fillText("AGV", 67.500, 467)
+canvas2.fillStyle = "rgba(255, 255, 255, 0.7)"
+canvas2.font = "10px monospace"
+canvas2.fillText("(2.3, 3.5)", 67.500, 530)
