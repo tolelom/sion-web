@@ -30,7 +30,7 @@ function agvReducer(state: AGVData, action: AgvAction): AGVData {
           state: d.state ?? state.status.state,
         },
         detectedEnemies: d.detected_enemies ?? state.detectedEnemies,
-        targetEnemy: d.target_enemy ?? state.targetEnemy,
+        targetEnemy: 'target_enemy' in d ? (d.target_enemy ?? null) : state.targetEnemy,
       }
     }
     case 'target_found':

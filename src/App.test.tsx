@@ -56,13 +56,32 @@ describe('App message routing', () => {
     expect(mapProps().targetEnemy).toEqual(enemy)
   })
 
-  it('keeps the previous target when status sends target_enemy null', () => {
+  it('clears the target when status sends target_enemy null', () => {
     render(<App />)
     const enemy = { id: 'enemy-1', name: '아리', hp: 30, x: 4, y: 5 }
     deliver({ type: 'status', data: { target_enemy: enemy }, timestamp: 1 })
     deliver({ type: 'status', data: { target_enemy: null, detected_enemies: [] }, timestamp: 2 })
-    expect(agv().targetEnemy).toEqual(enemy)
+    expect(agv().targetEnemy).toBeNull()
     expect(agv().detectedEnemies).toEqual([])
+    expect(mapProps().targetEnemy).toBeNull()
+  })
+
+  it('keeps the target when status omits target_enemy', () => {
+    render(<App />)
+    const enemy = { id: 'enemy-1', name: '아리', hp: 30, x: 4, y: 5 }
+    deliver({ type: 'status', data: { target_enemy: enemy }, timestamp: 1 })
+    deliver({ type: 'status', data: { battery: 50 }, timestamp: 2 })
+    expect(agv().targetEnemy).toEqual(enemy)
+  })
+
+  it('replaces the target when status sends a new one', () => {
+    render(<App />)
+    const first = { id: 'enemy-1', name: '아리', hp: 30, x: 4, y: 5 }
+    const second = { id: 'enemy-2', name: '야스오', hp: 70, x: 9, y: 2 }
+    deliver({ type: 'status', data: { target_enemy: first }, timestamp: 1 })
+    deliver({ type: 'status', data: { target_enemy: second }, timestamp: 2 })
+    expect(agv().targetEnemy).toEqual(second)
+    expect(mapProps().targetEnemy).toEqual(second)
   })
 
   it('applies map_update obstacles', () => {
