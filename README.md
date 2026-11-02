@@ -1,42 +1,50 @@
-# Sion Frontend
+# Sion Web
 
-LoL 사이온 궁극기를 구현한 AGV 프로젝트의 웹 대시보드.
-백엔드는 [sion-backend](https://github.com/tolelom/sion-backend), 로봇 제어는 [sion](https://github.com/tolelom/sion) 참고.
+LoL 챔피언 사이온의 궁극기(돌진)를 AGV로 구현한 프로젝트의 관제 대시보드.
 
-## Tech Stack
+데모: https://sion.tolelom.xyz
 
-- **Framework**: React 18 + Vite
-- **Language**: TypeScript
-- **WebSocket**: Native WebSocket API
+데모는 실제 AGV 대신 [sion-api](https://github.com/tolelom/sion-api)의 시뮬레이터에 연결된다. 모든 방문자가 시뮬레이터 하나를 같이 조작한다.
 
-## Features
+## 기능
 
-- 실시간 AGV 상태 모니터링
-- 맵 시각화 (AGV 위치, 적, 장애물, 경로)
-- LLM 기반 AI 채팅 해설
-- 수동/자동 모드 전환, 긴급 정지
+- 20x20 맵에 AGV 위치, 장애물, 목표(적), 이동 경로 표시
+- 맵 클릭으로 목표 지정: 서버에서 A* 경로를 받아 이동 명령 전송
+- 자동/수동 모드 전환, 긴급 정지, 초기화
+- 배터리, 속도, 상태 표시
+- WebSocket 연결 상태 표시와 자동 재연결(최대 10회)
 
-## Getting Started
+## 기술 스택
+
+- React 19, TypeScript, Vite 7
+- Canvas 2D(맵 렌더링), 브라우저 WebSocket API
+- Vitest, Testing Library
+
+## 실행
 
 ```bash
-git clone https://github.com/tolelom/sion-frontend.git
-cd sion-frontend
+git clone https://github.com/tolelom/sion-web.git
+cd sion-web
 
 npm install
+cp .env.example .env.local
 npm run dev
 ```
 
-백엔드 서버가 `localhost:3000`에서 실행 중이어야 함.
+`.env.example`은 로컬 sion-api(`localhost:8001`)를 가리킨다.
 
-환경 변수는 `.env.example`을 복사해 `.env.local`로 만들고 값을 채운다.
+```bash
+npm run test
+npm run lint
+npm run build
+```
 
-### Windows 주의사항
+Windows에서 `npm install`이 실패하거나 `node_modules`가 비어 있으면 개발자 모드(설정 > 개인 정보 및 보안 > 개발자용)를 켠다. 심볼릭 링크 권한이 없으면 일부 패키지가 설치되지 않는다.
 
-Windows에서 `npm install`이 실패하거나 `node_modules`가 비어있다면 **개발자 모드(Developer Mode)** 를 활성화해야 한다.
+## 관련 저장소
 
-> 설정 → 개인 정보 및 보안 → 개발자용 → 개발자 모드 ON
-
-심볼릭 링크 권한이 없으면 일부 패키지가 정상 설치되지 않는다.
+- [sion-api](https://github.com/tolelom/sion-api): 백엔드와 AGV 시뮬레이터(Go Fiber)
+- [sion-robot](https://github.com/tolelom/sion-robot): 실제 AGV 제어 코드(Python)
 
 ## License
 
