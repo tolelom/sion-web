@@ -39,13 +39,7 @@ npm run lint
 npm run build
 ```
 
-Windows에서 `npm install`이 실패하거나 `node_modules`가 비어 있으면 개발자 모드(설정 > 개인 정보 및 보안 > 개발자용)를 켠다. 심볼릭 링크 권한이 없으면 일부 패키지가 설치되지 않는다.
-
 ## 관련 저장소
 
 - [sion-api](https://github.com/tolelom/sion-api): 백엔드와 AGV 시뮬레이터(Go Fiber)
 - [sion-robot](https://github.com/tolelom/sion-robot): 실제 AGV 제어 코드(Python)
-
-## License
-
-MIT
