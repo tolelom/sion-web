@@ -1,5 +1,6 @@
 import { vi } from 'vitest'
 import type { WSMessage } from '../types'
+import type { ConnectionStatus } from '../hooks/useWebSocket'
 
 // App 단위 고정 테스트 공용 도구.
 // useWebSocket을 대신해 onMessage를 붙잡고 sendMessage 호출을 기록한다.
@@ -9,7 +10,7 @@ export const socket = {
   onMessage: null as ((message: WSMessage) => void) | null,
   sendResult: true,
   sent: [] as unknown[],
-  status: 'connected' as 'connected' | 'reconnecting' | 'disconnected',
+  status: 'connected' as ConnectionStatus,
   reset() {
     this.onMessage = null
     this.sendResult = true

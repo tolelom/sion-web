@@ -1,11 +1,12 @@
 import { useReducer } from 'react'
-import type { Position, AGVStatus, Enemy, AGVData } from '../types'
+import type { AGVData } from '../types'
+import type { AgvConnectionPayload, PositionPayload, StatusPayload, TargetFoundPayload } from '../types/messages'
 
 export type AgvAction =
-  | { type: 'position'; payload: Position }
-  | { type: 'status'; payload: Partial<AGVStatus> & { detected_enemies?: Enemy[]; target_enemy?: Enemy | null } }
-  | { type: 'target_found'; payload: { enemies?: Enemy[]; target?: Enemy | null } }
-  | { type: 'agv_connection'; payload: { connected: boolean } }
+  | { type: 'position'; payload: PositionPayload }
+  | { type: 'status'; payload: StatusPayload }
+  | { type: 'target_found'; payload: TargetFoundPayload }
+  | { type: 'agv_connection'; payload: AgvConnectionPayload }
 
 const initialState: AGVData = {
   connected: false,

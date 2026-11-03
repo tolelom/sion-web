@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import type { WSMessage } from '../types'
 
-type ConnectionStatus = 'connected' | 'reconnecting' | 'disconnected'
+export type ConnectionStatus = 'connected' | 'reconnecting' | 'disconnected'
 
 const MAX_RECONNECT_ATTEMPTS = 10
 
