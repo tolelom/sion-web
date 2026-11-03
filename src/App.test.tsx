@@ -209,4 +209,30 @@ describe('Map click move (d53cf2a)', () => {
     expect(mapProps().path).toEqual([{ x: 0, y: 0 }, { x: 5, y: 8 }])
     expect(screen.queryByText(/보내지 못했습니다/)).toBeNull()
   })
+
+  it('sends only the latest click when an older path answer arrives late', async () => {
+    const answers: ((body: unknown) => void)[] = []
+    vi.stubGlobal('fetch', vi.fn(() => new Promise<Response>((resolve) => {
+      answers.push((body) => resolve({ json: async () => body } as Response))
+    })))
+    render(<App />)
+    await act(async () => {
+      fireEvent.click(screen.getByText('map-click'))
+    })
+    await act(async () => {
+      fireEvent.click(screen.getByText('map-click'))
+    })
+    expect(answers).toHaveLength(2)
+    await act(async () => {
+      answers[1]({ success: true, path: [{ x: 0, y: 0 }, { x: 5, y: 8 }] })
+    })
+    await act(async () => {
+      answers[0]({ success: true, path: [{ x: 0, y: 0 }, { x: 9, y: 9 }] })
+    })
+    expect(socket.sent).toHaveLength(1)
+    expect((socket.sent[0] as { data: { path: unknown } }).data.path).toEqual([{ x: 0, y: 0 }, { x: 5, y: 8 }])
+    expect(mapProps().path).toEqual([{ x: 0, y: 0 }, { x: 5, y: 8 }])
+    expect(screen.queryByText(/경로를 찾을 수 없습니다/)).toBeNull()
+  })
 })
+
