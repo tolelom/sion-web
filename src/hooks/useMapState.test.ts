@@ -24,7 +24,6 @@ describe('useMapState', () => {
     expect(result.current.pathData.algorithm).toBe('astar')
     expect(result.current.pathData.createdAt).toBe('2026-04-25T00:00:00Z')
 
-    // 빈 페이로드는 path를 초기화
     act(() => {
       result.current.dispatch({ type: 'path_update', payload: {} })
     })
@@ -34,7 +33,6 @@ describe('useMapState', () => {
   it('map_update: 부분 갱신은 기존 값을 유지 (?? 폴백)', () => {
     const { result } = renderHook(() => useMapState())
 
-    // obstacles만 업데이트, width/height 유지
     const obstacles = [{ x: 5, y: 5 }, { x: 6, y: 6 }]
     act(() => {
       result.current.dispatch({ type: 'map_update', payload: { obstacles } })
@@ -43,7 +41,6 @@ describe('useMapState', () => {
     expect(result.current.mapData.width).toBe(20)
     expect(result.current.mapData.height).toBe(20)
 
-    // width만 업데이트, obstacles 유지
     act(() => {
       result.current.dispatch({ type: 'map_update', payload: { width: 30 } })
     })

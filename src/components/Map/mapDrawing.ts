@@ -1,9 +1,31 @@
 import type { Position, Enemy, Point } from '../../types'
 import { MAP_SIZE } from '../../constants'
+import { hpColor } from '../../utils/levelColors'
+import { CANVAS_HEIGHT, CANVAS_WIDTH, CELL_SIZE, toCanvasX, toCanvasY, type Cell } from './mapGeometry'
 
-export const CELL_SIZE = 30
-export const CANVAS_WIDTH = MAP_SIZE * CELL_SIZE
-export const CANVAS_HEIGHT = MAP_SIZE * CELL_SIZE
+const tracePolyline = (ctx: CanvasRenderingContext2D, points: Point[]) => {
+  ctx.beginPath()
+  points.forEach((point, index) => {
+    const x = toCanvasX(point.x)
+    const y = toCanvasY(point.y)
+    if (index === 0) {
+      ctx.moveTo(x, y)
+    } else {
+      ctx.lineTo(x, y)
+    }
+  })
+}
+
+const drawEndMarker = (ctx: CanvasRenderingContext2D, point: Point, radius: number, fill: string, stroke: string) => {
+  ctx.fillStyle = fill
+  ctx.beginPath()
+  ctx.arc(toCanvasX(point.x), toCanvasY(point.y), radius, 0, 2 * Math.PI)
+  ctx.fill()
+
+  ctx.strokeStyle = stroke
+  ctx.lineWidth = 2
+  ctx.stroke()
+}
 
 export const drawGrid = (ctx: CanvasRenderingContext2D) => {
   ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'
@@ -85,7 +107,7 @@ export const drawObstacles = (ctx: CanvasRenderingContext2D, obstacleList: Point
   })
 }
 
-export const drawPath = (ctx: CanvasRenderingContext2D, pathPoints: Point[]) => {
+export const drawPlannedPath = (ctx: CanvasRenderingContext2D, pathPoints: Point[]) => {
   if (!pathPoints || pathPoints.length < 2) return
 
   ctx.strokeStyle = 'rgba(52, 152, 219, 0.6)'
@@ -93,73 +115,25 @@ export const drawPath = (ctx: CanvasRenderingContext2D, pathPoints: Point[]) => 
   ctx.lineCap = 'round'
   ctx.lineJoin = 'round'
   ctx.setLineDash([5, 5])
-
-  ctx.beginPath()
-  pathPoints.forEach((point, index) => {
-    const x = point.x * CELL_SIZE
-    const y = (MAP_SIZE - point.y) * CELL_SIZE
-
-    if (index === 0) {
-      ctx.moveTo(x, y)
-    } else {
-      ctx.lineTo(x, y)
-    }
-  })
+  tracePolyline(ctx, pathPoints)
   ctx.stroke()
   ctx.setLineDash([])
 
-  const lastPoint = pathPoints[pathPoints.length - 1]
-  const targetX = lastPoint.x * CELL_SIZE
-  const targetY = (MAP_SIZE - lastPoint.y) * CELL_SIZE
-
-  ctx.fillStyle = 'rgba(52, 152, 219, 0.3)'
-  ctx.beginPath()
-  ctx.arc(targetX, targetY, 20, 0, 2 * Math.PI)
-  ctx.fill()
-
-  ctx.strokeStyle = '#3498db'
-  ctx.lineWidth = 2
-  ctx.stroke()
+  drawEndMarker(ctx, pathPoints[pathPoints.length - 1], 20, 'rgba(52, 152, 219, 0.3)', '#3498db')
 }
 
-export const drawAGVPath = (ctx: CanvasRenderingContext2D, pathPoints: Point[]) => {
-  if (!pathPoints || pathPoints.length < 1) {
-    return
-  }
+export const drawReportedAgvPath = (ctx: CanvasRenderingContext2D, pathPoints: Point[]) => {
+  if (!pathPoints || pathPoints.length < 1) return
 
   ctx.strokeStyle = 'rgba(46, 204, 113, 0.8)'
   ctx.lineWidth = 3
   ctx.lineCap = 'round'
   ctx.lineJoin = 'round'
   ctx.setLineDash([])
-
-  ctx.beginPath()
-  pathPoints.forEach((point, index) => {
-    const canvasX = point.x * CELL_SIZE
-    const canvasY = (MAP_SIZE - point.y) * CELL_SIZE
-
-    if (index === 0) {
-      ctx.moveTo(canvasX, canvasY)
-    } else {
-      ctx.lineTo(canvasX, canvasY)
-    }
-  })
+  tracePolyline(ctx, pathPoints)
   ctx.stroke()
 
-  if (pathPoints.length > 0) {
-    const lastPoint = pathPoints[pathPoints.length - 1]
-    const targetX = lastPoint.x * CELL_SIZE
-    const targetY = (MAP_SIZE - lastPoint.y) * CELL_SIZE
-
-    ctx.fillStyle = 'rgba(46, 204, 113, 0.3)'
-    ctx.beginPath()
-    ctx.arc(targetX, targetY, 18, 0, 2 * Math.PI)
-    ctx.fill()
-
-    ctx.strokeStyle = '#2ecc71'
-    ctx.lineWidth = 2
-    ctx.stroke()
-  }
+  drawEndMarker(ctx, pathPoints[pathPoints.length - 1], 18, 'rgba(46, 204, 113, 0.3)', '#2ecc71')
 }
 
 const drawHealthBar = (ctx: CanvasRenderingContext2D, x: number, y: number, hp: number) => {
@@ -169,8 +143,7 @@ const drawHealthBar = (ctx: CanvasRenderingContext2D, x: number, y: number, hp: 
   ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'
   ctx.fillRect(x - barWidth / 2, y, barWidth, barHeight)
 
-  const hpColor = hp > 50 ? '#2ecc71' : hp > 25 ? '#f39c12' : '#e74c3c'
-  ctx.fillStyle = hpColor
+  ctx.fillStyle = hpColor(hp)
   ctx.fillRect(x - barWidth / 2, y, (barWidth * hp) / 100, barHeight)
 
   ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)'
@@ -179,8 +152,8 @@ const drawHealthBar = (ctx: CanvasRenderingContext2D, x: number, y: number, hp: 
 }
 
 export const drawAGV = (ctx: CanvasRenderingContext2D, position: Position) => {
-  const x = position.x * CELL_SIZE
-  const y = (MAP_SIZE - position.y) * CELL_SIZE
+  const x = toCanvasX(position.x)
+  const y = toCanvasY(position.y)
   const angle = position.angle || 0
 
   ctx.fillStyle = '#3498db'
@@ -237,8 +210,8 @@ export const drawAGV = (ctx: CanvasRenderingContext2D, position: Position) => {
 }
 
 export const drawTargetHighlight = (ctx: CanvasRenderingContext2D, target: Enemy, time: number) => {
-  const x = (target.x ?? 0) * CELL_SIZE
-  const y = (MAP_SIZE - (target.y ?? 0)) * CELL_SIZE
+  const x = toCanvasX(target.x ?? 0)
+  const y = toCanvasY(target.y ?? 0)
 
   const pulseSize = 25 + Math.sin(time / 200) * 5
   const pulseOpacity = 0.3 + Math.sin(time / 200) * 0.2
@@ -264,8 +237,8 @@ export const drawTargetHighlight = (ctx: CanvasRenderingContext2D, target: Enemy
 }
 
 export const drawTarget = (ctx: CanvasRenderingContext2D, target: Enemy, isSelected: boolean) => {
-  const x = (target.x ?? 0) * CELL_SIZE
-  const y = (MAP_SIZE - (target.y ?? 0)) * CELL_SIZE
+  const x = toCanvasX(target.x ?? 0)
+  const y = toCanvasY(target.y ?? 0)
 
   const fillColor = isSelected ? '#ff5555' : '#e74c3c'
   const shadowColor = isSelected ? 'rgba(255, 85, 85, 1)' : 'rgba(231, 76, 60, 0.8)'
@@ -301,9 +274,9 @@ export const drawTarget = (ctx: CanvasRenderingContext2D, target: Enemy, isSelec
   }
 }
 
-export const drawHoveredCell = (ctx: CanvasRenderingContext2D, cell: { x: number; y: number }) => {
-  const x = cell.x * CELL_SIZE
-  const y = (MAP_SIZE - cell.y) * CELL_SIZE
+export const drawHoveredCell = (ctx: CanvasRenderingContext2D, cell: Cell) => {
+  const x = toCanvasX(cell.x)
+  const y = toCanvasY(cell.y)
 
   ctx.fillStyle = 'rgba(52, 152, 219, 0.8)'
   ctx.beginPath()
@@ -324,87 +297,3 @@ export const drawHoveredCell = (ctx: CanvasRenderingContext2D, cell: { x: number
     y - 5
   )
 }
-
-export interface MapScene {
-  agvPosition: Position | undefined
-  targets: Enemy[]
-  targetEnemy: Enemy | null | undefined
-  obstacles: Point[]
-  path: Point[]
-  agvPath: Point[]
-  hoveredCell: { x: number; y: number } | null
-}
-
-export const renderStaticLayer = (ctx: CanvasRenderingContext2D, obstacles: Point[]) => {
-  ctx.fillStyle = '#1a1d23'
-  ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
-  drawGrid(ctx)
-  drawCoordinates(ctx)
-  if (obstacles && obstacles.length > 0) {
-    drawObstacles(ctx, obstacles)
-  }
-}
-
-const isSelectedTarget = (target: Enemy, targetEnemy: Enemy | null | undefined) =>
-  targetEnemy != null && (
-    targetEnemy.id === target.id ||
-    (targetEnemy.x === target.x && targetEnemy.y === target.y)
-  )
-
-export const renderDynamicLayer = (
-  ctx: CanvasRenderingContext2D,
-  scene: MapScene,
-  staticLayer: HTMLCanvasElement | null,
-  time: number,
-) => {
-  ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
-
-  if (staticLayer) {
-    ctx.drawImage(staticLayer, 0, 0)
-  } else {
-    renderStaticLayer(ctx, scene.obstacles)
-  }
-
-  if (scene.agvPath && scene.agvPath.length > 0) {
-    drawAGVPath(ctx, scene.agvPath)
-  }
-
-  if (scene.path && scene.path.length > 0) {
-    drawPath(ctx, scene.path)
-  }
-
-  if (scene.targets && scene.targets.length > 0) {
-    scene.targets.forEach(target => {
-      const isSelected = isSelectedTarget(target, scene.targetEnemy)
-      if (isSelected) {
-        drawTargetHighlight(ctx, target, time)
-      }
-      drawTarget(ctx, target, isSelected)
-    })
-  }
-
-  if (scene.agvPosition) {
-    drawAGV(ctx, scene.agvPosition)
-  }
-
-  if (scene.hoveredCell) {
-    drawHoveredCell(ctx, scene.hoveredCell)
-  }
-}
-
-export const canvasToCell = (canvasX: number, canvasY: number): { x: number; y: number } | null => {
-  if (canvasX < 0 || canvasY < 0 || canvasX >= CANVAS_WIDTH || canvasY >= CANVAS_HEIGHT) {
-    return null
-  }
-  const x = Math.round(canvasX / CELL_SIZE)
-  const y = MAP_SIZE - Math.round(canvasY / CELL_SIZE)
-  if (x >= 0 && x <= MAP_SIZE && y >= 0 && y <= MAP_SIZE) {
-    return { x, y }
-  }
-  return null
-}
-
-export const canvasToMap = (canvasX: number, canvasY: number) => ({
-  x: canvasX / CELL_SIZE,
-  y: MAP_SIZE - canvasY / CELL_SIZE,
-})

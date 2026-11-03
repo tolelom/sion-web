@@ -2,9 +2,6 @@ import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest'
 import { render, screen, fireEvent, cleanup, act } from '@testing-library/react'
 import { socket, mockUseWebSocket, mockMapCanvas, stubPathfindingFetch } from './test/appHarness'
 
-// 리팩터링 전 App의 메시지 라우팅과 10/16 수정(d53cf2a) 동작을 고정한다.
-// 서버 메시지 한 건이 들어왔을 때 지도 props와 상태 패널 데이터가 어떻게 바뀌는지를 본다.
-
 vi.mock('./hooks/useWebSocket', () => mockUseWebSocket())
 vi.mock('./components/Map/MapCanvas', () => mockMapCanvas())
 vi.mock('./components/Status/StatusPanel', () => ({
@@ -120,6 +117,31 @@ describe('App message routing', () => {
     expect(agv().connected).toBe(false)
   })
 
+  it('drops malformed messages instead of crashing the dashboard', () => {
+    render(<App />)
+    const before = { agv: agv(), map: mapProps() }
+    const malformed = [
+      null,
+      'status',
+      [1, 2],
+      { data: { battery: 1 } },
+      { type: 'status' },
+      { type: 'status', data: null },
+      { type: 'target_found', data: 'x' },
+      { type: 'position', data: {} },
+      { type: 'position', data: { x: '1', y: 2, angle: 0 } },
+      { type: 'path_update', data: null },
+      { type: 'map_update', data: [1] },
+      { type: 'agv_connected' },
+      { type: 'system_info', data: null },
+    ]
+    for (const message of malformed) {
+      deliver(message)
+    }
+    expect({ agv: agv(), map: mapProps() }).toEqual(before)
+    expect(screen.queryByRole('alert')).toBeNull()
+  })
+
   it('ignores unknown message types', () => {
     render(<App />)
     const before = { agv: agv(), map: mapProps() }
@@ -184,4 +206,30 @@ describe('Map click move (d53cf2a)', () => {
     expect(mapProps().path).toEqual([{ x: 0, y: 0 }, { x: 5, y: 8 }])
     expect(screen.queryByText(/보내지 못했습니다/)).toBeNull()
   })
+
+  it('sends only the latest click when an older path answer arrives late', async () => {
+    const answers: ((body: unknown) => void)[] = []
+    vi.stubGlobal('fetch', vi.fn(() => new Promise<Response>((resolve) => {
+      answers.push((body) => resolve({ json: async () => body } as Response))
+    })))
+    render(<App />)
+    await act(async () => {
+      fireEvent.click(screen.getByText('map-click'))
+    })
+    await act(async () => {
+      fireEvent.click(screen.getByText('map-click'))
+    })
+    expect(answers).toHaveLength(2)
+    await act(async () => {
+      answers[1]({ success: true, path: [{ x: 0, y: 0 }, { x: 5, y: 8 }] })
+    })
+    await act(async () => {
+      answers[0]({ success: true, path: [{ x: 0, y: 0 }, { x: 9, y: 9 }] })
+    })
+    expect(socket.sent).toHaveLength(1)
+    expect((socket.sent[0] as { data: { path: unknown } }).data.path).toEqual([{ x: 0, y: 0 }, { x: 5, y: 8 }])
+    expect(mapProps().path).toEqual([{ x: 0, y: 0 }, { x: 5, y: 8 }])
+    expect(screen.queryByText(/경로를 찾을 수 없습니다/)).toBeNull()
+  })
 })
+

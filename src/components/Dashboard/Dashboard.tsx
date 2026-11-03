@@ -1,12 +1,12 @@
+import { useMemo } from 'react'
 import MapCanvas from '../Map/MapCanvas'
 import StatusPanel from '../Status/StatusPanel'
 import ControlPanel from '../Controls/ControlPanel'
-import { usePathfinding } from '../../hooks/usePathfinding'
+import ConnectionIndicator from './ConnectionIndicator'
+import { useMoveCommand } from '../../hooks/useMoveCommand'
+import type { ConnectionStatus } from '../../hooks/useWebSocket'
+import type { AGVData, MapData, PathData, SendCommand } from '../../types'
 import '../../styles/dashboard.css'
-import { useCallback, useMemo, useState } from 'react'
-import type { AGVData, MapData, PathData } from '../../types'
-
-type ConnectionStatus = 'connected' | 'reconnecting' | 'disconnected'
 
 interface DashboardProps {
   agvData: AGVData
@@ -16,62 +16,22 @@ interface DashboardProps {
   connectionStatus: ConnectionStatus
   serverError: string | null
   onDismissError: () => void
-  onSendCommand: (message: unknown) => boolean
+  onSendCommand: SendCommand
   onRetryConnect: () => void
 }
 
 const Dashboard = ({ agvData, mapData, pathData, isConnected, connectionStatus, serverError, onDismissError, onSendCommand, onRetryConnect }: DashboardProps) => {
-  const targets = agvData?.detectedEnemies || []
-  const targetEnemy = agvData?.targetEnemy
-  const obstacles = useMemo(() => mapData?.obstacles || [], [mapData?.obstacles])
+  const targets = agvData.detectedEnemies || []
+  const obstacles = useMemo(() => mapData.obstacles || [], [mapData.obstacles])
+  const agvPathPoints = pathData.points || []
 
-  const agvPathPoints = pathData?.points || []
-
-  const { path, isLoading: isPathLoading, error, findPath } = usePathfinding()
-  const [moveError, setMoveError] = useState<string | null>(null)
-
-  const handleMapClick = useCallback(async (position: { x: number; y: number }) => {
-    setMoveError(null)
-    const currentPos = agvData?.position || { x: 0, y: 0 }
-    const start = { x: Math.round(currentPos.x), y: Math.round(currentPos.y) }
-    const goal = { x: Math.round(position.x), y: Math.round(position.y) }
-
-    const calculatedPath = await findPath(start, goal, obstacles)
-    if (!calculatedPath) {
-      setMoveError('경로를 찾을 수 없습니다. 장애물을 피해 다른 위치를 선택해주세요.')
-      return
-    }
-    const sent = onSendCommand({
-      type: 'command',
-      data: { target_x: position.x, target_y: position.y, path: calculatedPath, mode: 'manual' },
-    })
-    if (!sent) {
-      setMoveError('서버에 연결되어 있지 않아 이동 명령을 보내지 못했습니다.')
-    }
-  }, [agvData?.position, obstacles, findPath, onSendCommand])
+  const { path, isPathLoading, pathError, moveError, moveTo } = useMoveCommand(agvData.position, obstacles, onSendCommand)
 
   return (
     <div className="dashboard">
       <header className="dashboard-header">
         <h1 className="dashboard-title">🚀 AGV 실시간 모니터링</h1>
-        <div className="connection-status">
-          <div className={`status-dot ${connectionStatus}`} />
-          <span className="status-text">
-            {connectionStatus === 'connected' && '서버 연결됨'}
-            {connectionStatus === 'reconnecting' && '재연결 중...'}
-            {connectionStatus === 'disconnected' && (
-              <>
-                서버 연결 실패
-                <button
-                  onClick={onRetryConnect}
-                  style={{ marginLeft: '8px', padding: '2px 8px', fontSize: '12px', cursor: 'pointer' }}
-                >
-                  재연결
-                </button>
-              </>
-            )}
-          </span>
-        </div>
+        <ConnectionIndicator status={connectionStatus} onRetry={onRetryConnect} />
       </header>
 
       <div className="dashboard-grid">
@@ -85,7 +45,7 @@ const Dashboard = ({ agvData, mapData, pathData, isConnected, connectionStatus, 
                 </span>
               )}
               {isPathLoading && <span>🔄 경로 계산 중...</span>}
-              {error && <span style={{ color: '#e74c3c' }}>❌ {error}</span>}
+              {pathError && <span style={{ color: '#e74c3c' }}>❌ {pathError}</span>}
               {moveError && <span style={{ color: '#e74c3c' }}>❌ {moveError}</span>}
               {path.length > 0 && !isPathLoading && (
                 <span style={{ color: '#3498db' }}>
@@ -110,13 +70,13 @@ const Dashboard = ({ agvData, mapData, pathData, isConnected, connectionStatus, 
           )}
 
           <MapCanvas
-            agvPosition={agvData?.position}
+            agvPosition={agvData.position}
             targets={targets}
-            targetEnemy={targetEnemy}
+            targetEnemy={agvData.targetEnemy}
             obstacles={obstacles}
             path={path}
             agvPath={agvPathPoints}
-            onMapClick={handleMapClick}
+            onMapClick={moveTo}
           />
         </div>
 

@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
+import { StrictMode } from 'react'
 import { act, renderHook } from '@testing-library/react'
 import { useWebSocket } from './useWebSocket'
-
-// d53cf2a의 소켓 수명 수정을 고정한다.
-// 1) 이전 소켓의 늦은 onclose가 새 소켓 참조를 지우거나 재연결을 걸지 않는다.
-// 2) 첫 연결 타이머(100ms)가 돌기 전에 언마운트하면 소켓을 만들지 않는다.
 
 class MockWebSocket {
   static CONNECTING = 0
@@ -112,5 +109,25 @@ describe('useWebSocket lifecycle (d53cf2a)', () => {
     expect(result.current.sendMessage({ type: 'probe' })).toBe(false)
     expect(MockWebSocket.instances[0].sent).toEqual([])
     unmount()
+  })
+
+  it('opens a single socket under StrictMode double mount and closes it on unmount', () => {
+    const { result, unmount } = renderHook(() => useWebSocket(URL, () => {}), { wrapper: StrictMode })
+    act(() => {
+      vi.advanceTimersByTime(100)
+    })
+    expect(MockWebSocket.instances).toHaveLength(1)
+    const ws = MockWebSocket.instances[0]
+    act(() => {
+      ws.open()
+    })
+    expect(result.current.connectionStatus).toBe('connected')
+    unmount()
+    expect(ws.readyState).toBe(MockWebSocket.CLOSED)
+    act(() => {
+      ws.fireClose()
+      vi.advanceTimersByTime(60_000)
+    })
+    expect(MockWebSocket.instances).toHaveLength(1)
   })
 })
