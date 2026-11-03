@@ -11,7 +11,7 @@ const MAX_RECONNECT_DELAY_MS = 30000
 const INITIAL_CONNECT_DELAY_MS = 100
 
 // attempt번째(1부터) 재연결까지 기다릴 시간: 1s, 2s, 4s, … 최대 30s.
-export const reconnectDelay = (attempt: number): number =>
+const reconnectDelay = (attempt: number): number =>
   Math.min(BASE_RECONNECT_DELAY_MS * Math.pow(2, attempt - 1), MAX_RECONNECT_DELAY_MS)
 
 export const useWebSocket = (url: string, onMessage: (message: WSMessage) => void) => {
