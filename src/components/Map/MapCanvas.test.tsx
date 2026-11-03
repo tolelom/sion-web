@@ -3,11 +3,8 @@ import { render, fireEvent, cleanup, act } from '@testing-library/react'
 import MapCanvas from './MapCanvas'
 import type { Enemy, Point, Position } from '../../types'
 
-// MapCanvas의 그리기 출력을 골든 파일로 고정한다.
-// jsdom에는 canvas 구현이 없으므로 getContext를 기록용 컨텍스트로 바꿔
-// 메서드 호출(인자, 숫자는 소수 3자리)과 속성 대입을 순서대로 남긴다.
-// 캔버스는 getContext를 처음 부른 순서로 이름을 붙인다(정적 레이어가 먼저, 화면 캔버스가 다음).
-// 애니메이션은 requestAnimationFrame을 붙잡아 한 프레임씩 직접 돌리고, 시간은 고정한다.
+// jsdom에는 canvas 구현이 없어 getContext를 호출 기록용 컨텍스트로 바꾼다.
+// 골든 파일의 캔버스 이름은 getContext를 처음 부른 순서다(정적 레이어 → 화면 캔버스).
 
 const FIXED_TIME = new Date('2026-10-17T00:00:00.000Z')
 

@@ -2,10 +2,8 @@ import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest'
 import { render, screen, fireEvent, cleanup, act } from '@testing-library/react'
 import { socket, mockUseWebSocket, mockMapCanvas, stubPathfindingFetch, mapClickTarget } from './test/appHarness'
 
-// 데모 백엔드 main(sion-backend 7b1a8fe)과의 메시지 계약을 고정한다.
-// 송신: 실제 컴포넌트를 눌러 나온 JSON을 그대로 비교한다.
-// 수신: 백엔드가 보내는 type은 모두 화면 상태를 바꿔야 한다.
-// 백엔드 값은 그 커밋의 services/simulator.go, handlers/websocket_web.go, handlers/pathfinding.go 기준이다.
+// 기대값은 sion-backend 7b1a8fe의 services/simulator.go, handlers/websocket_web.go,
+// handlers/pathfinding.go에서 가져왔다.
 
 vi.mock('./hooks/useWebSocket', () => mockUseWebSocket())
 vi.mock('./components/Map/MapCanvas', () => mockMapCanvas())

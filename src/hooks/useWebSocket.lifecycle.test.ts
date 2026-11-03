@@ -3,10 +3,6 @@ import { StrictMode } from 'react'
 import { act, renderHook } from '@testing-library/react'
 import { useWebSocket } from './useWebSocket'
 
-// d53cf2a의 소켓 수명 수정을 고정한다.
-// 1) 이전 소켓의 늦은 onclose가 새 소켓 참조를 지우거나 재연결을 걸지 않는다.
-// 2) 첫 연결 타이머(100ms)가 돌기 전에 언마운트하면 소켓을 만들지 않는다.
-
 class MockWebSocket {
   static CONNECTING = 0
   static OPEN = 1

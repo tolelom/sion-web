@@ -3,8 +3,6 @@ import { act, renderHook } from '@testing-library/react'
 import { useWebSocket } from './useWebSocket'
 import type { WSMessage } from '../types'
 
-// jsdom의 WebSocket을 대체하는 모의 클래스.
-// hook이 참조하는 정적 상태값(WebSocket.OPEN 등)과 인스턴스 메서드(send/close)를 모두 제공한다.
 class MockWebSocket {
   static CONNECTING = 0
   static OPEN = 1
@@ -71,8 +69,6 @@ afterEach(() => {
 
 const URL = 'ws://localhost:3000/websocket/web'
 
-// hook 마운트 후 setTimeout(connect, 100)이 실제 WebSocket을 만들 때까지 advance.
-// 첫 인스턴스 핸들러를 반환한다.
 function mountAndConnect(onMessage: (msg: WSMessage) => void = () => {}): { cleanup: () => void; ws: MockWebSocket; result: ReturnType<typeof renderHook<ReturnType<typeof useWebSocket>, unknown>>['result'] } {
   const { result, unmount } = renderHook(() => useWebSocket(URL, onMessage))
 
@@ -146,7 +142,6 @@ describe('useWebSocket', () => {
   it('sendMessage: OPEN 아닐 땐 false, OPEN이면 true + send 호출', () => {
     const { result, ws, cleanup } = mountAndConnect()
 
-    // 아직 onopen 안 함 → readyState = CONNECTING
     expect(result.current.sendMessage({ type: 'ping' })).toBe(false)
     expect(ws.sent).toHaveLength(0)
 
@@ -173,7 +168,6 @@ describe('useWebSocket', () => {
     })
     expect(result.current.connectionStatus).toBe('reconnecting')
 
-    // 첫 close: attempts=1, delay = min(1000 * 2^0, 30000) = 1000ms
     act(() => {
       vi.advanceTimersByTime(1000)
     })
@@ -187,7 +181,6 @@ describe('useWebSocket', () => {
 })
 
 describe('useWebSocket reconnect policy', () => {
-  // 재연결 n번째 소켓이 생기기까지 걸리는 시간을 잰다.
   const advanceUntilNewSocket = (maxMs = 60_000): number => {
     const before = MockWebSocket.instances.length
     let waited = 0
