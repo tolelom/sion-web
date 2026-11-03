@@ -2,12 +2,12 @@ import type { Position, Enemy, Point } from '../../types'
 import { CANVAS_HEIGHT, CANVAS_WIDTH, type Cell } from './mapGeometry'
 import {
   drawAGV,
-  drawAGVPath,
   drawCoordinates,
   drawGrid,
   drawHoveredCell,
   drawObstacles,
-  drawPath,
+  drawPlannedPath,
+  drawReportedAgvPath,
   drawTarget,
   drawTargetHighlight,
 } from './mapDrawing'
@@ -22,7 +22,6 @@ export interface MapScene {
   hoveredCell: Cell | null
 }
 
-// 배경·격자·좌표·장애물. 장애물이 바뀔 때만 다시 그려 오프스크린 캔버스에 둔다.
 export const renderStaticLayer = (ctx: CanvasRenderingContext2D, obstacles: Point[]) => {
   ctx.fillStyle = '#1a1d23'
   ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
@@ -37,7 +36,6 @@ const isSelectedTarget = (target: Enemy, targetEnemy: Enemy | null | undefined) 
     (targetEnemy.x === target.x && targetEnemy.y === target.y)
   )
 
-// 정적 레이어 위에 경로·적·AGV·마우스 위치를 그린다. 선택된 적이 있으면 매 프레임 호출된다.
 export const renderDynamicLayer = (
   ctx: CanvasRenderingContext2D,
   scene: MapScene,
@@ -52,8 +50,8 @@ export const renderDynamicLayer = (
     renderStaticLayer(ctx, scene.obstacles)
   }
 
-  drawAGVPath(ctx, scene.agvPath)
-  drawPath(ctx, scene.path)
+  drawReportedAgvPath(ctx, scene.agvPath)
+  drawPlannedPath(ctx, scene.path)
 
   scene.targets?.forEach(target => {
     const isSelected = isSelectedTarget(target, scene.targetEnemy)

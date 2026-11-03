@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react'
 import type { Position, Enemy, Point } from '../../types'
-import { CANVAS_HEIGHT, CANVAS_WIDTH, canvasToCell, canvasToMap, type Cell } from './mapGeometry'
+import { CANVAS_HEIGHT, CANVAS_WIDTH, nearestCellToCanvasPoint, canvasToMap, type Cell } from './mapGeometry'
 import { renderDynamicLayer, renderStaticLayer } from './mapLayers'
 
 interface MapCanvasProps {
@@ -67,7 +67,7 @@ const MapCanvas = ({ agvPosition, targets, targetEnemy, obstacles, path, agvPath
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const point = canvasPoint(e)
     if (!point) return
-    setHoveredCell(canvasToCell(point.x, point.y))
+    setHoveredCell(nearestCellToCanvasPoint(point.x, point.y))
   }
 
   const handleMouseLeave = () => {
