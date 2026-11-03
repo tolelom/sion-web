@@ -44,7 +44,7 @@ flowchart LR
 | `src/components/Controls` | 모드 전환, 긴급 정지, 초기화 버튼 |
 | `src/components/Status` | 배터리, 속도, 상태 표시 |
 | `src/hooks/useWebSocket.ts` | 연결, 재연결, 명령 전송 |
-| `src/hooks/messageRouter.ts` | 수신 메시지(position, status, path_update, map_update 등)를 상태 훅으로 분배 |
+| `src/hooks/messageRouter.ts` | 수신 메시지(position, status, map_update, system_info, error)를 상태 훅으로 분배 |
 | `src/hooks/usePathfinding.ts` | `POST /api/pathfinding` 호출(새 요청이 이전 요청을 취소) |
 | `src/hooks/useMoveCommand.ts` | 맵 클릭을 경로 요청과 이동 명령으로 연결 |
 | `src/types` | AGV, 맵, 수신 메시지(`messages.ts`), 송신 명령(`commands.ts`) 타입 |

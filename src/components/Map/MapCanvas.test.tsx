@@ -54,7 +54,6 @@ const enemies: Enemy[] = [
 ]
 const obstacles: Point[] = [{ x: 0, y: 0 }, { x: 3, y: 7 }, { x: 19, y: 19 }]
 const userPath: Point[] = [{ x: 2, y: 2 }, { x: 3, y: 3 }, { x: 4, y: 5 }]
-const agvPath: Point[] = [{ x: 2, y: 2 }, { x: 2, y: 6 }, { x: 8, y: 6 }]
 const agv: Position = { x: 2.25, y: 3.5, angle: 0.785 }
 
 beforeEach(() => {
@@ -103,19 +102,19 @@ describe('MapCanvas drawing', () => {
     const sections: string[] = []
 
     sections.push(scenario('empty map, AGV only', () => {
-      render(<MapCanvas agvPosition={agv} targets={[]} targetEnemy={null} obstacles={[]} path={[]} agvPath={[]} onMapClick={noop} />)
+      render(<MapCanvas agvPosition={agv} targets={[]} targetEnemy={null} obstacles={[]} path={[]} onMapClick={noop} />)
     }))
 
     sections.push(scenario('no AGV position', () => {
-      render(<MapCanvas agvPosition={undefined} targets={[]} targetEnemy={undefined} obstacles={obstacles} path={[]} agvPath={[]} onMapClick={noop} />)
+      render(<MapCanvas agvPosition={undefined} targets={[]} targetEnemy={undefined} obstacles={obstacles} path={[]} onMapClick={noop} />)
     }))
 
     sections.push(scenario('full scene without selection', () => {
-      render(<MapCanvas agvPosition={agv} targets={enemies} targetEnemy={null} obstacles={obstacles} path={userPath} agvPath={agvPath} onMapClick={noop} />)
+      render(<MapCanvas agvPosition={agv} targets={enemies} targetEnemy={null} obstacles={obstacles} path={userPath} onMapClick={noop} />)
     }))
 
     sections.push(scenario('selected target animates (selection by id)', () => {
-      const { unmount } = render(<MapCanvas agvPosition={agv} targets={enemies} targetEnemy={enemies[1]} obstacles={obstacles} path={userPath} agvPath={agvPath} onMapClick={noop} />)
+      const { unmount } = render(<MapCanvas agvPosition={agv} targets={enemies} targetEnemy={enemies[1]} obstacles={obstacles} path={userPath} onMapClick={noop} />)
       log.push('--- frame 1')
       runFrame()
       log.push('--- frame 2')
@@ -125,12 +124,12 @@ describe('MapCanvas drawing', () => {
     }))
 
     sections.push(scenario('selection by matching coordinates', () => {
-      render(<MapCanvas agvPosition={agv} targets={enemies} targetEnemy={{ id: 'other', name: 'x', hp: 1, x: 15, y: 3 }} obstacles={[]} path={[]} agvPath={[]} onMapClick={noop} />)
+      render(<MapCanvas agvPosition={agv} targets={enemies} targetEnemy={{ id: 'other', name: 'x', hp: 1, x: 15, y: 3 }} obstacles={[]} path={[]} onMapClick={noop} />)
       runFrame()
     }))
 
     sections.push(scenario('hover inside, outside and leave', () => {
-      const { container } = render(<MapCanvas agvPosition={agv} targets={[]} targetEnemy={null} obstacles={[]} path={[]} agvPath={[]} onMapClick={noop} />)
+      const { container } = render(<MapCanvas agvPosition={agv} targets={[]} targetEnemy={null} obstacles={[]} path={[]} onMapClick={noop} />)
       const canvas = container.querySelector('canvas') as HTMLCanvasElement
       log.push('--- move (95, 260)')
       fireEvent.mouseMove(canvas, { clientX: 95, clientY: 260 })
@@ -145,9 +144,9 @@ describe('MapCanvas drawing', () => {
     }))
 
     sections.push(scenario('obstacles change rebuilds the static layer', () => {
-      const { rerender } = render(<MapCanvas agvPosition={agv} targets={[]} targetEnemy={null} obstacles={[]} path={[]} agvPath={[]} onMapClick={noop} />)
+      const { rerender } = render(<MapCanvas agvPosition={agv} targets={[]} targetEnemy={null} obstacles={[]} path={[]} onMapClick={noop} />)
       log.push('--- rerender with obstacles')
-      rerender(<MapCanvas agvPosition={agv} targets={[]} targetEnemy={null} obstacles={obstacles} path={[]} agvPath={[]} onMapClick={noop} />)
+      rerender(<MapCanvas agvPosition={agv} targets={[]} targetEnemy={null} obstacles={obstacles} path={[]} onMapClick={noop} />)
     }))
 
     await expect(sections.join('\n\n') + '\n').toMatchFileSnapshot('./__golden__/MapCanvas.draw.golden.txt')
@@ -155,7 +154,7 @@ describe('MapCanvas drawing', () => {
 
   it('converts a click into map coordinates', () => {
     const clicks: { x: number; y: number }[] = []
-    const { container } = render(<MapCanvas agvPosition={agv} targets={[]} targetEnemy={null} obstacles={[]} path={[]} agvPath={[]} onMapClick={(p) => clicks.push(p)} />)
+    const { container } = render(<MapCanvas agvPosition={agv} targets={[]} targetEnemy={null} obstacles={[]} path={[]} onMapClick={(p) => clicks.push(p)} />)
     const canvas = container.querySelector('canvas') as HTMLCanvasElement
     fireEvent.click(canvas, { clientX: 0, clientY: 0 })
     fireEvent.click(canvas, { clientX: 150, clientY: 450 })

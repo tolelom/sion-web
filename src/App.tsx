@@ -9,7 +9,7 @@ import { WS_URL } from './config'
 
 function App() {
   const { agvData, dispatch: agvDispatch } = useAgvState()
-  const { mapData, pathData, dispatch: mapDispatch } = useMapState()
+  const { mapData, dispatch: mapDispatch } = useMapState()
   const [serverError, setServerError] = useState<string | null>(null)
 
   const handleMessage = useCallback((message: WSMessage) => {
@@ -22,7 +22,6 @@ function App() {
     <Dashboard
       agvData={agvData}
       mapData={mapData}
-      pathData={pathData}
       isConnected={isConnected}
       connectionStatus={connectionStatus}
       serverError={serverError}

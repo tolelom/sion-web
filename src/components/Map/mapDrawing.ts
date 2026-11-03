@@ -122,20 +122,6 @@ export const drawPlannedPath = (ctx: CanvasRenderingContext2D, pathPoints: Point
   drawEndMarker(ctx, pathPoints[pathPoints.length - 1], 20, 'rgba(52, 152, 219, 0.3)', '#3498db')
 }
 
-export const drawReportedAgvPath = (ctx: CanvasRenderingContext2D, pathPoints: Point[]) => {
-  if (!pathPoints || pathPoints.length < 1) return
-
-  ctx.strokeStyle = 'rgba(46, 204, 113, 0.8)'
-  ctx.lineWidth = 3
-  ctx.lineCap = 'round'
-  ctx.lineJoin = 'round'
-  ctx.setLineDash([])
-  tracePolyline(ctx, pathPoints)
-  ctx.stroke()
-
-  drawEndMarker(ctx, pathPoints[pathPoints.length - 1], 18, 'rgba(46, 204, 113, 0.3)', '#2ecc71')
-}
-
 const drawHealthBar = (ctx: CanvasRenderingContext2D, x: number, y: number, hp: number) => {
   const barWidth = 40
   const barHeight = 5
