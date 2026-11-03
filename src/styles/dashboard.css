@@ -108,15 +108,6 @@
     width: 100%;
 }
 
-.map-canvas {
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    cursor: crosshair;
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
 /* 상태 아이템 */
 .status-item {
     display: flex;
