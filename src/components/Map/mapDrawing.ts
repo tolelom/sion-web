@@ -3,9 +3,6 @@ import { MAP_SIZE } from '../../constants'
 import { hpColor } from '../../utils/levelColors'
 import { CANVAS_HEIGHT, CANVAS_WIDTH, CELL_SIZE, toCanvasX, toCanvasY, type Cell } from './mapGeometry'
 
-// 지도 한 요소씩 그리는 캔버스 함수들. 어떤 순서로 부를지는 mapLayers가 정한다.
-// 호출 순서와 값은 MapCanvas 골든 테스트(__golden__/MapCanvas.draw.golden.txt)가 고정한다.
-
 const tracePolyline = (ctx: CanvasRenderingContext2D, points: Point[]) => {
   ctx.beginPath()
   points.forEach((point, index) => {
@@ -110,8 +107,7 @@ export const drawObstacles = (ctx: CanvasRenderingContext2D, obstacleList: Point
   })
 }
 
-// 사용자가 클릭해 구한 경로(파란 점선)와 도착 지점.
-export const drawPath = (ctx: CanvasRenderingContext2D, pathPoints: Point[]) => {
+export const drawPlannedPath = (ctx: CanvasRenderingContext2D, pathPoints: Point[]) => {
   if (!pathPoints || pathPoints.length < 2) return
 
   ctx.strokeStyle = 'rgba(52, 152, 219, 0.6)'
@@ -126,8 +122,7 @@ export const drawPath = (ctx: CanvasRenderingContext2D, pathPoints: Point[]) => 
   drawEndMarker(ctx, pathPoints[pathPoints.length - 1], 20, 'rgba(52, 152, 219, 0.3)', '#3498db')
 }
 
-// 서버가 보낸 AGV 경로(초록 실선)와 도착 지점.
-export const drawAGVPath = (ctx: CanvasRenderingContext2D, pathPoints: Point[]) => {
+export const drawReportedAgvPath = (ctx: CanvasRenderingContext2D, pathPoints: Point[]) => {
   if (!pathPoints || pathPoints.length < 1) return
 
   ctx.strokeStyle = 'rgba(46, 204, 113, 0.8)'
