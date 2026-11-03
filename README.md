@@ -40,14 +40,16 @@ flowchart LR
 
 | 경로 | 책임 |
 |---|---|
-| `src/components/Dashboard` | 화면 배치, 맵 클릭을 경로 요청과 이동 명령으로 연결 |
-| `src/components/Map` | Canvas 맵 렌더링(격자, 장애물, 경로, AGV, 목표) |
+| `src/components/Dashboard` | 화면 배치, 서버 연결 표시 |
+| `src/components/Map` | Canvas 맵 렌더링. `mapGeometry`(좌표 변환), `mapDrawing`(요소별 그리기), `mapLayers`(레이어 합성) |
 | `src/components/Controls` | 모드 전환, 긴급 정지, 초기화 버튼 |
 | `src/components/Status` | 배터리, 속도, 상태 표시 |
 | `src/hooks/useWebSocket.ts` | 연결, 재연결, 명령 전송 |
 | `src/hooks/messageRouter.ts` | 수신 메시지(position, status, path_update, map_update 등)를 상태 훅으로 분배 |
-| `src/hooks/usePathfinding.ts` | `POST /api/pathfinding` 호출 |
-| `src/types` | AGV, 맵, 메시지 타입 |
+| `src/hooks/usePathfinding.ts` | `POST /api/pathfinding` 호출(새 요청이 이전 요청을 취소) |
+| `src/hooks/useMoveCommand.ts` | 맵 클릭을 경로 요청과 이동 명령으로 연결 |
+| `src/types` | AGV, 맵, 수신 메시지(`messages.ts`), 송신 명령(`commands.ts`) 타입 |
+| `src/config.ts` | 빌드 시점 환경변수(`VITE_WS_URL`, `VITE_API_BASE_URL`, `VITE_API_TIMEOUT`) |
 
 ## 실행
 
@@ -69,4 +71,5 @@ npm run dev
 | `npm run dev` | 개발 서버 |
 | `npm run test` | Vitest 테스트 |
 | `npm run lint` | ESLint |
-| `npm run build` | 프로덕션 빌드 |
+| `npm run typecheck` | `tsc --noEmit` 타입 검사 |
+| `npm run build` | 타입 검사 후 프로덕션 빌드 |
