@@ -11,15 +11,12 @@ interface PathfindingResult {
   clearPath: () => void
 }
 
-// POST /api/pathfinding 응답. 실패하면 success=false와 message가 온다.
 interface PathfindingResponse {
   success?: boolean
   path?: unknown
   message?: string
 }
 
-// 경로 탐색 요청은 한 번에 하나만 유효하다. 새 요청을 보내면 이전 요청은 취소하고,
-// 늦게 도착한 이전 응답은 상태를 바꾸지 않고 null로 끝난다.
 export const usePathfinding = (): PathfindingResult => {
   const [path, setPath] = useState<Point[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -36,7 +33,8 @@ export const usePathfinding = (): PathfindingResult => {
     activeRequestRef.current?.abort()
     const controller = new AbortController()
     activeRequestRef.current = controller
-    const isCurrent = () => activeRequestRef.current === controller
+    // AbortError는 타임아웃뿐 아니라 새 요청·언마운트로도 나므로, 밀려난 요청은 상태를 건드리지 않고 null로 끝낸다.
+    const isStaleRequest = () => activeRequestRef.current !== controller
 
     setIsLoading(true)
     setError(null)
@@ -59,7 +57,7 @@ export const usePathfinding = (): PathfindingResult => {
         signal: controller.signal,
       })
       const data = await response.json() as PathfindingResponse
-      if (!isCurrent()) return null
+      if (isStaleRequest()) return null
       console.log('경로 탐색 응답:', data)
 
       if (data.success && Array.isArray(data.path)) {
@@ -73,7 +71,7 @@ export const usePathfinding = (): PathfindingResult => {
       setPath([])
       return null
     } catch (err) {
-      if (!isCurrent()) return null
+      if (isStaleRequest()) return null
       if (err instanceof Error && err.name === 'AbortError') {
         console.error('경로 탐색 타임아웃')
         setError('요청 타임아웃')
@@ -85,7 +83,7 @@ export const usePathfinding = (): PathfindingResult => {
       return null
     } finally {
       clearTimeout(timeoutId)
-      if (isCurrent()) {
+      if (!isStaleRequest()) {
         activeRequestRef.current = null
         setIsLoading(false)
       }
