@@ -106,3 +106,67 @@ describe('usePathfinding', () => {
     })
   })
 })
+
+describe('usePathfinding overlapping requests', () => {
+  interface Pending {
+    signal: AbortSignal
+    resolve: (body: unknown) => void
+  }
+  let pending: Pending[] = []
+
+  beforeEach(() => {
+    pending = []
+    // 실제 fetch처럼 abort되면 AbortError로 거절한다.
+    vi.stubGlobal('fetch', vi.fn((_url: string, init: RequestInit) => new Promise<Response>((resolve, reject) => {
+      const signal = init.signal as AbortSignal
+      signal.addEventListener('abort', () => {
+        const err = new Error('aborted')
+        err.name = 'AbortError'
+        reject(err)
+      })
+      pending.push({ signal, resolve: (body) => resolve(jsonResponse(body)) })
+    })))
+  })
+  afterEach(() => {
+    vi.unstubAllGlobals()
+  })
+
+  it('aborts the older request and keeps only the latest result', async () => {
+    const { result } = renderHook(() => usePathfinding())
+    const latestPath = [{ x: 0, y: 0 }, { x: 3, y: 3 }]
+
+    let first: Promise<unknown> = Promise.resolve()
+    let second: Promise<unknown> = Promise.resolve()
+    act(() => {
+      first = result.current.findPath({ x: 0, y: 0 }, { x: 1, y: 1 })
+    })
+    act(() => {
+      second = result.current.findPath({ x: 0, y: 0 }, { x: 3, y: 3 })
+    })
+    expect(pending[0].signal.aborted).toBe(true)
+    expect(pending[1].signal.aborted).toBe(false)
+
+    await act(async () => {
+      expect(await first).toBeNull()
+    })
+    expect(result.current.isLoading).toBe(true)
+    expect(result.current.error).toBeNull()
+
+    await act(async () => {
+      pending[1].resolve({ success: true, path: latestPath })
+      expect(await second).toEqual(latestPath)
+    })
+    expect(result.current.path).toEqual(latestPath)
+    expect(result.current.error).toBeNull()
+    expect(result.current.isLoading).toBe(false)
+  })
+
+  it('aborts an in-flight request on unmount', () => {
+    const { result, unmount } = renderHook(() => usePathfinding())
+    act(() => {
+      void result.current.findPath({ x: 0, y: 0 }, { x: 1, y: 1 })
+    })
+    unmount()
+    expect(pending[0].signal.aborted).toBe(true)
+  })
+})
