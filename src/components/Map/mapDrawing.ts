@@ -1,5 +1,6 @@
 import type { Position, Enemy, Point } from '../../types'
 import { MAP_SIZE } from '../../constants'
+import { hpColor } from '../../utils/levelColors'
 import { CANVAS_HEIGHT, CANVAS_WIDTH, CELL_SIZE, toCanvasX, toCanvasY, type Cell } from './mapGeometry'
 
 // 지도 한 요소씩 그리는 캔버스 함수들. 어떤 순서로 부를지는 mapLayers가 정한다.
@@ -147,8 +148,7 @@ const drawHealthBar = (ctx: CanvasRenderingContext2D, x: number, y: number, hp: 
   ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'
   ctx.fillRect(x - barWidth / 2, y, barWidth, barHeight)
 
-  const hpColor = hp > 50 ? '#2ecc71' : hp > 25 ? '#f39c12' : '#e74c3c'
-  ctx.fillStyle = hpColor
+  ctx.fillStyle = hpColor(hp)
   ctx.fillRect(x - barWidth / 2, y, (barWidth * hp) / 100, barHeight)
 
   ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)'
