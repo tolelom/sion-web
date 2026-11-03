@@ -4,7 +4,7 @@ import ControlPanel from '../Controls/ControlPanel'
 import { usePathfinding } from '../../hooks/usePathfinding'
 import '../../styles/dashboard.css'
 import { useCallback, useMemo, useState } from 'react'
-import type { AGVData, MapData, PathData } from '../../types'
+import type { AGVData, MapData, PathData, SendCommand } from '../../types'
 import type { ConnectionStatus } from '../../hooks/useWebSocket'
 
 interface DashboardProps {
@@ -15,7 +15,7 @@ interface DashboardProps {
   connectionStatus: ConnectionStatus
   serverError: string | null
   onDismissError: () => void
-  onSendCommand: (message: unknown) => boolean
+  onSendCommand: SendCommand
   onRetryConnect: () => void
 }
 
