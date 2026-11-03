@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import type { Point } from '../types'
 import { MAP_SIZE } from '../constants'
+import { API_BASE_URL, API_TIMEOUT_MS } from '../config'
 
 interface PathfindingResult {
   path: Point[]
@@ -27,13 +28,12 @@ export const usePathfinding = (): PathfindingResult => {
       obstacles: obstacles,
     }
 
-    const timeoutMs = Number(import.meta.env.VITE_API_TIMEOUT) || 10000
     const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
+    const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT_MS)
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/pathfinding`,
+        `${API_BASE_URL}/api/pathfinding`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
