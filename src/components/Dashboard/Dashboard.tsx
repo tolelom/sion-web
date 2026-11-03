@@ -5,8 +5,7 @@ import { usePathfinding } from '../../hooks/usePathfinding'
 import '../../styles/dashboard.css'
 import { useCallback, useMemo, useState } from 'react'
 import type { AGVData, MapData, PathData } from '../../types'
-
-type ConnectionStatus = 'connected' | 'reconnecting' | 'disconnected'
+import type { ConnectionStatus } from '../../hooks/useWebSocket'
 
 interface DashboardProps {
   agvData: AGVData

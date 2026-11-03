@@ -1,5 +1,7 @@
 import { useReducer } from 'react'
-import type { MapData, PathData, Point } from '../types'
+import type { MapData, PathData } from '../types'
+import type { MapUpdatePayload, PathUpdatePayload } from '../types/messages'
+import { MAP_SIZE } from '../constants'
 
 interface MapState {
   mapData: MapData
@@ -7,14 +9,14 @@ interface MapState {
 }
 
 export type MapAction =
-  | { type: 'path_update'; payload: { points?: Point[]; length?: number; algorithm?: string; created_at?: string | null } }
-  | { type: 'map_update'; payload: { obstacles?: Point[]; width?: number; height?: number } }
+  | { type: 'path_update'; payload: PathUpdatePayload }
+  | { type: 'map_update'; payload: MapUpdatePayload }
 
 const initialState: MapState = {
   mapData: {
     obstacles: [],
-    width: 20,
-    height: 20,
+    width: MAP_SIZE,
+    height: MAP_SIZE,
   },
   pathData: {
     points: [],
