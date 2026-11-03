@@ -6,13 +6,11 @@ export type ConnectionStatus = 'connected' | 'reconnecting' | 'disconnected'
 const MAX_RECONNECT_ATTEMPTS = 10
 const BASE_RECONNECT_DELAY_MS = 1000
 const MAX_RECONNECT_DELAY_MS = 30000
-// StrictMode는 effect를 마운트→정리→마운트로 두 번 돌린다.
-// 첫 연결을 잠깐 미뤄 두면 곧바로 버려질 소켓을 만들지 않는다.
+// StrictMode가 effect를 마운트→정리→마운트로 두 번 돌리므로, 곧 버려질 첫 소켓을 만들지 않게 잠깐 미룬다.
 const INITIAL_CONNECT_DELAY_MS = 100
 
-// attempt번째(1부터) 재연결까지 기다릴 시간: 1s, 2s, 4s, … 최대 30s.
-const reconnectDelay = (attempt: number): number =>
-  Math.min(BASE_RECONNECT_DELAY_MS * Math.pow(2, attempt - 1), MAX_RECONNECT_DELAY_MS)
+const exponentialBackoffDelay = (attemptNumber: number): number =>
+  Math.min(BASE_RECONNECT_DELAY_MS * Math.pow(2, attemptNumber - 1), MAX_RECONNECT_DELAY_MS)
 
 export const useWebSocket = (url: string, onMessage: (message: WSMessage) => void) => {
   const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>('reconnecting')
@@ -47,7 +45,7 @@ export const useWebSocket = (url: string, onMessage: (message: WSMessage) => voi
       }
 
       setConnectionStatus('reconnecting')
-      const delay = reconnectDelay(reconnectAttemptsRef.current)
+      const delay = exponentialBackoffDelay(reconnectAttemptsRef.current)
       console.log(`${delay / 1000}초 후 재연결 시도`)
       reconnectTimeoutRef.current = setTimeout(() => {
         reconnectTimeoutRef.current = null
@@ -95,8 +93,8 @@ export const useWebSocket = (url: string, onMessage: (message: WSMessage) => voi
 
       ws.onclose = (event: CloseEvent) => {
         console.log('WebSocket 연결 종료:', event.code, event.reason)
-        // 이미 다른 소켓으로 바뀌었거나 정리된 소켓의 늦은 close는 무시한다.
-        if (webSocketRef.current !== ws) return
+        const isReplacedOrDisposed = webSocketRef.current !== ws
+        if (isReplacedOrDisposed) return
         webSocketRef.current = null
         scheduleReconnect()
       }
