@@ -3,9 +3,6 @@ import { cleanup, render, screen } from '@testing-library/react'
 import StatusPanel from './StatusPanel'
 import type { AGVData } from '../../types'
 
-// master(2311e85 이후)의 StatusPanel 테스트를 main 타입에 맞춰 옮겼다.
-// 마지막 describe는 배터리 색 경계와 상태 라벨 전체를 추가로 고정한다.
-
 afterEach(() => {
   cleanup()
 })
@@ -53,7 +50,6 @@ describe('StatusPanel', () => {
     render(<StatusPanel agvData={baseAGV({
       position: { x: 0, y: 0, angle: Math.PI },
     })} />)
-    // π rad → 180°
     expect(screen.getByText('각도: 180°')).toBeTruthy()
   })
 

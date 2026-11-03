@@ -2,9 +2,6 @@ import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest'
 import { render, screen, fireEvent, cleanup, act } from '@testing-library/react'
 import { socket, mockUseWebSocket, mockMapCanvas, stubPathfindingFetch } from './test/appHarness'
 
-// 리팩터링 전 App의 메시지 라우팅과 10/16 수정(d53cf2a) 동작을 고정한다.
-// 서버 메시지 한 건이 들어왔을 때 지도 props와 상태 패널 데이터가 어떻게 바뀌는지를 본다.
-
 vi.mock('./hooks/useWebSocket', () => mockUseWebSocket())
 vi.mock('./components/Map/MapCanvas', () => mockMapCanvas())
 vi.mock('./components/Status/StatusPanel', () => ({

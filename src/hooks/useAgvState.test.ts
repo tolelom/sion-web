@@ -31,7 +31,6 @@ describe('useAgvState', () => {
   it('status: 누락 필드는 기존 값 유지 (?? 폴백)', () => {
     const { result } = renderHook(() => useAgvState())
 
-    // 첫 status: battery만 갱신
     act(() => {
       result.current.dispatch({ type: 'status', payload: { battery: 80 } })
     })
@@ -39,7 +38,6 @@ describe('useAgvState', () => {
     expect(result.current.agvData.status.speed).toBe(0)
     expect(result.current.agvData.status.mode).toBe('auto')
 
-    // 다음 status: mode만 갱신, battery 유지
     act(() => {
       result.current.dispatch({ type: 'status', payload: { mode: 'manual' } })
     })
