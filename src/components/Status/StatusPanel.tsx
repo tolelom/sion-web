@@ -12,8 +12,7 @@ interface StateDisplay {
   color: string
 }
 
-// 시뮬레이터가 보내는 state 값별 표시. 모르는 값이나 null은 idle로 본다.
-const STATE_DISPLAY: Record<string, StateDisplay> = {
+const SIMULATOR_STATE_DISPLAY: Record<string, StateDisplay> = {
   idle: { icon: '🚦', text: '대기', color: '#95a5a6' },
   moving: { icon: '🚗', text: '이동 중', color: '#3498db' },
   charging: { icon: '⚡', text: '돌진 중', color: '#e74c3c' },
@@ -22,7 +21,8 @@ const STATE_DISPLAY: Record<string, StateDisplay> = {
   emergency: { icon: '🚨', text: '긴급 정지', color: '#c0392b' },
 }
 
-const stateDisplay = (state: string | null): StateDisplay => STATE_DISPLAY[state ?? 'idle'] || STATE_DISPLAY.idle
+const displayForState = (state: string | null): StateDisplay =>
+  SIMULATOR_STATE_DISPLAY[state ?? 'idle'] || SIMULATOR_STATE_DISPLAY.idle
 
 const hintStyle = { fontSize: '11px', color: '#888' }
 
@@ -46,6 +46,8 @@ const StatusItem = ({ icon, iconClassName, iconStyle, label, style, children }: 
     </div>
   </div>
 )
+
+const StatusItemGroup = ({ children }: { children: React.ReactNode }) => <div>{children}</div>
 
 const AgvConnectionBadge = ({ connected }: { connected: boolean }) => (
   <div style={{
@@ -104,7 +106,7 @@ const StatusPanel = ({ agvData }: StatusPanelProps) => {
   const position = agvData?.position || { x: 0, y: 0, angle: 0 }
   const status = agvData?.status || { battery: 0, speed: 0, mode: 'auto', state: 'idle' }
   const detectedEnemies = agvData?.detectedEnemies || []
-  const state = stateDisplay(status.state)
+  const state = displayForState(status.state)
   const battery = status.battery || 0
 
   return (
@@ -112,8 +114,7 @@ const StatusPanel = ({ agvData }: StatusPanelProps) => {
       <h2 className="card-title">AGV 상태</h2>
       <AgvConnectionBadge connected={agvData?.connected ?? false} />
 
-      {/* 상태·위치 두 줄은 한 묶음이다(위치 줄은 묶음의 마지막이라 아래 구분선이 없다). */}
-      <div>
+      <StatusItemGroup>
         <StatusItem icon={state.icon} iconStyle={{ fontSize: '24px' }} label="상태">
           <p className="status-value" style={{ color: state.color, fontWeight: 'bold' }}>
             {state.text}
@@ -130,7 +131,7 @@ const StatusPanel = ({ agvData }: StatusPanelProps) => {
             </p>
           )}
         </StatusItem>
-      </div>
+      </StatusItemGroup>
 
       <StatusItem icon="🔋" iconClassName="green" label="배터리">
         <div className="battery-container">

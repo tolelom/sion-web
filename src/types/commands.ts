@@ -1,8 +1,5 @@
 import type { Point } from './map'
 
-// 대시보드가 WebSocket으로 백엔드에 보내는 메시지.
-// 실제로 나가는 JSON은 src/contract.test.tsx가 고정한다.
-
 export type AgvMode = 'auto' | 'manual'
 
 export type ClientCommand =
