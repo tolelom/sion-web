@@ -1,4 +1,3 @@
-// 체력·배터리처럼 0~100으로 표시하는 수치의 색.
 const LEVEL_GOOD = '#2ecc71'
 const LEVEL_WARN = '#f39c12'
 const LEVEL_BAD = '#e74c3c'

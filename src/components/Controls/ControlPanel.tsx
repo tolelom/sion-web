@@ -3,9 +3,7 @@ import ConfirmModal from '../Common/ConfirmModal'
 import { useConfirmDialog } from '../../hooks/useConfirmDialog'
 import type { AGVData, AgvMode, SendCommand } from '../../types'
 
-// 모드 변경을 보낸 뒤 서버 status로 새 모드가 돌아오기를 기다리는 최대 시간.
-// 그 안에 오지 않으면 버튼을 다시 풀어 준다.
-const MODE_CHANGE_PENDING_MS = 2000
+const MODE_CHANGE_ECHO_TIMEOUT_MS = 2000
 
 interface ControlPanelProps {
   onSendCommand: SendCommand
@@ -44,7 +42,7 @@ const ControlPanel = ({ onSendCommand, agvData, isConnected }: ControlPanelProps
     timeoutRef.current = setTimeout(() => {
       timeoutRef.current = null
       setPendingMode(null)
-    }, MODE_CHANGE_PENDING_MS)
+    }, MODE_CHANGE_ECHO_TIMEOUT_MS)
   }
 
   const handleEmergencyStop = () => {
