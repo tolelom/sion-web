@@ -47,8 +47,26 @@ flowchart LR
 | `src/hooks/messageRouter.ts` | 수신 메시지(position, status, map_update, system_info, error)를 상태 훅으로 분배 |
 | `src/hooks/usePathfinding.ts` | `POST /api/pathfinding` 호출(새 요청이 이전 요청을 취소) |
 | `src/hooks/useMoveCommand.ts` | 맵 클릭을 경로 요청과 이동 명령으로 연결 |
-| `src/types` | AGV, 맵, 수신 메시지(`messages.ts`), 송신 명령(`commands.ts`) 타입 |
+| `src/types` | AGV, 맵 타입. 수신 메시지(`messages.ts`)와 송신 명령(`commands.ts`)은 `contract.gen.ts`(계약 스키마에서 생성)를 다시 내보낸다 |
+| `contract/` | sion-api `contract/`의 복사본(JSON Schema, 픽스처). 직접 고치지 않는다 |
+| `scripts/` | 계약 복사(`sync-contract.mjs`)와 타입 생성(`contract-types.mjs`) |
 | `src/config.ts` | 빌드 시점 환경변수(`VITE_WS_URL`, `VITE_API_BASE_URL`, `VITE_API_TIMEOUT`) |
+
+## 계약
+
+대시보드와 서버가 주고받는 메시지 모양은 [sion-api](https://github.com/tolelom/sion-api)의 `contract/`가 정한다. 이 저장소의 `contract/`는 그 복사본이고, `src/types/contract.gen.ts`는 복사한 `contract/sion.schema.json`에서 [json-schema-to-typescript](https://github.com/bcherny/json-schema-to-typescript)로 만든 파일이다.
+
+- `src/contract.test.tsx`가 서버 메시지 픽스처를 실제 메시지 라우터와 리듀서에 넣어 화면 상태를 픽스처와 비교하고, 대시보드가 보내는 명령과 경로 탐색 요청을 스키마로 검사한다(ajv).
+- `npm run contract:check`는 `contract.gen.ts`가 복사한 스키마와 어긋나면 실패한다. CI에서 돈다.
+- 복사본이 sion-api보다 오래됐는지는 CI가 보지 않는다(테스트에 네트워크를 쓰지 않는다). sion-api의 계약이 바뀌면 아래 순서로 갱신한다.
+
+```bash
+npm run contract:sync     # ../sion-api/contract가 있으면 거기서, 없으면 GitHub main에서 복사
+npm run contract:types    # src/types/contract.gen.ts 다시 생성
+npm test
+```
+
+`contract:sync`는 `-- --from <경로>`로 다른 체크아웃을, `-- --remote [ref]`로 GitHub의 특정 브랜치·태그를 고를 수 있다. Node 22에서 프록시 뒤라면 `NODE_USE_ENV_PROXY=1`을 준다.
 
 ## 실행
 
@@ -72,3 +90,6 @@ npm run dev
 | `npm run lint` | ESLint |
 | `npm run typecheck` | `tsc --noEmit` 타입 검사 |
 | `npm run build` | 타입 검사 후 프로덕션 빌드 |
+| `npm run contract:sync` | sion-api `contract/` 복사 |
+| `npm run contract:types` | 계약 스키마에서 `src/types/contract.gen.ts` 생성 |
+| `npm run contract:check` | 생성한 타입이 스키마와 맞는지 확인 |
