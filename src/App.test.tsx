@@ -31,7 +31,7 @@ describe('App message routing', () => {
       detectedEnemies: [],
       targetEnemy: null,
     })
-    expect(mapProps()).toEqual({ agvPosition: { x: 0, y: 0, angle: 0 }, targets: [], targetEnemy: null, obstacles: [], path: [], agvPath: [] })
+    expect(mapProps()).toEqual({ agvPosition: { x: 0, y: 0, angle: 0 }, targets: [], targetEnemy: null, obstacles: [], path: [] })
   })
 
   it('applies position', () => {
@@ -97,24 +97,14 @@ describe('App message routing', () => {
     expect(agv().connected).toBe(false)
   })
 
-  it('handles the message types the demo backend never sends', () => {
+  it('ignores the robot relay messages the demo backend no longer sends', () => {
     render(<App />)
+    const before = { agv: agv(), map: mapProps() }
     const enemy = { id: 'e', name: 'n', hp: 1, x: 1, y: 1 }
     deliver({ type: 'target_found', data: { enemies: [enemy], target: enemy }, timestamp: 1 })
-    expect(agv().detectedEnemies).toEqual([enemy])
-    expect(agv().targetEnemy).toEqual(enemy)
-    deliver({ type: 'target_found', data: {}, timestamp: 2 })
-    expect(agv().detectedEnemies).toEqual([])
-    expect(agv().targetEnemy).toBeNull()
-
-    deliver({ type: 'path_update', data: { points: [{ x: 1, y: 1 }, { x: 2, y: 2 }], length: 1.41, algorithm: 'A*' }, timestamp: 3 })
-    expect(mapProps().agvPath).toEqual([{ x: 1, y: 1 }, { x: 2, y: 2 }])
-    expect(screen.getByText(/길이: 1.41m \| 알고리즘: A\*/)).toBeTruthy()
-
-    deliver({ type: 'agv_connected', data: { connected: true }, timestamp: 4 })
-    expect(agv().connected).toBe(true)
-    deliver({ type: 'agv_disconnected', data: { connected: false }, timestamp: 5 })
-    expect(agv().connected).toBe(false)
+    deliver({ type: 'path_update', data: { points: [{ x: 1, y: 1 }, { x: 2, y: 2 }], length: 1.41, algorithm: 'A*' }, timestamp: 2 })
+    deliver({ type: 'agv_connected', data: { connected: true }, timestamp: 3 })
+    expect({ agv: agv(), map: mapProps() }).toEqual(before)
   })
 
   it('drops malformed messages instead of crashing the dashboard', () => {
@@ -127,12 +117,9 @@ describe('App message routing', () => {
       { data: { battery: 1 } },
       { type: 'status' },
       { type: 'status', data: null },
-      { type: 'target_found', data: 'x' },
       { type: 'position', data: {} },
       { type: 'position', data: { x: '1', y: 2, angle: 0 } },
-      { type: 'path_update', data: null },
       { type: 'map_update', data: [1] },
-      { type: 'agv_connected' },
       { type: 'system_info', data: null },
     ]
     for (const message of malformed) {

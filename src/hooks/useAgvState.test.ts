@@ -59,22 +59,6 @@ describe('useAgvState', () => {
     expect(result.current.agvData.targetEnemy).toEqual(enemyA)
   })
 
-  it('target_found는 enemies/target을 교체 (누락 시 빈 배열/null)', () => {
-    const { result } = renderHook(() => useAgvState())
-
-    act(() => {
-      result.current.dispatch({ type: 'target_found', payload: { enemies: [enemyA], target: enemyA } })
-    })
-    expect(result.current.agvData.detectedEnemies).toEqual([enemyA])
-    expect(result.current.agvData.targetEnemy).toEqual(enemyA)
-
-    act(() => {
-      result.current.dispatch({ type: 'target_found', payload: {} })
-    })
-    expect(result.current.agvData.detectedEnemies).toEqual([])
-    expect(result.current.agvData.targetEnemy).toBeNull()
-  })
-
   it('agv_connection은 connected 플래그만 토글', () => {
     const { result } = renderHook(() => useAgvState())
 

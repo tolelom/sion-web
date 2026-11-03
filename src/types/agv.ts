@@ -17,7 +17,6 @@ export interface Enemy {
   hp: number
   x?: number
   y?: number
-  position?: Position
 }
 
 export interface AGVData {

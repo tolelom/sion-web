@@ -1,12 +1,11 @@
 import { useReducer } from 'react'
 import type { AGVData } from '../types'
-import type { AgvConnectionPayload, PositionPayload, StatusPayload, TargetFoundPayload } from '../types/messages'
+import type { PositionPayload, StatusPayload } from '../types/messages'
 
 export type AgvAction =
   | { type: 'position'; payload: PositionPayload }
   | { type: 'status'; payload: StatusPayload }
-  | { type: 'target_found'; payload: TargetFoundPayload }
-  | { type: 'agv_connection'; payload: AgvConnectionPayload }
+  | { type: 'agv_connection'; payload: { connected: boolean } }
 
 const initialState: AGVData = {
   connected: false,
@@ -34,12 +33,6 @@ function agvReducer(state: AGVData, action: AgvAction): AGVData {
         targetEnemy: 'target_enemy' in d ? (d.target_enemy ?? null) : state.targetEnemy,
       }
     }
-    case 'target_found':
-      return {
-        ...state,
-        detectedEnemies: action.payload.enemies ?? [],
-        targetEnemy: action.payload.target ?? null,
-      }
     case 'agv_connection':
       return { ...state, connected: action.payload.connected }
     default:

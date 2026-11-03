@@ -4,13 +4,6 @@ export interface Point {
   angle?: number
 }
 
-export interface PathData {
-  points: Point[]
-  length: number
-  algorithm: string
-  createdAt: string | null
-}
-
 export interface MapData {
   obstacles: Point[]
   width: number
