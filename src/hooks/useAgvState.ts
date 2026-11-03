@@ -1,10 +1,10 @@
 import { useReducer } from 'react'
-import type { AGVData } from '../types'
-import type { PositionPayload, StatusPayload } from '../types/messages'
+import type { AGVData, Position } from '../types'
+import type { StatusPayload } from '../types/messages'
 
 export type AgvAction =
-  | { type: 'position'; payload: PositionPayload }
-  | { type: 'status'; payload: StatusPayload }
+  | { type: 'position'; payload: Position }
+  | { type: 'status'; payload: Partial<StatusPayload> }
   | { type: 'agv_connection'; payload: { connected: boolean } }
 
 const initialState: AGVData = {

@@ -98,9 +98,9 @@ describe('StatusPanel', () => {
   it('감지된 적의 수를 표시한다', () => {
     render(<StatusPanel agvData={baseAGV({
       detectedEnemies: [
-        { id: 'a', name: 'A', hp: 100 },
-        { id: 'b', name: 'B', hp: 100 },
-        { id: 'c', name: 'C', hp: 100 },
+        { id: 'a', name: 'A', hp: 100, x: 1, y: 1 },
+        { id: 'b', name: 'B', hp: 100, x: 2, y: 2 },
+        { id: 'c', name: 'C', hp: 100, x: 3, y: 3 },
       ],
     })} />)
     expect(screen.getByText('3명')).toBeTruthy()

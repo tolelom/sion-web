@@ -1,3 +1,7 @@
+import type { Enemy } from './contract.gen'
+
+export type { Enemy }
+
 export interface Position {
   x: number
   y: number
@@ -9,14 +13,6 @@ export interface AGVStatus {
   speed: number
   mode: string
   state: string | null
-}
-
-export interface Enemy {
-  id: string
-  name: string
-  hp: number
-  x?: number
-  y?: number
 }
 
 export interface AGVData {
