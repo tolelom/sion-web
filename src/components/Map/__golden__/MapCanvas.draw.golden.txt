@@ -801,23 +801,6 @@ canvas1.lineTo(560, 40)
 canvas1.stroke()
 canvas2.clearRect(0, 0, 600, 600)
 canvas2.drawImage(canvas1, 0, 0)
-canvas2.strokeStyle = "rgba(46, 204, 113, 0.8)"
-canvas2.lineWidth = 3
-canvas2.lineCap = "round"
-canvas2.lineJoin = "round"
-canvas2.setLineDash([])
-canvas2.beginPath()
-canvas2.moveTo(60, 540)
-canvas2.lineTo(60, 420)
-canvas2.lineTo(240, 420)
-canvas2.stroke()
-canvas2.fillStyle = "rgba(46, 204, 113, 0.3)"
-canvas2.beginPath()
-canvas2.arc(240, 420, 18, 0, 6.283)
-canvas2.fill()
-canvas2.strokeStyle = "#2ecc71"
-canvas2.lineWidth = 2
-canvas2.stroke()
 canvas2.strokeStyle = "rgba(52, 152, 219, 0.6)"
 canvas2.lineWidth = 3
 canvas2.lineCap = "round"
@@ -1247,23 +1230,6 @@ canvas1.stroke()
 --- frame 1
 canvas2.clearRect(0, 0, 600, 600)
 canvas2.drawImage(canvas1, 0, 0)
-canvas2.strokeStyle = "rgba(46, 204, 113, 0.8)"
-canvas2.lineWidth = 3
-canvas2.lineCap = "round"
-canvas2.lineJoin = "round"
-canvas2.setLineDash([])
-canvas2.beginPath()
-canvas2.moveTo(60, 540)
-canvas2.lineTo(60, 420)
-canvas2.lineTo(240, 420)
-canvas2.stroke()
-canvas2.fillStyle = "rgba(46, 204, 113, 0.3)"
-canvas2.beginPath()
-canvas2.arc(240, 420, 18, 0, 6.283)
-canvas2.fill()
-canvas2.strokeStyle = "#2ecc71"
-canvas2.lineWidth = 2
-canvas2.stroke()
 canvas2.strokeStyle = "rgba(52, 152, 219, 0.6)"
 canvas2.lineWidth = 3
 canvas2.lineCap = "round"
@@ -1440,23 +1406,6 @@ canvas2.fillText("(2.3, 3.5)", 67.500, 530)
 --- frame 2
 canvas2.clearRect(0, 0, 600, 600)
 canvas2.drawImage(canvas1, 0, 0)
-canvas2.strokeStyle = "rgba(46, 204, 113, 0.8)"
-canvas2.lineWidth = 3
-canvas2.lineCap = "round"
-canvas2.lineJoin = "round"
-canvas2.setLineDash([])
-canvas2.beginPath()
-canvas2.moveTo(60, 540)
-canvas2.lineTo(60, 420)
-canvas2.lineTo(240, 420)
-canvas2.stroke()
-canvas2.fillStyle = "rgba(46, 204, 113, 0.3)"
-canvas2.beginPath()
-canvas2.arc(240, 420, 18, 0, 6.283)
-canvas2.fill()
-canvas2.strokeStyle = "#2ecc71"
-canvas2.lineWidth = 2
-canvas2.stroke()
 canvas2.strokeStyle = "rgba(52, 152, 219, 0.6)"
 canvas2.lineWidth = 3
 canvas2.lineCap = "round"

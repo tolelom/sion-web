@@ -28,18 +28,8 @@ export const routeMessage = (message: WSMessage, h: MessageRouteHandlers): void 
     case 'status':
       if (isNonArrayObject(message.data)) h.agvDispatch({ type: 'status', payload: message.data })
       return
-    case 'target_found':
-      if (isNonArrayObject(message.data)) h.agvDispatch({ type: 'target_found', payload: message.data })
-      return
-    case 'path_update':
-      if (isNonArrayObject(message.data)) h.mapDispatch({ type: 'path_update', payload: message.data })
-      return
     case 'map_update':
       if (isNonArrayObject(message.data)) h.mapDispatch({ type: 'map_update', payload: message.data })
-      return
-    case 'agv_connected':
-    case 'agv_disconnected':
-      if (isNonArrayObject(message.data)) h.agvDispatch({ type: 'agv_connection', payload: message.data })
       return
     case 'system_info':
       if (isNonArrayObject(message.data) && message.data.agv_connected !== undefined) {

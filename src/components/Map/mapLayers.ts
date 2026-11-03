@@ -7,7 +7,6 @@ import {
   drawHoveredCell,
   drawObstacles,
   drawPlannedPath,
-  drawReportedAgvPath,
   drawTarget,
   drawTargetHighlight,
 } from './mapDrawing'
@@ -18,7 +17,6 @@ export interface MapScene {
   targetEnemy: Enemy | null | undefined
   obstacles: Point[]
   path: Point[]
-  agvPath: Point[]
   hoveredCell: Cell | null
 }
 
@@ -50,7 +48,6 @@ export const renderDynamicLayer = (
     renderStaticLayer(ctx, scene.obstacles)
   }
 
-  drawReportedAgvPath(ctx, scene.agvPath)
   drawPlannedPath(ctx, scene.path)
 
   scene.targets?.forEach(target => {

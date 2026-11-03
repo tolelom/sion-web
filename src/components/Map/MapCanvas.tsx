@@ -9,11 +9,10 @@ interface MapCanvasProps {
   targetEnemy: Enemy | null | undefined
   obstacles: Point[]
   path: Point[]
-  agvPath: Point[]
   onMapClick: (position: { x: number; y: number }) => void
 }
 
-const MapCanvas = ({ agvPosition, targets, targetEnemy, obstacles, path, agvPath, onMapClick }: MapCanvasProps) => {
+const MapCanvas = ({ agvPosition, targets, targetEnemy, obstacles, path, onMapClick }: MapCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const staticCanvasRef = useRef<HTMLCanvasElement | null>(null)
   const [hoveredCell, setHoveredCell] = useState<Cell | null>(null)
@@ -40,7 +39,7 @@ const MapCanvas = ({ agvPosition, targets, targetEnemy, obstacles, path, agvPath
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    const scene = { agvPosition, targets, targetEnemy, obstacles, path, agvPath, hoveredCell }
+    const scene = { agvPosition, targets, targetEnemy, obstacles, path, hoveredCell }
     const draw = () => renderDynamicLayer(ctx, scene, staticCanvasRef.current, Date.now())
 
     if (!targetEnemy) {
@@ -55,7 +54,7 @@ const MapCanvas = ({ agvPosition, targets, targetEnemy, obstacles, path, agvPath
     }
     animationId = requestAnimationFrame(animate)
     return () => cancelAnimationFrame(animationId)
-  }, [agvPosition, targets, targetEnemy, obstacles, path, agvPath, hoveredCell])
+  }, [agvPosition, targets, targetEnemy, obstacles, path, hoveredCell])
 
   const canvasPoint = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current
