@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
-import type { Point } from '../types'
+import type { PathfindingRequest, PathfindingResponse, Point } from '../types'
 import { MAP_SIZE } from '../constants'
 import { API_BASE_URL, API_TIMEOUT_MS } from '../config'
 
@@ -9,12 +9,6 @@ interface PathfindingResult {
   error: string | null
   findPath: (start: Point, goal: Point, obstacles?: Point[]) => Promise<Point[] | null>
   clearPath: () => void
-}
-
-interface PathfindingResponse {
-  success?: boolean
-  path?: unknown
-  message?: string
 }
 
 export const usePathfinding = (): PathfindingResult => {
@@ -39,7 +33,7 @@ export const usePathfinding = (): PathfindingResult => {
     setIsLoading(true)
     setError(null)
 
-    const requestData = {
+    const requestData: PathfindingRequest = {
       start: { x: start.x, y: start.y },
       goal: { x: goal.x, y: goal.y },
       map_width: MAP_SIZE,

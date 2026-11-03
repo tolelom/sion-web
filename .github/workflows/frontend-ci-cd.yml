@@ -28,6 +28,9 @@ jobs:
       - name: 린트
         run: npm run lint
 
+      - name: 계약 타입 확인
+        run: npm run contract:check
+
       - name: 테스트
         run: npm test
 

@@ -3,7 +3,7 @@ import type { MapData } from '../types'
 import type { MapUpdatePayload } from '../types/messages'
 import { MAP_SIZE } from '../constants'
 
-export type MapAction = { type: 'map_update'; payload: MapUpdatePayload }
+export type MapAction = { type: 'map_update'; payload: Partial<MapUpdatePayload> }
 
 const initialState: MapData = {
   obstacles: [],

@@ -3,8 +3,8 @@ import { act, renderHook } from '@testing-library/react'
 import { useAgvState } from './useAgvState'
 import type { Enemy } from '../types'
 
-const enemyA: Enemy = { id: 'a', name: 'A', hp: 100 }
-const enemyB: Enemy = { id: 'b', name: 'B', hp: 50 }
+const enemyA: Enemy = { id: 'a', name: 'A', hp: 100, x: 1, y: 2 }
+const enemyB: Enemy = { id: 'b', name: 'B', hp: 50, x: 3, y: 4 }
 
 describe('useAgvState', () => {
   it('초기 상태: 비연결, position 0,0,0, battery 100, mode auto', () => {
