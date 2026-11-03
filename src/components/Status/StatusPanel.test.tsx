@@ -3,9 +3,6 @@ import { cleanup, render, screen } from '@testing-library/react'
 import StatusPanel from './StatusPanel'
 import type { AGVData } from '../../types'
 
-// master(2311e85 이후)의 StatusPanel 테스트를 main 타입에 맞춰 옮겼다.
-// 마지막 describe는 배터리 색 경계와 상태 라벨 전체를 추가로 고정한다.
-
 afterEach(() => {
   cleanup()
 })
@@ -53,7 +50,6 @@ describe('StatusPanel', () => {
     render(<StatusPanel agvData={baseAGV({
       position: { x: 0, y: 0, angle: Math.PI },
     })} />)
-    // π rad → 180°
     expect(screen.getByText('각도: 180°')).toBeTruthy()
   })
 
@@ -158,6 +154,15 @@ describe('StatusPanel levels and labels', () => {
     }
     render(<StatusPanel agvData={baseAGV({ status: { battery: 50, speed: 0, mode: 'auto', state: null } })} />)
     expect(screen.getByText('대기')).toBeTruthy()
+  })
+
+  it('puts the battery fill inside a sized bar next to the percentage', () => {
+    // .battery-fill은 height: 100%라 높이가 정해진 .battery-bar 안에 있어야 보인다.
+    const { container } = render(<StatusPanel agvData={baseAGV()} />)
+    const fill = container.querySelector('.battery-container > .battery-bar > .battery-fill')
+    const percentage = container.querySelector('.battery-container > .battery-percentage')
+    expect(fill).not.toBeNull()
+    expect(percentage?.textContent).toBe('75%')
   })
 
   it('colors the target HP bar and falls back to a default name', () => {

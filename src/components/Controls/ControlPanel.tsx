@@ -1,17 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react'
 import ConfirmModal from '../Common/ConfirmModal'
 import { useConfirmDialog } from '../../hooks/useConfirmDialog'
-import type { AGVData } from '../../types'
+import type { AGVData, AgvMode, SendCommand } from '../../types'
+
+const MODE_CHANGE_ECHO_TIMEOUT_MS = 2000
 
 interface ControlPanelProps {
-  onSendCommand: (message: unknown) => boolean
+  onSendCommand: SendCommand
   agvData: AGVData
   isConnected: boolean
 }
 
 const ControlPanel = ({ onSendCommand, agvData, isConnected }: ControlPanelProps) => {
   const mode = agvData?.status?.mode ?? 'auto'
-  const [pendingMode, setPendingMode] = useState<string | null>(null)
+  const [pendingMode, setPendingMode] = useState<AgvMode | null>(null)
   const isPending = pendingMode !== null && pendingMode !== mode
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const { dialogState, confirm, alert, handleConfirm, handleCancel } = useConfirmDialog()
@@ -30,7 +32,7 @@ const ControlPanel = ({ onSendCommand, agvData, isConnected }: ControlPanelProps
   const handleModeToggle = () => {
     if (isPending) return
 
-    const newMode = mode === 'auto' ? 'manual' : 'auto'
+    const newMode: AgvMode = mode === 'auto' ? 'manual' : 'auto'
     if (!onSendCommand({ type: 'mode_change', data: { mode: newMode } })) {
       notSent('모드 변경')
       return
@@ -40,7 +42,7 @@ const ControlPanel = ({ onSendCommand, agvData, isConnected }: ControlPanelProps
     timeoutRef.current = setTimeout(() => {
       timeoutRef.current = null
       setPendingMode(null)
-    }, 2000)
+    }, MODE_CHANGE_ECHO_TIMEOUT_MS)
   }
 
   const handleEmergencyStop = () => {

@@ -3,8 +3,6 @@ import { act, renderHook } from '@testing-library/react'
 import { useWebSocket } from './useWebSocket'
 import type { WSMessage } from '../types'
 
-// jsdom의 WebSocket을 대체하는 모의 클래스.
-// hook이 참조하는 정적 상태값(WebSocket.OPEN 등)과 인스턴스 메서드(send/close)를 모두 제공한다.
 class MockWebSocket {
   static CONNECTING = 0
   static OPEN = 1
@@ -71,8 +69,6 @@ afterEach(() => {
 
 const URL = 'ws://localhost:3000/websocket/web'
 
-// hook 마운트 후 setTimeout(connect, 100)이 실제 WebSocket을 만들 때까지 advance.
-// 첫 인스턴스 핸들러를 반환한다.
 function mountAndConnect(onMessage: (msg: WSMessage) => void = () => {}): { cleanup: () => void; ws: MockWebSocket; result: ReturnType<typeof renderHook<ReturnType<typeof useWebSocket>, unknown>>['result'] } {
   const { result, unmount } = renderHook(() => useWebSocket(URL, onMessage))
 
@@ -146,7 +142,6 @@ describe('useWebSocket', () => {
   it('sendMessage: OPEN 아닐 땐 false, OPEN이면 true + send 호출', () => {
     const { result, ws, cleanup } = mountAndConnect()
 
-    // 아직 onopen 안 함 → readyState = CONNECTING
     expect(result.current.sendMessage({ type: 'ping' })).toBe(false)
     expect(ws.sent).toHaveLength(0)
 
@@ -173,7 +168,6 @@ describe('useWebSocket', () => {
     })
     expect(result.current.connectionStatus).toBe('reconnecting')
 
-    // 첫 close: attempts=1, delay = min(1000 * 2^0, 30000) = 1000ms
     act(() => {
       vi.advanceTimersByTime(1000)
     })
@@ -183,5 +177,98 @@ describe('useWebSocket', () => {
     expect(ws2.url).toBe(URL)
 
     cleanup()
+  })
+})
+
+describe('useWebSocket reconnect policy', () => {
+  const advanceUntilNewSocket = (maxMs = 60_000): number => {
+    const before = MockWebSocket.instances.length
+    let waited = 0
+    while (MockWebSocket.instances.length === before && waited < maxMs) {
+      act(() => {
+        vi.advanceTimersByTime(100)
+      })
+      waited += 100
+    }
+    return waited
+  }
+
+  it('backs off 1s, 2s, 4s … capped at 30s and gives up after 10 attempts', () => {
+    const { result, ws, cleanup } = mountAndConnect()
+    let current = ws
+    const delays: number[] = []
+    for (let attempt = 1; attempt <= 10; attempt++) {
+      act(() => {
+        current.triggerClose()
+      })
+      expect(result.current.connectionStatus).toBe('reconnecting')
+      delays.push(advanceUntilNewSocket())
+      current = MockWebSocket.instances[MockWebSocket.instances.length - 1]
+    }
+    expect(delays).toEqual([1000, 2000, 4000, 8000, 16000, 30000, 30000, 30000, 30000, 30000])
+
+    act(() => {
+      current.triggerClose()
+    })
+    expect(result.current.connectionStatus).toBe('disconnected')
+    const count = MockWebSocket.instances.length
+    act(() => {
+      vi.advanceTimersByTime(120_000)
+    })
+    expect(MockWebSocket.instances).toHaveLength(count)
+    cleanup()
+  })
+
+  it('retryConnect starts over after giving up', () => {
+    const { result, ws, cleanup } = mountAndConnect()
+    let current = ws
+    for (let attempt = 1; attempt <= 11; attempt++) {
+      act(() => {
+        current.triggerClose()
+      })
+      if (attempt <= 10) {
+        advanceUntilNewSocket()
+        current = MockWebSocket.instances[MockWebSocket.instances.length - 1]
+      }
+    }
+    expect(result.current.connectionStatus).toBe('disconnected')
+
+    const count = MockWebSocket.instances.length
+    act(() => {
+      result.current.retryConnect()
+    })
+    expect(MockWebSocket.instances).toHaveLength(count + 1)
+    expect(result.current.connectionStatus).toBe('reconnecting')
+    const retried = MockWebSocket.instances[count]
+    act(() => {
+      retried.triggerClose()
+    })
+    expect(advanceUntilNewSocket()).toBe(1000)
+    cleanup()
+  })
+
+  it('schedules a reconnect when the WebSocket constructor throws', () => {
+    let throwsLeft = 1
+    class ThrowingOnce extends MockWebSocket {
+      constructor(url: string) {
+        if (throwsLeft > 0) {
+          throwsLeft -= 1
+          throw new Error('bad url')
+        }
+        super(url)
+      }
+    }
+    vi.stubGlobal('WebSocket', ThrowingOnce as unknown as typeof WebSocket)
+    const { result, unmount } = renderHook(() => useWebSocket(URL, () => {}))
+    act(() => {
+      vi.advanceTimersByTime(100)
+    })
+    expect(MockWebSocket.instances).toHaveLength(0)
+    expect(result.current.connectionStatus).toBe('reconnecting')
+    act(() => {
+      vi.advanceTimersByTime(1000)
+    })
+    expect(MockWebSocket.instances).toHaveLength(1)
+    unmount()
   })
 })
