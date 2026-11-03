@@ -120,6 +120,31 @@ describe('App message routing', () => {
     expect(agv().connected).toBe(false)
   })
 
+  it('drops malformed messages instead of crashing the dashboard', () => {
+    render(<App />)
+    const before = { agv: agv(), map: mapProps() }
+    const malformed = [
+      null,
+      'status',
+      [1, 2],
+      { data: { battery: 1 } },
+      { type: 'status' },
+      { type: 'status', data: null },
+      { type: 'target_found', data: 'x' },
+      { type: 'position', data: {} },
+      { type: 'position', data: { x: '1', y: 2, angle: 0 } },
+      { type: 'path_update', data: null },
+      { type: 'map_update', data: [1] },
+      { type: 'agv_connected' },
+      { type: 'system_info', data: null },
+    ]
+    for (const message of malformed) {
+      deliver(message)
+    }
+    expect({ agv: agv(), map: mapProps() }).toEqual(before)
+    expect(screen.queryByRole('alert')).toBeNull()
+  })
+
   it('ignores unknown message types', () => {
     render(<App />)
     const before = { agv: agv(), map: mapProps() }
