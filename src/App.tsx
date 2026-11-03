@@ -5,6 +5,7 @@ import { useMapState } from './hooks/useMapState'
 import { routeMessage } from './hooks/messageRouter'
 import Dashboard from './components/Dashboard/Dashboard'
 import type { WSMessage } from './types'
+import { WS_URL } from './config'
 
 function App() {
   const { agvData, dispatch: agvDispatch } = useAgvState()
@@ -15,7 +16,7 @@ function App() {
     routeMessage(message, { agvDispatch, mapDispatch, onServerError: setServerError })
   }, [agvDispatch, mapDispatch])
 
-  const { isConnected, connectionStatus, sendMessage, retryConnect } = useWebSocket(import.meta.env.VITE_WS_URL, handleMessage)
+  const { isConnected, connectionStatus, sendMessage, retryConnect } = useWebSocket(WS_URL, handleMessage)
 
   return (
     <Dashboard
