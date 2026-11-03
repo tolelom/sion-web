@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
+import { StrictMode } from 'react'
 import { act, renderHook } from '@testing-library/react'
 import { useWebSocket } from './useWebSocket'
 
@@ -112,5 +113,25 @@ describe('useWebSocket lifecycle (d53cf2a)', () => {
     expect(result.current.sendMessage({ type: 'probe' })).toBe(false)
     expect(MockWebSocket.instances[0].sent).toEqual([])
     unmount()
+  })
+
+  it('opens a single socket under StrictMode double mount and closes it on unmount', () => {
+    const { result, unmount } = renderHook(() => useWebSocket(URL, () => {}), { wrapper: StrictMode })
+    act(() => {
+      vi.advanceTimersByTime(100)
+    })
+    expect(MockWebSocket.instances).toHaveLength(1)
+    const ws = MockWebSocket.instances[0]
+    act(() => {
+      ws.open()
+    })
+    expect(result.current.connectionStatus).toBe('connected')
+    unmount()
+    expect(ws.readyState).toBe(MockWebSocket.CLOSED)
+    act(() => {
+      ws.fireClose()
+      vi.advanceTimersByTime(60_000)
+    })
+    expect(MockWebSocket.instances).toHaveLength(1)
   })
 })

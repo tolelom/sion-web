@@ -185,3 +185,97 @@ describe('useWebSocket', () => {
     cleanup()
   })
 })
+
+describe('useWebSocket reconnect policy', () => {
+  // 재연결 n번째 소켓이 생기기까지 걸리는 시간을 잰다.
+  const advanceUntilNewSocket = (maxMs = 60_000): number => {
+    const before = MockWebSocket.instances.length
+    let waited = 0
+    while (MockWebSocket.instances.length === before && waited < maxMs) {
+      act(() => {
+        vi.advanceTimersByTime(100)
+      })
+      waited += 100
+    }
+    return waited
+  }
+
+  it('backs off 1s, 2s, 4s … capped at 30s and gives up after 10 attempts', () => {
+    const { result, ws, cleanup } = mountAndConnect()
+    let current = ws
+    const delays: number[] = []
+    for (let attempt = 1; attempt <= 10; attempt++) {
+      act(() => {
+        current.triggerClose()
+      })
+      expect(result.current.connectionStatus).toBe('reconnecting')
+      delays.push(advanceUntilNewSocket())
+      current = MockWebSocket.instances[MockWebSocket.instances.length - 1]
+    }
+    expect(delays).toEqual([1000, 2000, 4000, 8000, 16000, 30000, 30000, 30000, 30000, 30000])
+
+    act(() => {
+      current.triggerClose()
+    })
+    expect(result.current.connectionStatus).toBe('disconnected')
+    const count = MockWebSocket.instances.length
+    act(() => {
+      vi.advanceTimersByTime(120_000)
+    })
+    expect(MockWebSocket.instances).toHaveLength(count)
+    cleanup()
+  })
+
+  it('retryConnect starts over after giving up', () => {
+    const { result, ws, cleanup } = mountAndConnect()
+    let current = ws
+    for (let attempt = 1; attempt <= 11; attempt++) {
+      act(() => {
+        current.triggerClose()
+      })
+      if (attempt <= 10) {
+        advanceUntilNewSocket()
+        current = MockWebSocket.instances[MockWebSocket.instances.length - 1]
+      }
+    }
+    expect(result.current.connectionStatus).toBe('disconnected')
+
+    const count = MockWebSocket.instances.length
+    act(() => {
+      result.current.retryConnect()
+    })
+    expect(MockWebSocket.instances).toHaveLength(count + 1)
+    expect(result.current.connectionStatus).toBe('reconnecting')
+    const retried = MockWebSocket.instances[count]
+    act(() => {
+      retried.triggerClose()
+    })
+    expect(advanceUntilNewSocket()).toBe(1000)
+    cleanup()
+  })
+
+  it('schedules a reconnect when the WebSocket constructor throws', () => {
+    let throwsLeft = 1
+    class ThrowingOnce extends MockWebSocket {
+      constructor(url: string) {
+        if (throwsLeft > 0) {
+          throwsLeft -= 1
+          throw new Error('bad url')
+        }
+        super(url)
+      }
+    }
+    vi.stubGlobal('WebSocket', ThrowingOnce as unknown as typeof WebSocket)
+    const { result, unmount } = renderHook(() => useWebSocket(URL, () => {}))
+    act(() => {
+      vi.advanceTimersByTime(100)
+    })
+    expect(MockWebSocket.instances).toHaveLength(0)
+    expect(result.current.connectionStatus).toBe('reconnecting')
+    act(() => {
+      vi.advanceTimersByTime(1000)
+    })
+    expect(MockWebSocket.instances).toHaveLength(1)
+    unmount()
+  })
+})
