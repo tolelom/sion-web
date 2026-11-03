@@ -134,17 +134,19 @@ const StatusPanel = ({ agvData }: StatusPanelProps) => {
 
       <StatusItem icon="🔋" iconClassName="green" label="배터리">
         <div className="battery-container">
-          <div
-            className="battery-fill"
-            style={{
-              width: `${battery}%`,
-              backgroundColor: batteryColor(battery)
-            }}
-          />
+          <div className="battery-bar">
+            <div
+              className="battery-fill"
+              style={{
+                width: `${battery}%`,
+                backgroundColor: batteryColor(battery)
+              }}
+            />
+          </div>
+          <span className="battery-percentage">
+            {battery}%
+          </span>
         </div>
-        <span className="battery-percentage">
-          {battery}%
-        </span>
       </StatusItem>
 
       <StatusItem icon="⚡" iconClassName="orange" label="속도">
