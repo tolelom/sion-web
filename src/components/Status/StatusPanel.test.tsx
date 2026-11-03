@@ -160,6 +160,15 @@ describe('StatusPanel levels and labels', () => {
     expect(screen.getByText('대기')).toBeTruthy()
   })
 
+  it('puts the battery fill inside a sized bar next to the percentage', () => {
+    // .battery-fill은 height: 100%라 높이가 정해진 .battery-bar 안에 있어야 보인다.
+    const { container } = render(<StatusPanel agvData={baseAGV()} />)
+    const fill = container.querySelector('.battery-container > .battery-bar > .battery-fill')
+    const percentage = container.querySelector('.battery-container > .battery-percentage')
+    expect(fill).not.toBeNull()
+    expect(percentage?.textContent).toBe('75%')
+  })
+
   it('colors the target HP bar and falls back to a default name', () => {
     const { container } = render(<StatusPanel agvData={baseAGV({
       targetEnemy: { id: 'e', name: '', hp: 25, x: 1, y: 2 },
