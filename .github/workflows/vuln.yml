@@ -1,0 +1,26 @@
+name: vuln
+
+# 운영 의존성에 high 이상 취약점이 있으면 실패한다. 의존성은 그대로여도 새 공지가
+# 나올 수 있어 주 1회도 돈다. moderate 이하는 Dependabot 경보로 본다.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  npm-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: npm audit (production, high+)
+        run: npm audit --omit=dev --audit-level=high
