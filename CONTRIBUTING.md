@@ -30,7 +30,7 @@ npm test
 
 ## 배포
 
-GitHub Actions(`.github/workflows/ci.yml`)가 PR과 push마다 Node 22로 lint, `contract:check`, 테스트, 빌드를 돌립니다. `main`·`master`에 push하면 arm64 이미지 `ghcr.io/tolelom/sion:latest`, `ghcr.io/tolelom/sion:main`을 올립니다. 이미지는 `dist/`를 nginx로 80 포트에서 내보냅니다.
+GitHub Actions(`.github/workflows/ci.yml`)가 PR과 push마다 Node 22로 lint, `contract:check`, 테스트, 빌드를 돌립니다. `main`에 push하면 arm64 이미지 `ghcr.io/tolelom/sion:latest`, `ghcr.io/tolelom/sion:main`을 올립니다. 이미지는 `dist/`를 nginx로 80 포트에서 내보냅니다.
 
 - 프로덕션 빌드는 `.env.production`의 `https://sion-api.tolelom.xyz`를 가리킵니다.
 - `VITE_WS_URL`이나 `VITE_API_BASE_URL`이 없으면 빌드가 실패합니다.
