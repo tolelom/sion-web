@@ -1,4 +1,4 @@
-name: Sion Frontend CI/CD
+name: ci
 
 on:
   push:
